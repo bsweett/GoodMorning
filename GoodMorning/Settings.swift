@@ -8,8 +8,6 @@
 
 import Foundation
 
-let sharedSettings: Settings = nil
-
 class Settings: NSObject {
  
 
