@@ -10,10 +10,16 @@ import Foundation
 import CoreLocation
 import Alamofire
 
+private let _weatherManagerSharedInstance = WeatherManager()
+
 class WeatherManager : NSObject {
     
     var current = Weather()
     var forcastArray: [Weather] = []
+    
+    class var sharedInstance : WeatherManager {
+        return _weatherManagerSharedInstance
+    }
     
     func getWeatherForLocation(latitude: CLLocationDegrees, longitude: CLLocationDegrees) -> Int {
         
@@ -21,7 +27,7 @@ class WeatherManager : NSObject {
         let url = "http://api.openweathermap.org/data/2.5/forecast"
         
         let params = ["lat":latitude, "lon":longitude]
-        println(params)
+        //println(params)
         
         Alamofire.request(.GET, url, parameters: params).responseJSON {
             (request, response, JSON, error) in
@@ -54,6 +60,7 @@ class WeatherManager : NSObject {
         // 4 hour forecast
         self.updateForecastWeather(list, country: country, city: cityname)
         
+        println("Weather Updated")
     }
     
     private func updateCurrentWeather(data: JSON, country: String, city: String) {

@@ -9,41 +9,53 @@
 import Foundation
 import UIKit
 
-class AlarmsViewController : UIViewController, UITableViewDelegate, UITableViewDataSource {
+class AlarmsViewController : UIViewController {
     
+    var timer: NSTimer! = NSTimer()
     
-    var alarms: [Alarm] = []
-    
-    @IBOutlet var tableView: UITableView!
-    @IBOutlet var addAlarmButton: UIBarButtonItem!
+    @IBOutlet var loadingIndicator : UIActivityIndicatorView! = nil
+    @IBOutlet var loading : UILabel!
+    @IBOutlet var nextViewButton: UIBarButtonItem!
+    @IBOutlet var previousViewButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationError:", name:"LocationError", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedWeatherError", name:"WeatherError", object: nil)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        let date = NSDate()
+        let calendar = NSCalendar.currentCalendar()
+        let components = calendar.components(.CalendarUnitHour | .CalendarUnitMinute, fromDate: date)
+        let hour = components.hour
+        
+        // TODO: Compare with sunset time from weather api
+        if (hour > 12) {
+            
+        }
+    }
+    
+    func receivedWeatherError(notification: NSNotification){
+        self.loading.text = "Response from Weather API was invalid"
+        timer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: Selector("clearError"), userInfo: nil, repeats: false)
+    }
+    
+    func receivedLocationError(notification: NSNotification){
+        self.loading.text = "Cannot find your location"
+        timer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: Selector("clearError"), userInfo: nil, repeats: false)
+    }
+    
+    func clearError() {
+        self.loading.text = ""
+        timer.invalidate()
+        timer = nil
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.alarms.count
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell:UITableViewCell = self.tableView.dequeueReusableCellWithIdentifier("AlarmCell") as UITableViewCell
-        
-        // TODO: Custom cells that display more than thier title
-        
-        cell.textLabel?.text = self.alarms[indexPath.row].label
-        
-        return cell
-    }
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
-      
     }
     
 }

@@ -10,54 +10,46 @@ import Foundation
 import UIKit
 import CoreLocation
 
-class WeatherViewController : UIViewController, CLLocationManagerDelegate {
+class WeatherViewController : UIViewController {
     
-    let locationManager:CLLocationManager = CLLocationManager()
-    var weatherManager: WeatherManager = WeatherManager()
+    var timer: NSTimer! = NSTimer()
     
     @IBOutlet var loadingIndicator : UIActivityIndicatorView! = nil
     @IBOutlet var loading : UILabel!
+    @IBOutlet var nextViewButton: UIBarButtonItem!
+    @IBOutlet var previousViewButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationError:", name:"LocationError", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedWeatherError", name:"WeatherError", object: nil)
         
-        self.loadingIndicator.startAnimating()
-        
-        if ( ios8() ) {
-            locationManager.requestAlwaysAuthorization()
-        }
-        locationManager.startUpdatingLocation()
+        //self.loadingIndicator.startAnimating()
     }
 
+    override func viewDidAppear(animated: Bool) {
+        
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
-    func ios8() -> Bool {
-        if ( NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_7_1 ) {
-            return false
-        } else {
-            return true
-        }
+
+    func receivedWeatherError(notification: NSNotification){
+        self.loading.text = "Response from Weather API was invalid"
+        timer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: Selector("clearError"), userInfo: nil, repeats: false)
     }
     
-    // Location delegate methods
-    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
-        var location:CLLocation = locations[locations.count-1] as CLLocation
-        
-        if (location.horizontalAccuracy > 0) {
-            self.locationManager.stopUpdatingLocation()
-            
-            weatherManager.getWeatherForLocation(location.coordinate.latitude, longitude: location.coordinate.longitude)
-        }
+    func receivedLocationError(notification: NSNotification){
+        self.loading.text = "Cannot find your location"
+        timer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: Selector("clearError"), userInfo: nil, repeats: false)
     }
     
-    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
-        println(error)
-        self.loading.text = "Can not find your location"
+    func clearError() {
+        self.loading.text = ""
+        timer.invalidate()
+        timer = nil
     }
+
 }
