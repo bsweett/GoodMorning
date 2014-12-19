@@ -17,6 +17,7 @@ class AlarmsViewController : UIViewController {
     @IBOutlet var loading : UILabel!
     @IBOutlet var nextViewButton: UIBarButtonItem!
     @IBOutlet var previousViewButton: UIBarButtonItem!
+    @IBOutlet var background: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,14 +27,14 @@ class AlarmsViewController : UIViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
-        let date = NSDate()
-        let calendar = NSCalendar.currentCalendar()
-        let components = calendar.components(.CalendarUnitHour | .CalendarUnitMinute, fromDate: date)
-        let hour = components.hour
+       let night = WeatherManager.sharedInstance.current.nighttime
         
-        // TODO: Compare with sunset time from weather api
-        if (hour > 12) {
-            
+        //TODO: Find night images for all background views
+        // Crashes if nil
+        if(night) {
+            //background.image = UIImage(named:"alarms-night")
+        } else {
+            //background.image = UIImage(named:"alarms")
         }
     }
     

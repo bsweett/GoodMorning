@@ -29,7 +29,7 @@ class WeatherViewController : UIViewController {
     }
 
     override func viewDidAppear(animated: Bool) {
-        
+        // Set weather images and info from weather manager
     }
     
     override func didReceiveMemoryWarning() {

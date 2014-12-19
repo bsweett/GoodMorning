@@ -30,6 +30,8 @@
 		5F7F372C1A425956004B7439 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7F372B1A425956004B7439 /* Settings.swift */; };
 		5F7F372F1A42649A004B7439 /* AlarmDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7F372E1A42649A004B7439 /* AlarmDetailViewController.swift */; };
 		5F80FF121A4369EB00727E25 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F80FF111A4369EB00727E25 /* LocationManager.swift */; };
+		5F80FF151A43B30B00727E25 /* InstallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F80FF141A43B30B00727E25 /* InstallViewController.swift */; };
+		5F80FF171A43B3A400727E25 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F80FF161A43B3A400727E25 /* User.swift */; };
 		5FA383EC1A4208AE0013B102 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FA383EA1A4208A30013B102 /* CoreLocation.framework */; };
 		5FC32F421A423B0600F9EB26 /* Alamofire.framework in Copy Files (1 item) */ = {isa = PBXBuildFile; fileRef = 5FC32F3C1A4239FA00F9EB26 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5FC32F441A4257B200F9EB26 /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC32F431A4257B200F9EB26 /* Alarm.swift */; };
@@ -132,6 +134,8 @@
 		5F7F372B1A425956004B7439 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		5F7F372E1A42649A004B7439 /* AlarmDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmDetailViewController.swift; sourceTree = "<group>"; };
 		5F80FF111A4369EB00727E25 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		5F80FF141A43B30B00727E25 /* InstallViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstallViewController.swift; sourceTree = "<group>"; };
+		5F80FF161A43B3A400727E25 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		5FA383EA1A4208A30013B102 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		5FC32F361A4239FA00F9EB26 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		5FC32F431A4257B200F9EB26 /* Alarm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; };
@@ -241,6 +245,7 @@
 				5F744B741A421A5400F4C675 /* AlarmsViewController.swift */,
 				5F744B761A421C3A00F4C675 /* TasksViewController.swift */,
 				5F7F372E1A42649A004B7439 /* AlarmDetailViewController.swift */,
+				5F80FF141A43B30B00727E25 /* InstallViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -267,6 +272,7 @@
 				5FC32F431A4257B200F9EB26 /* Alarm.swift */,
 				5F7F372B1A425956004B7439 /* Settings.swift */,
 				5F80FF111A4369EB00727E25 /* LocationManager.swift */,
+				5F80FF161A43B3A400727E25 /* User.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -525,9 +531,11 @@
 				5F744B381A420B2400F4C675 /* Task.swift in Sources */,
 				5F7F372C1A425956004B7439 /* Settings.swift in Sources */,
 				5F744B771A421C3A00F4C675 /* TasksViewController.swift in Sources */,
+				5F80FF151A43B30B00727E25 /* InstallViewController.swift in Sources */,
 				5F744B3E1A420CA900F4C675 /* RepeatType.swift in Sources */,
 				5FE8640E1A41ECEA00BB8808 /* AppDelegate.swift in Sources */,
 				5F744B791A421C7E00F4C675 /* WeatherViewController.swift in Sources */,
+				5F80FF171A43B3A400727E25 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

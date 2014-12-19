@@ -17,6 +17,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        var initialViewController: UIViewController
+        
+        // app already launched
+        if (NSUserDefaults.standardUserDefaults().boolForKey("HasLaunchedOnce")) {
+            initialViewController = storyboard.instantiateViewControllerWithIdentifier("Alarms") as UIViewController
+        }
+        else
+        {
+            // This is the first launch ever
+            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "HasLaunchedOnce");
+            NSUserDefaults.standardUserDefaults().synchronize()
+            
+            initialViewController = storyboard.instantiateViewControllerWithIdentifier("Install") as UIViewController
+        }
+        
+        let frame = UIScreen.mainScreen().bounds
+        window = UIWindow(frame: frame)
+        
+        window!.rootViewController = initialViewController
+        window!.makeKeyAndVisible()
+        
         return true
     }
 
