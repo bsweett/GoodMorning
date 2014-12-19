@@ -7,10 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5F0DA2071A43E90B00F92783 /* alarmsday.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F0DA2031A43E90B00F92783 /* alarmsday.png */; };
-		5F0DA2081A43E90B00F92783 /* alarmsnight.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5F0DA2041A43E90B00F92783 /* alarmsnight.jpg */; };
-		5F0DA2091A43E90B00F92783 /* weatherday.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5F0DA2051A43E90B00F92783 /* weatherday.jpg */; };
-		5F0DA20A1A43E90B00F92783 /* weathernight.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5F0DA2061A43E90B00F92783 /* weathernight.jpg */; };
 		5F6110AB1A41F4DD00B83410 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F6110A51A41F48000B83410 /* CFNetwork.framework */; };
 		5F6110AC1A41F4E500B83410 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F6110A71A41F48800B83410 /* CoreGraphics.framework */; };
 		5F6110AD1A41F4EA00B83410 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F6110A31A41F47100B83410 /* AVFoundation.framework */; };
@@ -36,6 +32,11 @@
 		5F80FF121A4369EB00727E25 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F80FF111A4369EB00727E25 /* LocationManager.swift */; };
 		5F80FF151A43B30B00727E25 /* InstallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F80FF141A43B30B00727E25 /* InstallViewController.swift */; };
 		5F80FF171A43B3A400727E25 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F80FF161A43B3A400727E25 /* User.swift */; };
+		5F9B14871A44AD2100613E44 /* alarmsday.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F9B14831A44AD2100613E44 /* alarmsday.png */; };
+		5F9B14881A44AD2100613E44 /* alarmsnight.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F9B14841A44AD2100613E44 /* alarmsnight.png */; };
+		5F9B14891A44AD2100613E44 /* weatherday.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F9B14851A44AD2100613E44 /* weatherday.png */; };
+		5F9B148A1A44AD2100613E44 /* weathernight.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F9B14861A44AD2100613E44 /* weathernight.png */; };
+		5F9B148C1A44CAEC00613E44 /* white.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F9B148B1A44CAEC00613E44 /* white.png */; };
 		5FA383EC1A4208AE0013B102 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FA383EA1A4208A30013B102 /* CoreLocation.framework */; };
 		5FC32F421A423B0600F9EB26 /* Alamofire.framework in Copy Files (1 item) */ = {isa = PBXBuildFile; fileRef = 5FC32F3C1A4239FA00F9EB26 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5FC32F441A4257B200F9EB26 /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC32F431A4257B200F9EB26 /* Alarm.swift */; };
@@ -112,10 +113,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		5F0DA2031A43E90B00F92783 /* alarmsday.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alarmsday.png; sourceTree = "<group>"; };
-		5F0DA2041A43E90B00F92783 /* alarmsnight.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = alarmsnight.jpg; sourceTree = "<group>"; };
-		5F0DA2051A43E90B00F92783 /* weatherday.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = weatherday.jpg; sourceTree = "<group>"; };
-		5F0DA2061A43E90B00F92783 /* weathernight.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = weathernight.jpg; sourceTree = "<group>"; };
 		5F6110A11A41F45A00B83410 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		5F6110A31A41F47100B83410 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		5F6110A51A41F48000B83410 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -143,6 +140,11 @@
 		5F80FF111A4369EB00727E25 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		5F80FF141A43B30B00727E25 /* InstallViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstallViewController.swift; sourceTree = "<group>"; };
 		5F80FF161A43B3A400727E25 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		5F9B14831A44AD2100613E44 /* alarmsday.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alarmsday.png; sourceTree = "<group>"; };
+		5F9B14841A44AD2100613E44 /* alarmsnight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alarmsnight.png; sourceTree = "<group>"; };
+		5F9B14851A44AD2100613E44 /* weatherday.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weatherday.png; sourceTree = "<group>"; };
+		5F9B14861A44AD2100613E44 /* weathernight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weathernight.png; sourceTree = "<group>"; };
+		5F9B148B1A44CAEC00613E44 /* white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = white.png; sourceTree = "<group>"; };
 		5FA383EA1A4208A30013B102 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		5FC32F361A4239FA00F9EB26 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		5FC32F431A4257B200F9EB26 /* Alarm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; };
@@ -350,11 +352,12 @@
 		5FFC6CA41A43532400993B28 /* png */ = {
 			isa = PBXGroup;
 			children = (
-				5F0DA2031A43E90B00F92783 /* alarmsday.png */,
-				5F0DA2041A43E90B00F92783 /* alarmsnight.jpg */,
-				5F0DA2051A43E90B00F92783 /* weatherday.jpg */,
-				5F0DA2061A43E90B00F92783 /* weathernight.jpg */,
+				5F9B148B1A44CAEC00613E44 /* white.png */,
 				5FFC6CA51A43532400993B28 /* add121.png */,
+				5F9B14831A44AD2100613E44 /* alarmsday.png */,
+				5F9B14841A44AD2100613E44 /* alarmsnight.png */,
+				5F9B14851A44AD2100613E44 /* weatherday.png */,
+				5F9B14861A44AD2100613E44 /* weathernight.png */,
 				5FFC6CA61A43532400993B28 /* approve9.png */,
 				5FFC6CA71A43532400993B28 /* back28.png */,
 				5FFC6CA81A43532400993B28 /* chat44.png */,
@@ -490,26 +493,27 @@
 				5FE8641A1A41ECEA00BB8808 /* LaunchScreen.xib in Resources */,
 				5FFC6CC31A43532400993B28 /* exclamation22.png in Resources */,
 				5FFC6CC51A43532400993B28 /* internet28.png in Resources */,
+				5F9B148C1A44CAEC00613E44 /* white.png in Resources */,
 				5FFC6CC11A43532400993B28 /* double89.png in Resources */,
 				5FFC6CC71A43532400993B28 /* menu33.png in Resources */,
 				5FFC6CCB1A43532400993B28 /* right127.png in Resources */,
-				5F0DA20A1A43E90B00F92783 /* weathernight.jpg in Resources */,
 				5FFC6CBD1A43532400993B28 /* circular191.png in Resources */,
-				5F0DA2091A43E90B00F92783 /* weatherday.jpg in Resources */,
 				5FFC6CBA1A43532400993B28 /* approve9.png in Resources */,
 				5FFC6CB91A43532400993B28 /* add121.png in Resources */,
 				5FFC6CC61A43532400993B28 /* like47.png in Resources */,
+				5F9B148A1A44AD2100613E44 /* weathernight.png in Resources */,
 				5FFC6CBC1A43532400993B28 /* chat44.png in Resources */,
 				5FFC6CBB1A43532400993B28 /* back28.png in Resources */,
-				5F0DA2071A43E90B00F92783 /* alarmsday.png in Resources */,
+				5F9B14871A44AD2100613E44 /* alarmsday.png in Resources */,
 				5FFC6CC21A43532400993B28 /* down51.png in Resources */,
+				5F9B14881A44AD2100613E44 /* alarmsnight.png in Resources */,
 				5FFC6CBE1A43532400993B28 /* circular194.png in Resources */,
 				5FFC6CCA1A43532400993B28 /* placeholder14.png in Resources */,
 				5FFC6CC41A43532400993B28 /* favourite15.png in Resources */,
 				5FFC6CCC1A43532400993B28 /* search67.png in Resources */,
 				5FFC6CC91A43532400993B28 /* mode.png in Resources */,
-				5F0DA2081A43E90B00F92783 /* alarmsnight.jpg in Resources */,
 				5FFC6CBF1A43532400993B28 /* close33.png in Resources */,
+				5F9B14891A44AD2100613E44 /* weatherday.png in Resources */,
 				5FFC6CC81A43532400993B28 /* minus65.png in Resources */,
 				5FE864171A41ECEA00BB8808 /* Images.xcassets in Resources */,
 			);

@@ -10,35 +10,26 @@ import Foundation
 import CoreLocation
 import Alamofire
 
-private let _weatherManagerSharedInstance = WeatherManager()
-
 class WeatherManager : NSObject {
     
     var current = Weather()
     var forcastArray: [Weather] = []
     
-    class var sharedInstance : WeatherManager {
-        return _weatherManagerSharedInstance
-    }
-    
-    func getWeatherForLocation(latitude: CLLocationDegrees, longitude: CLLocationDegrees) -> Int {
+    func getWeatherForLocation(latitude: CLLocationDegrees, longitude: CLLocationDegrees){
         
-        var code: Int = 0
         let url = "http://api.openweathermap.org/data/2.5/forecast"
         
         let params = ["lat":latitude, "lon":longitude]
-        //println(params)
+        println(params)
         
         Alamofire.request(.GET, url, parameters: params).responseJSON {
             (request, response, JSON, error) in
             if (error != nil) {
-                code = error!.code
+                NSNotificationCenter.defaultCenter().postNotificationName("WeatherError", object: nil)
             } else {
-              self.updateWeatherInfo(JSON!)
+                self.updateWeatherInfo(JSON!)
             }
         }
-        
-        return code
     }
     
     private func updateWeatherInfo(data: AnyObject) {
@@ -60,7 +51,8 @@ class WeatherManager : NSObject {
         // 4 hour forecast
         self.updateForecastWeather(list, country: country, city: cityname)
         
-        println("Weather Updated")
+        // Send notification
+        NSNotificationCenter.defaultCenter().postNotificationName("WeatherUpdated", object: nil, userInfo:["current": self.current, "forecast1": self.forcastArray[0], "forecast2": self.forcastArray[1], "forecast3": self.forcastArray[2], "forecast4": self.forcastArray[3]])
     }
     
     private func updateCurrentWeather(data: JSON, country: String, city: String) {

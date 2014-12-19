@@ -19,23 +19,41 @@ class AlarmsViewController : UIViewController {
     @IBOutlet var previousViewButton: UIBarButtonItem!
     @IBOutlet var background: UIImageView!
     
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        LocationManager.sharedInstance.update()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationError:", name:"LocationError", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedWeatherError", name:"WeatherError", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedWeatherError:", name:"WeatherError", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedWeatherUpdate:", name:"WeatherUpdated", object: nil)
     }
     
     override func viewDidAppear(animated: Bool) {
-       let night = WeatherManager.sharedInstance.current.nighttime
+       
+    }
+    
+    private func updateBackground(current: Weather) {
+        var night = current.nighttime
         
-        //TODO: Proper way of getting images from resources
-        // Crashes if nil
-        if(night) {
-            //background.image = UIImage(named:"alarmsnight")
-        } else {
-            //background.image = UIImage(named:"alarmsday")
-        }
+        UIView.transitionWithView(background, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
+            if(night == true) {
+                self.background.image = UIImage(named:"alarmsnight.png")
+            } else {
+                self.background.image = UIImage(named:"alarmsday.png")
+            }
+        }, completion: nil)
+    }
+    
+    func receivedWeatherUpdate(notification: NSNotification) {
+        let userInfo:Dictionary<String,Weather> = notification.userInfo as Dictionary<String,Weather>
+        let current: Weather = userInfo["current"]!
+
+        self.updateBackground(current)
     }
     
     func receivedWeatherError(notification: NSNotification){
@@ -70,7 +88,6 @@ class AlarmsViewController : UIViewController {
     override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
         return UIInterfaceOrientation.Portrait
     }
-    
     
 }
 

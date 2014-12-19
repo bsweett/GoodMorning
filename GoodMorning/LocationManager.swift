@@ -14,13 +14,13 @@ private let _locationManagerSharedInstance = LocationManager()
 class LocationManager : NSObject, CLLocationManagerDelegate {
     
     let locationManager:CLLocationManager = CLLocationManager()
-    var timer: NSTimer! = NSTimer()
+    let weatherManager:WeatherManager = WeatherManager()
     
     class var sharedInstance : LocationManager {
         return _locationManagerSharedInstance
     }
     
-    func startLocationTask() {
+    func update() {
         
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -30,14 +30,9 @@ class LocationManager : NSObject, CLLocationManagerDelegate {
         }
         
         locationManager.startUpdatingLocation()
-        
-        // for now every 60 seconds. When its working make it run every 5 minutes
-         timer = NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: Selector("update"), userInfo: nil, repeats: true)
     }
     
-    func stopLocationTask() {
-        timer.invalidate()
-        timer = nil
+    func stopUpdate() {
         locationManager.stopUpdatingLocation()
     }
     
@@ -49,10 +44,6 @@ class LocationManager : NSObject, CLLocationManagerDelegate {
         }
     }
     
-    func update() {
-        locationManager.startUpdatingLocation()
-    }
-    
     // Location delegate methods
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
         var location:CLLocation = locations[locations.count-1] as CLLocation
@@ -62,11 +53,7 @@ class LocationManager : NSObject, CLLocationManagerDelegate {
             
             println("updated location")
             
-            var result: Int = WeatherManager.sharedInstance.getWeatherForLocation(location.coordinate.latitude, longitude: location.coordinate.longitude)
-            
-            if(result != 0) {
-                NSNotificationCenter.defaultCenter().postNotificationName("WeatherError", object: nil)
-            }
+            self.weatherManager.getWeatherForLocation(location.coordinate.latitude, longitude: location.coordinate.longitude)
         }
     }
     
