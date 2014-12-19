@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5F0DA2071A43E90B00F92783 /* alarmsday.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F0DA2031A43E90B00F92783 /* alarmsday.png */; };
+		5F0DA2081A43E90B00F92783 /* alarmsnight.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5F0DA2041A43E90B00F92783 /* alarmsnight.jpg */; };
+		5F0DA2091A43E90B00F92783 /* weatherday.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5F0DA2051A43E90B00F92783 /* weatherday.jpg */; };
+		5F0DA20A1A43E90B00F92783 /* weathernight.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5F0DA2061A43E90B00F92783 /* weathernight.jpg */; };
 		5F6110AB1A41F4DD00B83410 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F6110A51A41F48000B83410 /* CFNetwork.framework */; };
 		5F6110AC1A41F4E500B83410 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F6110A71A41F48800B83410 /* CoreGraphics.framework */; };
 		5F6110AD1A41F4EA00B83410 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F6110A31A41F47100B83410 /* AVFoundation.framework */; };
@@ -60,7 +64,6 @@
 		5FFC6CCA1A43532400993B28 /* placeholder14.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FFC6CB61A43532400993B28 /* placeholder14.png */; };
 		5FFC6CCB1A43532400993B28 /* right127.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FFC6CB71A43532400993B28 /* right127.png */; };
 		5FFC6CCC1A43532400993B28 /* search67.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FFC6CB81A43532400993B28 /* search67.png */; };
-		5FFC6CCE1A4354B000993B28 /* alarms.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FFC6CCD1A4354B000993B28 /* alarms.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +112,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5F0DA2031A43E90B00F92783 /* alarmsday.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alarmsday.png; sourceTree = "<group>"; };
+		5F0DA2041A43E90B00F92783 /* alarmsnight.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = alarmsnight.jpg; sourceTree = "<group>"; };
+		5F0DA2051A43E90B00F92783 /* weatherday.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = weatherday.jpg; sourceTree = "<group>"; };
+		5F0DA2061A43E90B00F92783 /* weathernight.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = weathernight.jpg; sourceTree = "<group>"; };
 		5F6110A11A41F45A00B83410 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		5F6110A31A41F47100B83410 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		5F6110A51A41F48000B83410 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -168,7 +175,6 @@
 		5FFC6CB61A43532400993B28 /* placeholder14.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder14.png; sourceTree = "<group>"; };
 		5FFC6CB71A43532400993B28 /* right127.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = right127.png; sourceTree = "<group>"; };
 		5FFC6CB81A43532400993B28 /* search67.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search67.png; sourceTree = "<group>"; };
-		5FFC6CCD1A4354B000993B28 /* alarms.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = alarms.png; path = ../../alarms.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -344,7 +350,10 @@
 		5FFC6CA41A43532400993B28 /* png */ = {
 			isa = PBXGroup;
 			children = (
-				5FFC6CCD1A4354B000993B28 /* alarms.png */,
+				5F0DA2031A43E90B00F92783 /* alarmsday.png */,
+				5F0DA2041A43E90B00F92783 /* alarmsnight.jpg */,
+				5F0DA2051A43E90B00F92783 /* weatherday.jpg */,
+				5F0DA2061A43E90B00F92783 /* weathernight.jpg */,
 				5FFC6CA51A43532400993B28 /* add121.png */,
 				5FFC6CA61A43532400993B28 /* approve9.png */,
 				5FFC6CA71A43532400993B28 /* back28.png */,
@@ -484,19 +493,22 @@
 				5FFC6CC11A43532400993B28 /* double89.png in Resources */,
 				5FFC6CC71A43532400993B28 /* menu33.png in Resources */,
 				5FFC6CCB1A43532400993B28 /* right127.png in Resources */,
+				5F0DA20A1A43E90B00F92783 /* weathernight.jpg in Resources */,
 				5FFC6CBD1A43532400993B28 /* circular191.png in Resources */,
+				5F0DA2091A43E90B00F92783 /* weatherday.jpg in Resources */,
 				5FFC6CBA1A43532400993B28 /* approve9.png in Resources */,
 				5FFC6CB91A43532400993B28 /* add121.png in Resources */,
 				5FFC6CC61A43532400993B28 /* like47.png in Resources */,
 				5FFC6CBC1A43532400993B28 /* chat44.png in Resources */,
-				5FFC6CCE1A4354B000993B28 /* alarms.png in Resources */,
 				5FFC6CBB1A43532400993B28 /* back28.png in Resources */,
+				5F0DA2071A43E90B00F92783 /* alarmsday.png in Resources */,
 				5FFC6CC21A43532400993B28 /* down51.png in Resources */,
 				5FFC6CBE1A43532400993B28 /* circular194.png in Resources */,
 				5FFC6CCA1A43532400993B28 /* placeholder14.png in Resources */,
 				5FFC6CC41A43532400993B28 /* favourite15.png in Resources */,
 				5FFC6CCC1A43532400993B28 /* search67.png in Resources */,
 				5FFC6CC91A43532400993B28 /* mode.png in Resources */,
+				5F0DA2081A43E90B00F92783 /* alarmsnight.jpg in Resources */,
 				5FFC6CBF1A43532400993B28 /* close33.png in Resources */,
 				5FFC6CC81A43532400993B28 /* minus65.png in Resources */,
 				5FE864171A41ECEA00BB8808 /* Images.xcassets in Resources */,
@@ -677,6 +689,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "GoodMorning/GoodMorning-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -695,6 +708,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "GoodMorning/GoodMorning-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};

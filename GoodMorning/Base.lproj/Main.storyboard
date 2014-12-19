@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Install View Controller-->
@@ -13,14 +14,14 @@
                         <viewControllerLayoutGuide type="bottom" id="eik-zl-5mx"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8ao-b2-kxw">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q7r-tf-ulk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1649" y="1244"/>
+            <point key="canvasLocation" x="-1288.28125" y="728.90625"/>
         </scene>
         <!--Alarms View Controller-->
         <scene sceneID="VfG-GN-H1e">
@@ -31,15 +32,10 @@
                         <viewControllerLayoutGuide type="bottom" id="LzW-YB-X16"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="5IX-uO-Rnh">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" alpha="0.29999999999999966" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="alarms.png" translatesAutoresizingMaskIntoConstraints="NO" id="3bd-Ee-Btd">
-                                <rect key="frame" x="0.0" y="64" width="768" height="916"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
-                            </imageView>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3wW-fT-teb">
+                            <navigationBar contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3wW-fT-teb">
                                 <rect key="frame" x="0.0" y="20" width="768" height="44"/>
                                 <color key="tintColor" red="0.76038128400000005" green="0.46364483280000002" blue="0.034118021249999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <items>
@@ -47,8 +43,14 @@
                                         <barButtonItem key="leftBarButtonItem" image="configuration12.png" id="7w8-AG-tjc"/>
                                     </navigationItem>
                                 </items>
+                                <variation key="widthClass=regular" ambiguous="YES" misplaced="YES">
+                                    <rect key="frame" x="0.0" y="20" width="800" height="44"/>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=regular" ambiguous="YES">
+                                    <rect key="frame" x="0.0" y="20" width="800" height="44"/>
+                                </variation>
                             </navigationBar>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZX8-3s-hz2">
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZX8-3s-hz2">
                                 <rect key="frame" x="0.0" y="980" width="768" height="44"/>
                                 <items>
                                     <barButtonItem image="back28.png" id="8F6-ES-9Bj">
@@ -68,37 +70,157 @@
                                 </items>
                                 <color key="tintColor" red="0.76038128400000005" green="0.46364483280000002" blue="0.034118021249999998" alpha="1" colorSpace="calibratedRGB"/>
                             </toolbar>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="qDO-W8-tYh">
-                                <rect key="frame" x="374" y="502" width="20" height="20"/>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="qDO-W8-tYh">
+                                <rect key="frame" x="374" y="580" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="Evy-KL-nOw"/>
+                                    <constraint firstAttribute="width" constant="20" id="VBl-2j-TDA"/>
+                                </constraints>
                             </activityIndicatorView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jQi-R5-2x8">
-                                <rect key="frame" x="363" y="530" width="42" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jQi-R5-2x8">
+                                <rect key="frame" x="387" y="296" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.69070567260000004" green="0.1361666879" blue="0.053176706439999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" alpha="0.29999999999999966" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="alarmsday.png" translatesAutoresizingMaskIntoConstraints="NO" id="3bd-Ee-Btd">
+                                <rect key="frame" x="0.0" y="64" width="768" height="916"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="915" id="i5B-ib-MIx">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="800"/>
+                                    </constraint>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="i5B-ib-MIx"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=regular" ambiguous="YES" misplaced="YES">
+                                    <rect key="frame" x="0.0" y="0.0" width="768" height="768"/>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=regular" ambiguous="YES" misplaced="YES">
+                                    <rect key="frame" x="0.0" y="64" width="1024" height="500"/>
+                                    <mask key="constraints">
+                                        <exclude reference="i5B-ib-MIx"/>
+                                    </mask>
+                                </variation>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="3wW-fT-teb" secondAttribute="trailing" id="0xv-z8-P7E"/>
+                            <constraint firstAttribute="centerY" secondItem="qDO-W8-tYh" secondAttribute="centerY" constant="-40" id="5P1-QF-IwZ"/>
+                            <constraint firstItem="3wW-fT-teb" firstAttribute="leading" secondItem="5IX-uO-Rnh" secondAttribute="leadingMargin" id="Ay6-Ck-dkR"/>
+                            <constraint firstAttribute="trailing" secondItem="3wW-fT-teb" secondAttribute="trailing" id="Ct5-Tf-LP5"/>
+                            <constraint firstAttribute="centerX" secondItem="ZX8-3s-hz2" secondAttribute="centerX" id="E0f-K7-JdC"/>
+                            <constraint firstAttribute="bottom" secondItem="ZX8-3s-hz2" secondAttribute="bottom" id="Mbf-aw-dSv"/>
+                            <constraint firstAttribute="centerX" secondItem="3wW-fT-teb" secondAttribute="centerX" id="Mjc-qm-SWf"/>
+                            <constraint firstItem="3wW-fT-teb" firstAttribute="top" secondItem="Wbr-uw-Dc6" secondAttribute="bottom" id="PEN-HX-baH"/>
+                            <constraint firstItem="3bd-Ee-Btd" firstAttribute="leading" secondItem="ZX8-3s-hz2" secondAttribute="leading" id="SUu-aQ-Y24">
+                                <variation key="heightClass=regular-widthClass=regular" constant="0.0"/>
+                            </constraint>
+                            <constraint firstItem="3wW-fT-teb" firstAttribute="top" secondItem="Wbr-uw-Dc6" secondAttribute="bottom" id="VCo-ga-xCc"/>
+                            <constraint firstAttribute="centerX" secondItem="qDO-W8-tYh" secondAttribute="centerX" id="VGP-zX-CRe"/>
+                            <constraint firstItem="3bd-Ee-Btd" firstAttribute="top" secondItem="3wW-fT-teb" secondAttribute="bottom" constant="-45" id="ZYY-PG-Vfd">
+                                <variation key="heightClass=regular-widthClass=regular" constant="0.0"/>
+                            </constraint>
+                            <constraint firstItem="3wW-fT-teb" firstAttribute="top" secondItem="Wbr-uw-Dc6" secondAttribute="bottom" id="adW-6v-Duv"/>
+                            <constraint firstAttribute="centerY" secondItem="jQi-R5-2x8" secondAttribute="centerY" id="faj-eT-bbX"/>
+                            <constraint firstAttribute="trailing" secondItem="3wW-fT-teb" secondAttribute="trailing" id="gtr-ly-bJU"/>
+                            <constraint firstItem="ZX8-3s-hz2" firstAttribute="leading" secondItem="5IX-uO-Rnh" secondAttribute="leading" id="gwz-ch-0bI"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="3bd-Ee-Btd" secondAttribute="bottom" constant="-40" id="igk-al-Xbq">
+                                <variation key="heightClass=regular-widthClass=regular" constant="45"/>
+                            </constraint>
+                            <constraint firstItem="3wW-fT-teb" firstAttribute="leading" secondItem="5IX-uO-Rnh" secondAttribute="leading" id="oeO-3C-Ehw"/>
+                            <constraint firstAttribute="centerX" secondItem="jQi-R5-2x8" secondAttribute="centerX" id="pqU-rT-zYv"/>
+                            <constraint firstItem="3wW-fT-teb" firstAttribute="leading" secondItem="5IX-uO-Rnh" secondAttribute="leading" id="tZf-yR-tO9"/>
+                            <constraint firstAttribute="trailing" secondItem="ZX8-3s-hz2" secondAttribute="trailing" id="yAd-cn-mzp"/>
+                            <constraint firstItem="3bd-Ee-Btd" firstAttribute="top" secondItem="3wW-fT-teb" secondAttribute="bottom" id="zva-GW-aTg"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="0xv-z8-P7E"/>
+                                <exclude reference="Ay6-Ck-dkR"/>
+                                <exclude reference="Ct5-Tf-LP5"/>
+                                <exclude reference="Mjc-qm-SWf"/>
+                                <exclude reference="PEN-HX-baH"/>
+                                <exclude reference="VCo-ga-xCc"/>
+                                <exclude reference="adW-6v-Duv"/>
+                                <exclude reference="gtr-ly-bJU"/>
+                                <exclude reference="oeO-3C-Ehw"/>
+                                <exclude reference="tZf-yR-tO9"/>
+                                <exclude reference="SUu-aQ-Y24"/>
+                                <exclude reference="ZYY-PG-Vfd"/>
+                                <exclude reference="igk-al-Xbq"/>
+                                <exclude reference="zva-GW-aTg"/>
+                                <exclude reference="faj-eT-bbX"/>
+                                <exclude reference="pqU-rT-zYv"/>
+                                <exclude reference="5P1-QF-IwZ"/>
+                                <exclude reference="VGP-zX-CRe"/>
+                                <exclude reference="E0f-K7-JdC"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=regular">
+                            <mask key="constraints">
+                                <exclude reference="0xv-z8-P7E"/>
+                                <exclude reference="Ay6-Ck-dkR"/>
+                                <exclude reference="Ct5-Tf-LP5"/>
+                                <exclude reference="adW-6v-Duv"/>
+                                <exclude reference="tZf-yR-tO9"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=regular">
+                            <mask key="constraints">
+                                <exclude reference="0xv-z8-P7E"/>
+                                <exclude reference="Ay6-Ck-dkR"/>
+                                <exclude reference="Ct5-Tf-LP5"/>
+                                <include reference="Mjc-qm-SWf"/>
+                                <include reference="PEN-HX-baH"/>
+                                <include reference="VCo-ga-xCc"/>
+                                <exclude reference="adW-6v-Duv"/>
+                                <include reference="gtr-ly-bJU"/>
+                                <include reference="oeO-3C-Ehw"/>
+                                <exclude reference="tZf-yR-tO9"/>
+                                <include reference="SUu-aQ-Y24"/>
+                                <include reference="ZYY-PG-Vfd"/>
+                                <include reference="igk-al-Xbq"/>
+                                <exclude reference="zva-GW-aTg"/>
+                                <include reference="faj-eT-bbX"/>
+                                <include reference="pqU-rT-zYv"/>
+                                <include reference="5P1-QF-IwZ"/>
+                                <include reference="VGP-zX-CRe"/>
+                                <include reference="E0f-K7-JdC"/>
+                            </mask>
+                        </variation>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="WYu-YG-9Lk" appends="YES" id="bgc-L1-WYO"/>
                             <outletCollection property="gestureRecognizers" destination="RxU-hl-uvX" appends="YES" id="Ygx-ZK-Nez"/>
                         </connections>
                     </view>
+                    <connections>
+                        <outlet property="background" destination="3bd-Ee-Btd" id="fGa-gk-b2c"/>
+                        <outlet property="loading" destination="jQi-R5-2x8" id="KBZ-HS-PAe"/>
+                        <outlet property="loadingIndicator" destination="qDO-W8-tYh" id="mgO-4d-gyJ"/>
+                        <outlet property="nextViewButton" destination="Efo-lb-DWu" id="sxC-6c-zuL"/>
+                        <outlet property="previousViewButton" destination="8F6-ES-9Bj" id="UbT-pC-uzx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7e3-oE-ntn" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <swipeGestureRecognizer direction="left" id="WYu-YG-9Lk">
                     <connections>
-                        <segue destination="LD4-hQ-uEX" kind="modal" identifier="AlarmToWeather" modalTransitionStyle="crossDissolve" id="2EF-FI-AFA"/>
+                        <segue destination="LD4-hQ-uEX" kind="presentation" identifier="AlarmToWeather" modalTransitionStyle="crossDissolve" id="2EF-FI-AFA"/>
                     </connections>
                 </swipeGestureRecognizer>
                 <swipeGestureRecognizer direction="right" id="RxU-hl-uvX">
                     <connections>
-                        <segue destination="Kq2-YZ-514" kind="modal" modalTransitionStyle="crossDissolve" id="Zxk-bm-R3C"/>
+                        <segue destination="Kq2-YZ-514" kind="presentation" modalTransitionStyle="crossDissolve" id="Zxk-bm-R3C"/>
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-651" y="1244"/>
+            <point key="canvasLocation" x="-641" y="613"/>
         </scene>
         <!--Weather View Controller-->
         <scene sceneID="amo-AP-Rav">
@@ -109,7 +231,7 @@
                         <viewControllerLayoutGuide type="bottom" id="H0I-fD-c4s"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="hC2-sO-Ye8">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="9h3-Ym-Gcf">
@@ -166,16 +288,16 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FN0-PW-kKl" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <swipeGestureRecognizer direction="right" id="xuY-pz-UV5">
                     <connections>
-                        <segue destination="022-of-81X" kind="modal" modalTransitionStyle="crossDissolve" id="az5-xg-Wos"/>
+                        <segue destination="022-of-81X" kind="presentation" modalTransitionStyle="crossDissolve" id="az5-xg-Wos"/>
                     </connections>
                 </swipeGestureRecognizer>
                 <swipeGestureRecognizer direction="left" id="Kqu-3b-DE8">
                     <connections>
-                        <segue destination="l3c-ny-0JA" kind="modal" modalTransitionStyle="crossDissolve" id="Euf-lc-6kc"/>
+                        <segue destination="l3c-ny-0JA" kind="presentation" modalTransitionStyle="crossDissolve" id="Euf-lc-6kc"/>
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="511" y="1244"/>
+            <point key="canvasLocation" x="399.21875" y="728.90625"/>
         </scene>
         <!--News View Controller-->
         <scene sceneID="Yr4-op-LAr">
@@ -186,7 +308,7 @@
                         <viewControllerLayoutGuide type="bottom" id="JvF-2n-1xE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="2Gl-iy-ptU">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nbz-YA-ndi">
@@ -253,16 +375,16 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sD3-YA-noN" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <swipeGestureRecognizer direction="right" id="rmc-5z-apH">
                     <connections>
-                        <segue destination="LD4-hQ-uEX" kind="modal" modalTransitionStyle="crossDissolve" id="xBl-ks-o5H"/>
+                        <segue destination="LD4-hQ-uEX" kind="presentation" modalTransitionStyle="crossDissolve" id="xBl-ks-o5H"/>
                     </connections>
                 </swipeGestureRecognizer>
                 <swipeGestureRecognizer direction="left" id="0Bf-uZ-iiG">
                     <connections>
-                        <segue destination="Kq2-YZ-514" kind="modal" modalTransitionStyle="crossDissolve" id="pbW-SI-8cf"/>
+                        <segue destination="Kq2-YZ-514" kind="presentation" modalTransitionStyle="crossDissolve" id="pbW-SI-8cf"/>
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-651" y="2597"/>
+            <point key="canvasLocation" x="-529" y="1755"/>
         </scene>
         <!--Tasks View Controller-->
         <scene sceneID="7ua-Qz-9tg">
@@ -273,7 +395,7 @@
                         <viewControllerLayoutGuide type="bottom" id="TPt-zE-mZn"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="WUC-0P-v96">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tug-Y6-umK">
@@ -340,34 +462,29 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gmL-2o-mke" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <swipeGestureRecognizer direction="right" id="bXh-TK-9Ii">
                     <connections>
-                        <segue destination="l3c-ny-0JA" kind="modal" modalTransitionStyle="crossDissolve" id="1rt-nk-kOK"/>
+                        <segue destination="l3c-ny-0JA" kind="presentation" modalTransitionStyle="crossDissolve" id="1rt-nk-kOK"/>
                     </connections>
                 </swipeGestureRecognizer>
                 <swipeGestureRecognizer direction="left" id="lbX-xz-N8l">
                     <connections>
-                        <segue destination="022-of-81X" kind="modal" modalTransitionStyle="crossDissolve" id="2kg-z8-nvn"/>
+                        <segue destination="022-of-81X" kind="presentation" modalTransitionStyle="crossDissolve" id="2kg-z8-nvn"/>
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="511" y="2597"/>
+            <point key="canvasLocation" x="399.21875" y="1521.6796875"/>
         </scene>
     </scenes>
     <resources>
         <image name="add121.png" width="32" height="32"/>
-        <image name="alarms.png" width="1024" height="1024"/>
+        <image name="alarmsday.png" width="1024" height="1024"/>
         <image name="back28.png" width="40" height="40"/>
         <image name="configuration12.png" width="35" height="35"/>
         <image name="right127.png" width="40" height="40"/>
     </resources>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination"/>
-    </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="1rt-nk-kOK"/>
-        <segue reference="Zxk-bm-R3C"/>
-        <segue reference="2kg-z8-nvn"/>
         <segue reference="2EF-FI-AFA"/>
+        <segue reference="az5-xg-Wos"/>
+        <segue reference="Euf-lc-6kc"/>
+        <segue reference="Zxk-bm-R3C"/>
     </inferredMetricsTieBreakers>
 </document>

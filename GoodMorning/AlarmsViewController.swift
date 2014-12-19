@@ -29,12 +29,12 @@ class AlarmsViewController : UIViewController {
     override func viewDidAppear(animated: Bool) {
        let night = WeatherManager.sharedInstance.current.nighttime
         
-        //TODO: Find night images for all background views
+        //TODO: Proper way of getting images from resources
         // Crashes if nil
         if(night) {
-            //background.image = UIImage(named:"alarms-night")
+            //background.image = UIImage(named:"alarmsnight")
         } else {
-            //background.image = UIImage(named:"alarms")
+            //background.image = UIImage(named:"alarmsday")
         }
     }
     
@@ -58,6 +58,19 @@ class AlarmsViewController : UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    override func shouldAutorotate() -> Bool {
+        return true
+    }
+    
+    override func supportedInterfaceOrientations() -> Int {
+        return Int(UIInterfaceOrientationMask.All.rawValue)
+    }
+    
+    override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
+        return UIInterfaceOrientation.Portrait
+    }
+    
     
 }
 
