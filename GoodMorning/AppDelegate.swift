@@ -23,10 +23,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         
         // app already launched
         if (NSUserDefaults.standardUserDefaults().boolForKey("HasLaunchedOnce")) {
-            initialViewController = storyboard.instantiateViewControllerWithIdentifier("Alarms") as UIViewController
-        }
-        else
-        {
+            initialViewController = storyboard.instantiateViewControllerWithIdentifier("ToolBar") as UIViewController
+            
+        } else {
             // This is the first launch ever
             NSUserDefaults.standardUserDefaults().setBool(true, forKey: "HasLaunchedOnce");
             NSUserDefaults.standardUserDefaults().synchronize()

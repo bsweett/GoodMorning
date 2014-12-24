@@ -34,7 +34,7 @@ class AlarmsViewController : UIViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
-       
+
     }
     
     private func updateBackground(current: Weather) {
@@ -70,6 +70,18 @@ class AlarmsViewController : UIViewController {
         self.loading.text = ""
         timer.invalidate()
         timer = nil
+    }
+    
+     @IBAction func nextButtonAction(sender:UIBarButtonItem!) {
+        if let parent = self.parentViewController as? PageViewController {
+            parent.setViewControllers([parent.getWeather()!], direction: UIPageViewControllerNavigationDirection.Forward, animated: true, completion:nil)
+        }
+    }
+    
+     @IBAction func previousButtonAction(sender:UIBarButtonItem!) {
+        if let parent = self.parentViewController as? PageViewController {
+            parent.setViewControllers([parent.getTasks()!], direction: UIPageViewControllerNavigationDirection.Reverse, animated: true,completion:nil)
+        }
     }
     
     override func didReceiveMemoryWarning() {

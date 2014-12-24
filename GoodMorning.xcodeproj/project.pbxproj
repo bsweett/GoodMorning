@@ -32,6 +32,8 @@
 		5F80FF121A4369EB00727E25 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F80FF111A4369EB00727E25 /* LocationManager.swift */; };
 		5F80FF151A43B30B00727E25 /* InstallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F80FF141A43B30B00727E25 /* InstallViewController.swift */; };
 		5F80FF171A43B3A400727E25 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F80FF161A43B3A400727E25 /* User.swift */; };
+		5F83E29B1A4A35B100E9E7E3 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F83E29A1A4A35B100E9E7E3 /* PageViewController.swift */; };
+		5F83E29E1A4A6E5200E9E7E3 /* ToolbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F83E29D1A4A6E5200E9E7E3 /* ToolbarController.swift */; };
 		5F9B14871A44AD2100613E44 /* alarmsday.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F9B14831A44AD2100613E44 /* alarmsday.png */; };
 		5F9B14881A44AD2100613E44 /* alarmsnight.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F9B14841A44AD2100613E44 /* alarmsnight.png */; };
 		5F9B14891A44AD2100613E44 /* weatherday.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F9B14851A44AD2100613E44 /* weatherday.png */; };
@@ -140,6 +142,8 @@
 		5F80FF111A4369EB00727E25 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		5F80FF141A43B30B00727E25 /* InstallViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstallViewController.swift; sourceTree = "<group>"; };
 		5F80FF161A43B3A400727E25 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		5F83E29A1A4A35B100E9E7E3 /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
+		5F83E29D1A4A6E5200E9E7E3 /* ToolbarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolbarController.swift; sourceTree = "<group>"; };
 		5F9B14831A44AD2100613E44 /* alarmsday.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alarmsday.png; sourceTree = "<group>"; };
 		5F9B14841A44AD2100613E44 /* alarmsnight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alarmsnight.png; sourceTree = "<group>"; };
 		5F9B14851A44AD2100613E44 /* weatherday.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weatherday.png; sourceTree = "<group>"; };
@@ -254,6 +258,8 @@
 				5F744B761A421C3A00F4C675 /* TasksViewController.swift */,
 				5F7F372E1A42649A004B7439 /* AlarmDetailViewController.swift */,
 				5F80FF141A43B30B00727E25 /* InstallViewController.swift */,
+				5F83E29A1A4A35B100E9E7E3 /* PageViewController.swift */,
+				5F83E29D1A4A6E5200E9E7E3 /* ToolbarController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -542,8 +548,10 @@
 				5FC32F441A4257B200F9EB26 /* Alarm.swift in Sources */,
 				5F744B921A4223BF00F4C675 /* Weather.swift in Sources */,
 				5F744B3C1A420C3800F4C675 /* AlertType.swift in Sources */,
+				5F83E29E1A4A6E5200E9E7E3 /* ToolbarController.swift in Sources */,
 				5F744B3A1A420BA900F4C675 /* TaskType.swift in Sources */,
 				5F7F372F1A42649A004B7439 /* AlarmDetailViewController.swift in Sources */,
+				5F83E29B1A4A35B100E9E7E3 /* PageViewController.swift in Sources */,
 				5F744B381A420B2400F4C675 /* Task.swift in Sources */,
 				5F7F372C1A425956004B7439 /* Settings.swift in Sources */,
 				5F744B771A421C3A00F4C675 /* TasksViewController.swift in Sources */,

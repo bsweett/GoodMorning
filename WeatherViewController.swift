@@ -77,7 +77,7 @@ class WeatherViewController : UIViewController {
             currentTemp.text = current.temperature.description + " C°"
         }
         
-        //TODO Update weather items
+        //TODO Update forecast
     }
     
     func setImageViewForNightCondition(condidtion: Int, imageView: UIImageView) {
