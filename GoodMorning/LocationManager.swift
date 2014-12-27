@@ -14,7 +14,7 @@ private let _locationManagerSharedInstance = LocationManager()
 class LocationManager : NSObject, CLLocationManagerDelegate {
     
     let locationManager:CLLocationManager = CLLocationManager()
-    let weatherManager:WeatherManager = WeatherManager()
+    let weatherManager: WeatherManager = WeatherManager()
     
     class var sharedInstance : LocationManager {
         return _locationManagerSharedInstance
@@ -60,6 +60,10 @@ class LocationManager : NSObject, CLLocationManagerDelegate {
     func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
         println(error)
         NSNotificationCenter.defaultCenter().postNotificationName("LocationError", object: nil)
+    }
+    
+    func cacheLocation(latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
+        
     }
     
 }

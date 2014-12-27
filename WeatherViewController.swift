@@ -14,6 +14,7 @@ import QuartzCore
 class WeatherViewController : UIViewController {
     
     var timer: NSTimer! = NSTimer()
+    var firstAppear: Bool = false
     
     @IBOutlet var loadingIndicator : UIActivityIndicatorView! = nil
     @IBOutlet var loading : UILabel!
@@ -28,7 +29,7 @@ class WeatherViewController : UIViewController {
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        LocationManager.sharedInstance.update()
+        //LocationManager.sharedInstance.update()
     }
     
     override func viewDidLoad() {
@@ -43,11 +44,16 @@ class WeatherViewController : UIViewController {
     }
 
     override func viewDidAppear(animated: Bool) {
-       
+        if(firstAppear == false) {
+            LocationManager.sharedInstance.update()
+            firstAppear = true
+        }
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+        
+        firstAppear = false
     }
     
     private func updateBackgroundAndWeather(current: Weather, forecast: [Weather!]) {

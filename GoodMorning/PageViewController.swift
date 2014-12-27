@@ -76,7 +76,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
     // Brings page control to front of view
     //[self.view bringSubviewToFront:self.pageControl];
 
-    
+    // TODO: Might have to remove this and add our own because clear doesnt work
     func setPageControl() {
         let appearance = UIPageControl.appearance()
         appearance.pageIndicatorTintColor = UIColor.grayColor()

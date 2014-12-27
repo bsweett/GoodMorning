@@ -12,6 +12,7 @@ import UIKit
 class AlarmsViewController : UIViewController {
     
     var timer: NSTimer! = NSTimer()
+    var firstAppear: Bool = false
     
     @IBOutlet var loadingIndicator : UIActivityIndicatorView! = nil
     @IBOutlet var loading : UILabel!
@@ -22,7 +23,7 @@ class AlarmsViewController : UIViewController {
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        LocationManager.sharedInstance.update()
+        //LocationManager.sharedInstance.update()
     }
     
     override func viewDidLoad() {
@@ -34,7 +35,10 @@ class AlarmsViewController : UIViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
-
+        if(firstAppear == false) {
+            LocationManager.sharedInstance.update()
+            firstAppear == true
+        }
     }
     
     private func updateBackground(current: Weather) {
@@ -86,6 +90,8 @@ class AlarmsViewController : UIViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+        
+        firstAppear = false
         // Dispose of any resources that can be recreated.
     }
     

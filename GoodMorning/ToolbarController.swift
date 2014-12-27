@@ -30,26 +30,6 @@ class ToolbarController: UIViewController {
         content.didMoveToParentViewController(self)
         self.view.insertSubview(content.view, atIndex: 1)
         
-        /*
-        [self addChildViewController:self.pageViewController];
-        [self.pageViewController didMoveToParentViewController:self];
-        [self.view addSubview:self.pageViewController.view];*/
-        
-        
-        //content.view.frame = self.frameForContent
-        //self.view.addSubview(self.curr)
-        
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
