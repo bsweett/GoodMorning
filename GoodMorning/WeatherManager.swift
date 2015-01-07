@@ -58,7 +58,10 @@ class WeatherManager : NSObject {
     private func updateCurrentWeather(data: JSON, country: String, city: String) {
         
         var dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "HH:mm"
+        var twelveHourLocale = NSLocale(localeIdentifier:"en_US_POSIX")
+        dateFormatter.locale = twelveHourLocale
+        dateFormatter.dateFormat = "HH:mm a"
+        
         var currenttemperature: Double
         
         let currentItem: JSON = data[0]
@@ -83,7 +86,9 @@ class WeatherManager : NSObject {
     private func updateForecastWeather(data: JSON, country: String, city: String) {
         
         var dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "HH:mm"
+        var twelveHourLocale = NSLocale(localeIdentifier:"en_US_POSIX")
+        dateFormatter.locale = twelveHourLocale
+        dateFormatter.dateFormat = "HH:mm a"
         
         for index in 1...4 {
             let item: JSON = data[index]
