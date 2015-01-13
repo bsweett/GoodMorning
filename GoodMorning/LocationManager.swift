@@ -9,15 +9,21 @@
 import Foundation
 import CoreLocation
 
-private let _locationManagerSharedInstance = LocationManager()
-
 class LocationManager : NSObject, CLLocationManagerDelegate {
     
     let locationManager:CLLocationManager = CLLocationManager()
     let weatherManager: WeatherManager = WeatherManager()
+    var failCount: Int = 0
     
     class var sharedInstance : LocationManager {
-        return _locationManagerSharedInstance
+        struct Static {
+            static var onceToken : dispatch_once_t = 0
+            static var instance : LocationManager? = nil
+        }
+        dispatch_once(&Static.onceToken) {
+            Static.instance = LocationManager()
+        }
+        return Static.instance!
     }
     
     func update() {
@@ -26,7 +32,12 @@ class LocationManager : NSObject, CLLocationManagerDelegate {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         
         if ( ios8() ) {
-            locationManager.requestAlwaysAuthorization()
+            
+            if(CLLocationManager.locationServicesEnabled() == true) {
+                locationManager.requestWhenInUseAuthorization()
+            } else {
+                // Not enabled manual set somehow
+            }
         }
         
         locationManager.startUpdatingLocation()
@@ -36,12 +47,8 @@ class LocationManager : NSObject, CLLocationManagerDelegate {
         locationManager.stopUpdatingLocation()
     }
     
-    private func ios8() -> Bool {
-        if ( NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_7_1 ) {
-            return false
-        } else {
-            return true
-        }
+    func resetFailureCount() {
+        self.failCount = 0
     }
     
     // Location delegate methods
@@ -60,10 +67,10 @@ class LocationManager : NSObject, CLLocationManagerDelegate {
     func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
         println(error)
         NSNotificationCenter.defaultCenter().postNotificationName("LocationError", object: nil)
-    }
-    
-    func cacheLocation(latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
-        
+        if(failCount >= 3) {
+            self.stopUpdate()
+        }
+        failCount += 1
     }
     
 }

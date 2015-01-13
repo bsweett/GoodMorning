@@ -43,7 +43,6 @@ class WeatherViewController : UIViewController {
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        //LocationManager.sharedInstance.update()
     }
     
     override func viewDidLoad() {
@@ -51,7 +50,7 @@ class WeatherViewController : UIViewController {
         self.loadingIndicator.hidesWhenStopped = true
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationError:", name:"LocationError", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedWeatherError:", name:"WeatherError", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedNetworkError:", name:"NetworkError", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedWeatherUpdate:", name:"WeatherUpdated", object: nil)
         
     }
@@ -202,8 +201,8 @@ class WeatherViewController : UIViewController {
         self.updateBackgroundAndWeather(current, forecast: forecastArray)
     }
 
-    func receivedWeatherError(notification: NSNotification){
-        self.loading.text = "Response from Weather API was invalid"
+    func receivedNetworkError(notification: NSNotification){
+        self.loading.text = "Network Error"
         timer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: Selector("clearError"), userInfo: nil, repeats: false)
     }
     
@@ -214,8 +213,6 @@ class WeatherViewController : UIViewController {
     
     func clearError() {
         self.loading.text = ""
-        timer.invalidate()
-        timer = nil
     }
     
     override func shouldAutorotate() -> Bool {

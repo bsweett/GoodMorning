@@ -22,10 +22,10 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Your location is used to tell where you are.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Your location is used to give you the most accurate weather information</string>
 	<key>NSLocationUsageDescription</key>
-	<string>Your location is used to tell where you are.</string>
+	<string>Your location is used to give you the most accurate weather information</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>

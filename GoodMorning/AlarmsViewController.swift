@@ -30,7 +30,7 @@ class AlarmsViewController : UIViewController {
         super.viewDidLoad()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationError:", name:"LocationError", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedWeatherError:", name:"WeatherError", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedNetworkError:", name:"NetworkError", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedWeatherUpdate:", name:"WeatherUpdated", object: nil)
     }
     
@@ -60,7 +60,7 @@ class AlarmsViewController : UIViewController {
         self.updateBackground(current)
     }
     
-    func receivedWeatherError(notification: NSNotification){
+    func receivedNetworkError(notification: NSNotification){
         self.loading.text = "Response from Weather API was invalid"
         timer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: Selector("clearError"), userInfo: nil, repeats: false)
     }
@@ -72,10 +72,9 @@ class AlarmsViewController : UIViewController {
     
     func clearError() {
         self.loading.text = ""
-        timer.invalidate()
-        timer = nil
     }
     
+    /*
      @IBAction func nextButtonAction(sender:UIBarButtonItem!) {
         if let parent = self.parentViewController as? PageViewController {
             parent.setViewControllers([parent.getWeather()!], direction: UIPageViewControllerNavigationDirection.Forward, animated: true, completion:nil)
@@ -86,7 +85,7 @@ class AlarmsViewController : UIViewController {
         if let parent = self.parentViewController as? PageViewController {
             parent.setViewControllers([parent.getTasks()!], direction: UIPageViewControllerNavigationDirection.Reverse, animated: true,completion:nil)
         }
-    }
+    }*/
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -46,8 +46,6 @@ class TasksViewController : UIViewController {
     
     func clearError() {
         self.loading.text = ""
-        timer.invalidate()
-        timer = nil
     }
 }
     

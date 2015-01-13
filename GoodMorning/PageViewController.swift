@@ -69,8 +69,6 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         self.currentViewController = self.getAlarm()!
         
         self.setPageControl()
-
-        println("Pager loadeed")
     }
     
     // Brings page control to front of view

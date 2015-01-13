@@ -22,13 +22,13 @@ class User : NSObject {
     //var rssFeeds: Dictionary<String, RSSFeed>
     
     // From Existing JSON
-    init(id: String, device: String, token: String, name: String, creation: NSDate) {
+    init(id: String, device: String, token: String, name: String, creation: NSDate, lastActive: NSDate) {
         self.userId = id
         self.deviceId = device
         self.userToken = token
         self.nickname = name
         self.creationDate = creation
-        self.lastActive = NSDate()
+        self.lastActive = lastActive
         
         // TODO Tasks?
         self.tasks = [:]

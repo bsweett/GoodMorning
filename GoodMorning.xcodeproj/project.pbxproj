@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5F472CEA1A5EFF2D001E47CF /* InstallManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F472CE91A5EFF2D001E47CF /* InstallManager.swift */; };
+		5F472CEE1A5F45E4001E47CF /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F472CED1A5F45E4001E47CF /* Util.swift */; };
+		5F472CF21A5F853B001E47CF /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F472CF11A5F853B001E47CF /* Networking.swift */; };
 		5F6110AB1A41F4DD00B83410 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F6110A51A41F48000B83410 /* CFNetwork.framework */; };
 		5F6110AC1A41F4E500B83410 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F6110A71A41F48800B83410 /* CoreGraphics.framework */; };
 		5F6110AD1A41F4EA00B83410 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F6110A31A41F47100B83410 /* AVFoundation.framework */; };
@@ -95,6 +98,8 @@
 		5F83E29B1A4A35B100E9E7E3 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F83E29A1A4A35B100E9E7E3 /* PageViewController.swift */; };
 		5F83E29E1A4A6E5200E9E7E3 /* ToolbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F83E29D1A4A6E5200E9E7E3 /* ToolbarController.swift */; };
 		5FA383EC1A4208AE0013B102 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FA383EA1A4208A30013B102 /* CoreLocation.framework */; };
+		5FC1FF1C1A646F8200253E6C /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC1FF1B1A646F8200253E6C /* Reachability.swift */; };
+		5FC1FF201A6473BC00253E6C /* ApplicationDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC1FF1F1A6473BC00253E6C /* ApplicationDataManager.swift */; };
 		5FC32F421A423B0600F9EB26 /* Alamofire.framework in Copy Files (1 item) */ = {isa = PBXBuildFile; fileRef = 5FC32F3C1A4239FA00F9EB26 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5FC32F441A4257B200F9EB26 /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC32F431A4257B200F9EB26 /* Alarm.swift */; };
 		5FE8640E1A41ECEA00BB8808 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE8640D1A41ECEA00BB8808 /* AppDelegate.swift */; };
@@ -150,6 +155,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5F472CE91A5EFF2D001E47CF /* InstallManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstallManager.swift; sourceTree = "<group>"; };
+		5F472CED1A5F45E4001E47CF /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
+		5F472CF11A5F853B001E47CF /* Networking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		5F6110A11A41F45A00B83410 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		5F6110A31A41F47100B83410 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		5F6110A51A41F48000B83410 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -240,6 +248,8 @@
 		5F83E29A1A4A35B100E9E7E3 /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		5F83E29D1A4A6E5200E9E7E3 /* ToolbarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolbarController.swift; sourceTree = "<group>"; };
 		5FA383EA1A4208A30013B102 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		5FC1FF1B1A646F8200253E6C /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		5FC1FF1F1A6473BC00253E6C /* ApplicationDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationDataManager.swift; sourceTree = "<group>"; };
 		5FC32F361A4239FA00F9EB26 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		5FC32F431A4257B200F9EB26 /* Alarm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; };
 		5FE864081A41ECEA00BB8808 /* GoodMorning.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoodMorning.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -258,9 +268,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5F6110B81A41F57400B83410 /* SystemConfiguration.framework in Frameworks */,
 				5FA383EC1A4208AE0013B102 /* CoreLocation.framework in Frameworks */,
 				5F6110BB1A41F58700B83410 /* UIKit.framework in Frameworks */,
-				5F6110B81A41F57400B83410 /* SystemConfiguration.framework in Frameworks */,
 				5F6110B51A41F55600B83410 /* Security.framework in Frameworks */,
 				5F6110B21A41F54200B83410 /* Foundation.framework in Frameworks */,
 				5F6110AE1A41F4F000B83410 /* AudioToolbox.framework in Frameworks */,
@@ -280,9 +290,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5F472CEC1A5F45B8001E47CF /* Utilites */ = {
+			isa = PBXGroup;
+			children = (
+				5F6110C51A42014000B83410 /* TextToSpeech.swift */,
+				5F472CED1A5F45E4001E47CF /* Util.swift */,
+				5F472CF11A5F853B001E47CF /* Networking.swift */,
+			);
+			name = Utilites;
+			sourceTree = "<group>";
+		};
 		5F6110A91A41F4AA00B83410 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				5FC1FF1E1A64734400253E6C /* Managers */,
+				5F472CEC1A5F45B8001E47CF /* Utilites */,
 				5F744B8E1A42227200F4C675 /* Models */,
 				5F744B8D1A42225200F4C675 /* Libraries */,
 				5F744B8B1A42223600F4C675 /* Controllers */,
@@ -337,6 +359,7 @@
 		5F744B8D1A42225200F4C675 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				5FC1FF1B1A646F8200253E6C /* Reachability.swift */,
 				5F744B3F1A420E9400F4C675 /* SwiftyJSON.h */,
 				5F744B401A420E9400F4C675 /* SwiftyJSON.swift */,
 			);
@@ -346,16 +369,13 @@
 		5F744B8E1A42227200F4C675 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				5F6110C51A42014000B83410 /* TextToSpeech.swift */,
 				5F744B371A420B2400F4C675 /* Task.swift */,
 				5F744B391A420BA900F4C675 /* TaskType.swift */,
 				5F744B3B1A420C3800F4C675 /* AlertType.swift */,
 				5F744B3D1A420CA900F4C675 /* RepeatType.swift */,
-				5F744B8F1A42229D00F4C675 /* WeatherManager.swift */,
 				5F744B911A4223BF00F4C675 /* Weather.swift */,
 				5FC32F431A4257B200F9EB26 /* Alarm.swift */,
 				5F7F372B1A425956004B7439 /* Settings.swift */,
-				5F80FF111A4369EB00727E25 /* LocationManager.swift */,
 				5F80FF161A43B3A400727E25 /* User.swift */,
 			);
 			name = Models;
@@ -450,6 +470,17 @@
 				5F7A9CCA1A5CC24F00C595B7 /* n_windy.png */,
 			);
 			path = night;
+			sourceTree = "<group>";
+		};
+		5FC1FF1E1A64734400253E6C /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				5F744B8F1A42229D00F4C675 /* WeatherManager.swift */,
+				5F80FF111A4369EB00727E25 /* LocationManager.swift */,
+				5F472CE91A5EFF2D001E47CF /* InstallManager.swift */,
+				5FC1FF1F1A6473BC00253E6C /* ApplicationDataManager.swift */,
+			);
+			name = Managers;
 			sourceTree = "<group>";
 		};
 		5FC32F371A4239FA00F9EB26 /* Products */ = {
@@ -705,6 +736,8 @@
 				5F6110C61A42014000B83410 /* TextToSpeech.swift in Sources */,
 				5F80FF121A4369EB00727E25 /* LocationManager.swift in Sources */,
 				5F744B411A420E9400F4C675 /* SwiftyJSON.swift in Sources */,
+				5F472CF21A5F853B001E47CF /* Networking.swift in Sources */,
+				5F472CEA1A5EFF2D001E47CF /* InstallManager.swift in Sources */,
 				5F744B7B1A421C8E00F4C675 /* NewsViewController.swift in Sources */,
 				5F744B901A42229D00F4C675 /* WeatherManager.swift in Sources */,
 				5F744B751A421A5400F4C675 /* AlarmsViewController.swift in Sources */,
@@ -715,13 +748,16 @@
 				5F744B3A1A420BA900F4C675 /* TaskType.swift in Sources */,
 				5F7F372F1A42649A004B7439 /* AlarmDetailViewController.swift in Sources */,
 				5F83E29B1A4A35B100E9E7E3 /* PageViewController.swift in Sources */,
+				5F472CEE1A5F45E4001E47CF /* Util.swift in Sources */,
 				5F744B381A420B2400F4C675 /* Task.swift in Sources */,
 				5F7F372C1A425956004B7439 /* Settings.swift in Sources */,
+				5FC1FF201A6473BC00253E6C /* ApplicationDataManager.swift in Sources */,
 				5F744B771A421C3A00F4C675 /* TasksViewController.swift in Sources */,
 				5F80FF151A43B30B00727E25 /* InstallViewController.swift in Sources */,
 				5F744B3E1A420CA900F4C675 /* RepeatType.swift in Sources */,
 				5FE8640E1A41ECEA00BB8808 /* AppDelegate.swift in Sources */,
 				5F744B791A421C7E00F4C675 /* WeatherViewController.swift in Sources */,
+				5FC1FF1C1A646F8200253E6C /* Reachability.swift in Sources */,
 				5F80FF171A43B3A400727E25 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

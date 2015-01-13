@@ -10,6 +10,13 @@ import UIKit
 
 class ToolbarController: UIViewController {
     
+    
+    @IBOutlet var settingsButton: UIBarButtonItem!
+    
+    // Change button symbol and func based on current embeded view container
+    @IBOutlet var rightButton: UIBarButtonItem!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -29,6 +36,23 @@ class ToolbarController: UIViewController {
         self.addChildViewController(content)
         content.didMoveToParentViewController(self)
         self.view.insertSubview(content.view, atIndex: 1)
+        
+    }
+    
+    @IBAction func settingsButtonPushed() {
+        // only supported in iOS8
+        
+        if( ios8() ) {
+            UIApplication.sharedApplication().openURL(NSURL(string:UIApplicationOpenSettingsURLString)!)
+        } else {
+             //TODO: need a view for iOS7 and below
+            performSegueWithIdentifier("OldSettingsView", sender: self)
+            //send as modal and call dismissViewController when finished
+        }
+    
+    }
+    
+    @IBAction func rightBarButtonPushed() {
         
     }
 

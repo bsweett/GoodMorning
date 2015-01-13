@@ -8,7 +8,6 @@
 
 import Foundation
 import CoreLocation
-import Alamofire
 
 class WeatherManager : NSObject {
     
@@ -22,37 +21,27 @@ class WeatherManager : NSObject {
         let params = ["lat":latitude, "lon":longitude]
         println(params)
         
-        Alamofire.request(.GET, url, parameters: params).responseJSON {
-            (request, response, JSON, error) in
-            if (error != nil) {
-                NSNotificationCenter.defaultCenter().postNotificationName("WeatherError", object: nil)
-            } else {
-                self.updateWeatherInfo(JSON!)
-            }
-        }
-    }
-    
-    private func updateWeatherInfo(data: AnyObject) {
-        
-        var cityname: String
-        var country: String
-        
-        let json = JSON(object: data)
-        
-        let city: JSON = json["city"]
-        cityname = city["name"].stringValue!
-        country = city["country"].stringValue!
-        
-        let list: JSON = json["list"]
-        
-        // Current Weather
-        self.updateCurrentWeather(list, country: country, city: cityname)
-        
-        // 4 hour forecast
-        self.updateForecastWeather(list, country: country, city: cityname)
-        
-        // Send notification
-        NSNotificationCenter.defaultCenter().postNotificationName("WeatherUpdated", object: nil, userInfo:["current": self.current, "forecast1": self.forcastArray[0], "forecast2": self.forcastArray[1], "forecast3": self.forcastArray[2], "forecast4": self.forcastArray[3]])
+        Networking.sharedInstance.openNewJSONRequest(.GET, url: url, parameters: params, {(data: JSON) in
+            var cityname: String
+            var country: String
+            
+            let json = data
+            
+            let city: JSON = json["city"]
+            cityname = city["name"].stringValue!
+            country = city["country"].stringValue!
+            
+            let list: JSON = json["list"]
+            
+            // Current Weather
+            self.updateCurrentWeather(list, country: country, city: cityname)
+            
+            // 4 hour forecast
+            self.updateForecastWeather(list, country: country, city: cityname)
+            
+            // Send notification
+            NSNotificationCenter.defaultCenter().postNotificationName("WeatherUpdated", object: nil, userInfo:["current": self.current, "forecast1": self.forcastArray[0], "forecast2": self.forcastArray[1], "forecast3": self.forcastArray[2], "forecast4": self.forcastArray[3]])
+        })
     }
     
     private func updateCurrentWeather(data: JSON, country: String, city: String) {

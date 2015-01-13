@@ -40,7 +40,7 @@ class NewsViewController : UIViewController {
     
     func clearError() {
         self.loading.text = ""
-        timer.invalidate()
-        timer = nil
+        //timer.invalidate()
+        //timer = nil
     }
 }
