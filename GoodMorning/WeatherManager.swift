@@ -19,7 +19,7 @@ class WeatherManager : NSObject {
         let url = "http://api.openweathermap.org/data/2.5/forecast"
         
         let params = ["lat":latitude, "lon":longitude]
-        println(params)
+        //println(params)
         
         Networking.sharedInstance.openNewJSONRequest(.GET, url: url, parameters: params, {(data: JSON) in
             var cityname: String

@@ -10,14 +10,18 @@ import Foundation
 import UIKit
 import CoreLocation
 import QuartzCore
+import DTIActivityIndicator
 
 class WeatherViewController : UIViewController {
     
-    var timer: NSTimer! = NSTimer()
-    var firstAppear: Bool = false
+    private var timer: NSTimer! = NSTimer()
+    private var firstAppear: Bool = false
     
-    @IBOutlet var loadingIndicator : UIActivityIndicatorView! = nil
-    @IBOutlet var loading : UILabel!
+    private let alert: UIAlertView!
+    
+    @IBOutlet weak var activityIndicator: DTIActivityIndicatorView!
+    //@IBOutlet weak var forcastBlock : UIView!
+    @IBOutlet weak var forcastBlock: UIView!
     @IBOutlet var background: UIImageView!
     
     @IBOutlet var currentTemp : UILabel!
@@ -47,11 +51,15 @@ class WeatherViewController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.loadingIndicator.hidesWhenStopped = true
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationError:", name:"LocationError", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedNetworkError:", name:"NetworkError", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name:"InternalServerError", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedWeatherUpdate:", name:"WeatherUpdated", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationAuthorizeProblem:", name:"LocationDenied", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationAuthorizeProblem:", name:"LocationDisabled", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationUnknown:", name:"LocationUnknown", object: nil)
+        
+        roundBlockCorners()
         
     }
 
@@ -63,13 +71,20 @@ class WeatherViewController : UIViewController {
     }
     
     override func viewDidDisappear(animated: Bool) {
-        self.loadingIndicator.stopAnimating()
+
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
         firstAppear = false
+    }
+    
+    private func roundBlockCorners() {
+            
+        forcastBlock.layer.cornerRadius = radius
+        forcastBlock.clipsToBounds = true
+
     }
     
     private func updateBackgroundAndWeather(current: Weather, forecast: [Weather!]) {
@@ -128,7 +143,6 @@ class WeatherViewController : UIViewController {
         forcastTime3.text = forecast[2].time
         forcastTime4.text = forecast[3].time
         
-        self.loadingIndicator.stopAnimating()
     }
     
     func setImageViewForCondition(condition: Int, night: Bool, imageView: UIImageView) {
@@ -187,8 +201,6 @@ class WeatherViewController : UIViewController {
     
     func receivedWeatherUpdate(notification: NSNotification) {
         
-        self.loadingIndicator.startAnimating()
-        
         let userInfo:Dictionary<String,Weather> = notification.userInfo as Dictionary<String,Weather>
         let current: Weather = userInfo["current"]!
         let forecast1 = userInfo["forecast1"]
@@ -202,29 +214,25 @@ class WeatherViewController : UIViewController {
     }
 
     func receivedNetworkError(notification: NSNotification){
-        self.loading.text = "Network Error"
-        timer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: Selector("clearError"), userInfo: nil, repeats: false)
+        alert.title = "Network Error"
+        alert.message = "Please check your network connection"
+        alert.addButtonWithTitle("Ok")
+        alert.show()
     }
     
-    func receivedLocationError(notification: NSNotification){
-        self.loading.text = "Cannot find your location"
-        timer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: Selector("clearError"), userInfo: nil, repeats: false)
+    func receivedInternalServerError(notification: NSNotification) {
+        alert.title = getUserInfoValueForKey(notification.userInfo, "reason")
+        alert.message = getUserInfoValueForKey(notification.userInfo, "message")
+        alert.addButtonWithTitle("Dismiss")
+        alert.show()
     }
     
-    func clearError() {
-        self.loading.text = ""
-    }
-    
-    override func shouldAutorotate() -> Bool {
-        return true
-    }
-    
-    override func supportedInterfaceOrientations() -> Int {
-        return Int(UIInterfaceOrientationMask.All.rawValue)
-    }
-    
-    override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
-        return UIInterfaceOrientation.Portrait
+    // TODO: Better message to user if they disable it after installing
+    func receivedLocationAuthorizeProblem(notification: NSNotification) {
+        alert.title = "Location Services Disallowed"
+        alert.message = "Because you have disallowed location services you are required to enter your country and city in order to use GoodMorning"
+        alert.addButtonWithTitle("Ok")
+        alert.show()
     }
 
 }

@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         var initialViewController: UIViewController
         
         // app already installed
-        if (NSUserDefaults.standardUserDefaults().boolForKey("isInstalled")) {
+        if (UserDefaultsManager.sharedInstance.getToken() != "") {
             initialViewController = storyboard.instantiateViewControllerWithIdentifier("ToolBar") as UIViewController
             
         } else {
@@ -50,7 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     func applicationDidEnterBackground(application: UIApplication) {
        
-        LocationManager.sharedInstance.resetFailureCount()
+        
         
     }
 
@@ -58,11 +58,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
      // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     func applicationWillEnterForeground(application: UIApplication) {
        
+        
     }
     
      // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     func applicationDidBecomeActive(application: UIApplication) {
        
+        LocationManager.sharedInstance.update()
         
     }
 

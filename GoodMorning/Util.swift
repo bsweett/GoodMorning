@@ -7,9 +7,25 @@
 //
 
 import Foundation
+import UIKit
+
+let ipHome1 = "http://192.168.1.104:8080"
+let ipHome2 = "http://192.168.1.105:8080"
 
 // TODO: Setup router to forward traffic through TCP port 8080 to use static IP
-let SERVER_ADDRESS = "http://192.168.1.106:8080/GoodMorning-Server"
+let SERVER_ADDRESS = ipHome2 + "/GoodMorning-Server"
+
+let udEmailID: String = "EMAILUD"
+let udToken: String = "TOKENUD"
+let udUserID: String = "USERIDUD"
+let udUserName: String = "USERNAMEUD"
+let udLastActive: String = "LASTACTIVEUD"
+let udCreated: String = "CREATEDUD"
+
+let gmOrangeColor: UIColor = UIColor(red: 194, green: 118, blue: 9, alpha: 1)
+let gmYellowColor: UIColor = UIColor(red: 255, green: 222, blue: 0, alpha: 1)
+
+let radius: CGFloat = 8
 
 func ios8() -> Bool {
     if ( NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_7_1 ) {
@@ -19,15 +35,14 @@ func ios8() -> Bool {
     }
 }
 
-func getUserInfoMessage(userinfo: [NSObject : AnyObject]?) -> String {
+func getUserInfoValueForKey(userinfo: [NSObject : AnyObject]?, key: String) -> String {
     if let info = userinfo as? Dictionary<String,String> {
-        if let s = info["message"] {
+        if let s = info[key] {
             return s
         }
     }
     
-    println("Internal notification has an invalid userinfo dictionary message")
-    return ""
+    return "Internal Server Error"
 }
 
 extension String {

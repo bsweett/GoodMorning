@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5F01B2741A65E05800CBE01A /* audio.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F01B2731A65E05800CBE01A /* audio.png */; };
+		5F01B2771A65E1B300CBE01A /* grey_wall.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F01B2761A65E1B300CBE01A /* grey_wall.png */; };
+		5F01B2791A65E5DE00CBE01A /* buzzer.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F01B2781A65E5DE00CBE01A /* buzzer.png */; };
+		5F08AC691A6F38D100F1ED8F /* AlarmsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F08AC681A6F38D100F1ED8F /* AlarmsManager.swift */; };
+		5F08AC871A6F418000F1ED8F /* DTIActivityIndicator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F08AC841A6F412C00F1ED8F /* DTIActivityIndicator.framework */; };
+		5F08AC8E1A6F429700F1ED8F /* DTIActivityIndicator.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5F08AC841A6F412C00F1ED8F /* DTIActivityIndicator.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5F472CEA1A5EFF2D001E47CF /* InstallManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F472CE91A5EFF2D001E47CF /* InstallManager.swift */; };
 		5F472CEE1A5F45E4001E47CF /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F472CED1A5F45E4001E47CF /* Util.swift */; };
 		5F472CF21A5F853B001E47CF /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F472CF11A5F853B001E47CF /* Networking.swift */; };
@@ -99,7 +105,7 @@
 		5F83E29E1A4A6E5200E9E7E3 /* ToolbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F83E29D1A4A6E5200E9E7E3 /* ToolbarController.swift */; };
 		5FA383EC1A4208AE0013B102 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FA383EA1A4208A30013B102 /* CoreLocation.framework */; };
 		5FC1FF1C1A646F8200253E6C /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC1FF1B1A646F8200253E6C /* Reachability.swift */; };
-		5FC1FF201A6473BC00253E6C /* ApplicationDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC1FF1F1A6473BC00253E6C /* ApplicationDataManager.swift */; };
+		5FC1FF201A6473BC00253E6C /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC1FF1F1A6473BC00253E6C /* UserDefaultsManager.swift */; };
 		5FC32F421A423B0600F9EB26 /* Alamofire.framework in Copy Files (1 item) */ = {isa = PBXBuildFile; fileRef = 5FC32F3C1A4239FA00F9EB26 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5FC32F441A4257B200F9EB26 /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC32F431A4257B200F9EB26 /* Alarm.swift */; };
 		5FE8640E1A41ECEA00BB8808 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE8640D1A41ECEA00BB8808 /* AppDelegate.swift */; };
@@ -110,6 +116,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		5F08AC831A6F412C00F1ED8F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5F08AC7E1A6F412C00F1ED8F /* DTIActivityIndicator.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 25FC0C741A04318500F61053;
+			remoteInfo = DTIActivityIndicator;
+		};
+		5F08AC851A6F412C00F1ED8F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5F08AC7E1A6F412C00F1ED8F /* DTIActivityIndicator.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 25FC0C7F1A04318500F61053;
+			remoteInfo = DTIActivityIndicatorTests;
+		};
+		5F08AC8B1A6F424100F1ED8F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5F08AC7E1A6F412C00F1ED8F /* DTIActivityIndicator.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 25FC0C731A04318500F61053;
+			remoteInfo = DTIActivityIndicator;
+		};
 		5FC32F3B1A4239FA00F9EB26 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 5FC32F361A4239FA00F9EB26 /* Alamofire.xcodeproj */;
@@ -141,6 +168,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		5F08AC8D1A6F427700F1ED8F /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				5F08AC8E1A6F429700F1ED8F /* DTIActivityIndicator.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5FC32F411A423AC400F9EB26 /* Copy Files (1 item) */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -155,6 +192,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5F01B2731A65E05800CBE01A /* audio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = audio.png; sourceTree = "<group>"; };
+		5F01B2761A65E1B300CBE01A /* grey_wall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grey_wall.png; sourceTree = "<group>"; };
+		5F01B2781A65E5DE00CBE01A /* buzzer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buzzer.png; sourceTree = "<group>"; };
+		5F08AC681A6F38D100F1ED8F /* AlarmsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmsManager.swift; sourceTree = "<group>"; };
+		5F08AC7E1A6F412C00F1ED8F /* DTIActivityIndicator.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DTIActivityIndicator.xcodeproj; path = "DTIActivityIndicatorView-Swift/DTIActivityIndicator.xcodeproj"; sourceTree = "<group>"; };
 		5F472CE91A5EFF2D001E47CF /* InstallManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstallManager.swift; sourceTree = "<group>"; };
 		5F472CED1A5F45E4001E47CF /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		5F472CF11A5F853B001E47CF /* Networking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
@@ -249,7 +291,7 @@
 		5F83E29D1A4A6E5200E9E7E3 /* ToolbarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolbarController.swift; sourceTree = "<group>"; };
 		5FA383EA1A4208A30013B102 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		5FC1FF1B1A646F8200253E6C /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
-		5FC1FF1F1A6473BC00253E6C /* ApplicationDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationDataManager.swift; sourceTree = "<group>"; };
+		5FC1FF1F1A6473BC00253E6C /* UserDefaultsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		5FC32F361A4239FA00F9EB26 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		5FC32F431A4257B200F9EB26 /* Alarm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; };
 		5FE864081A41ECEA00BB8808 /* GoodMorning.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoodMorning.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -271,6 +313,7 @@
 				5F6110B81A41F57400B83410 /* SystemConfiguration.framework in Frameworks */,
 				5FA383EC1A4208AE0013B102 /* CoreLocation.framework in Frameworks */,
 				5F6110BB1A41F58700B83410 /* UIKit.framework in Frameworks */,
+				5F08AC871A6F418000F1ED8F /* DTIActivityIndicator.framework in Frameworks */,
 				5F6110B51A41F55600B83410 /* Security.framework in Frameworks */,
 				5F6110B21A41F54200B83410 /* Foundation.framework in Frameworks */,
 				5F6110AE1A41F4F000B83410 /* AudioToolbox.framework in Frameworks */,
@@ -290,6 +333,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5F08AC7F1A6F412C00F1ED8F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5F08AC841A6F412C00F1ED8F /* DTIActivityIndicator.framework */,
+				5F08AC861A6F412C00F1ED8F /* DTIActivityIndicatorTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		5F472CEC1A5F45B8001E47CF /* Utilites */ = {
 			isa = PBXGroup;
 			children = (
@@ -384,6 +436,9 @@
 		5F7A9C8E1A5CC24F00C595B7 /* png */ = {
 			isa = PBXGroup;
 			children = (
+				5F01B2781A65E5DE00CBE01A /* buzzer.png */,
+				5F01B2761A65E1B300CBE01A /* grey_wall.png */,
+				5F01B2731A65E05800CBE01A /* audio.png */,
 				5F7A9C8F1A5CC24F00C595B7 /* add121.png */,
 				5F7A9C901A5CC24F00C595B7 /* alarmsday.png */,
 				5F7A9C911A5CC24F00C595B7 /* alarmsnight.png */,
@@ -478,7 +533,8 @@
 				5F744B8F1A42229D00F4C675 /* WeatherManager.swift */,
 				5F80FF111A4369EB00727E25 /* LocationManager.swift */,
 				5F472CE91A5EFF2D001E47CF /* InstallManager.swift */,
-				5FC1FF1F1A6473BC00253E6C /* ApplicationDataManager.swift */,
+				5FC1FF1F1A6473BC00253E6C /* UserDefaultsManager.swift */,
+				5F08AC681A6F38D100F1ED8F /* AlarmsManager.swift */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -498,6 +554,7 @@
 				5FE8640A1A41ECEA00BB8808 /* GoodMorning */,
 				5FE864221A41ECEA00BB8808 /* GoodMorningTests */,
 				5FE864091A41ECEA00BB8808 /* Products */,
+				5F08AC7E1A6F412C00F1ED8F /* DTIActivityIndicator.xcodeproj */,
 				5FC32F361A4239FA00F9EB26 /* Alamofire.xcodeproj */,
 			);
 			sourceTree = "<group>";
@@ -558,10 +615,12 @@
 				5FE864051A41ECEA00BB8808 /* Frameworks */,
 				5FE864061A41ECEA00BB8808 /* Resources */,
 				5FC32F411A423AC400F9EB26 /* Copy Files (1 item) */,
+				5F08AC8D1A6F427700F1ED8F /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				5F08AC8C1A6F424100F1ED8F /* PBXTargetDependency */,
 				5FC32F401A423AAC00F9EB26 /* PBXTargetDependency */,
 			);
 			name = GoodMorning;
@@ -622,6 +681,10 @@
 					ProductGroup = 5FC32F371A4239FA00F9EB26 /* Products */;
 					ProjectRef = 5FC32F361A4239FA00F9EB26 /* Alamofire.xcodeproj */;
 				},
+				{
+					ProductGroup = 5F08AC7F1A6F412C00F1ED8F /* Products */;
+					ProjectRef = 5F08AC7E1A6F412C00F1ED8F /* DTIActivityIndicator.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -632,6 +695,20 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		5F08AC841A6F412C00F1ED8F /* DTIActivityIndicator.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = DTIActivityIndicator.framework;
+			remoteRef = 5F08AC831A6F412C00F1ED8F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5F08AC861A6F412C00F1ED8F /* DTIActivityIndicatorTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = DTIActivityIndicatorTests.xctest;
+			remoteRef = 5F08AC851A6F412C00F1ED8F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		5FC32F3C1A4239FA00F9EB26 /* Alamofire.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -659,6 +736,7 @@
 				5FE8641A1A41ECEA00BB8808 /* LaunchScreen.xib in Resources */,
 				5F7A9D001A5CC24F00C595B7 /* n_scattered.png in Resources */,
 				5F7A9CDA1A5CC24F00C595B7 /* exclamation22.png in Resources */,
+				5F01B2791A65E5DE00CBE01A /* buzzer.png in Resources */,
 				5F7A9CD41A5CC24F00C595B7 /* circular191.png in Resources */,
 				5F7A9CF11A5CC24F00C595B7 /* d_storm.png in Resources */,
 				5F7A9D021A5CC24F00C595B7 /* n_snowandrain.png in Resources */,
@@ -698,6 +776,7 @@
 				5F7A9CEF1A5CC24F00C595B7 /* d_snow.png in Resources */,
 				5F7A9CE11A5CC24F00C595B7 /* placeholder14.png in Resources */,
 				5F7A9CDD1A5CC24F00C595B7 /* like47.png in Resources */,
+				5F01B2741A65E05800CBE01A /* audio.png in Resources */,
 				5F7A9D091A5CC24F00C595B7 /* white.png in Resources */,
 				5F7A9CE21A5CC24F00C595B7 /* right127.png in Resources */,
 				5F7A9D061A5CC24F00C595B7 /* n_windy.png in Resources */,
@@ -706,6 +785,7 @@
 				5F7A9CDC1A5CC24F00C595B7 /* internet28.png in Resources */,
 				5F7A9CD11A5CC24F00C595B7 /* approve9.png in Resources */,
 				5F7A9CF51A5CC24F00C595B7 /* unknown.png in Resources */,
+				5F01B2771A65E1B300CBE01A /* grey_wall.png in Resources */,
 				5F7A9CD31A5CC24F00C595B7 /* chat44.png in Resources */,
 				5F7A9CF91A5CC24F00C595B7 /* n_drizzle.png in Resources */,
 				5F7A9CE71A5CC24F00C595B7 /* d_drizzle.png in Resources */,
@@ -743,6 +823,7 @@
 				5F744B751A421A5400F4C675 /* AlarmsViewController.swift in Sources */,
 				5FC32F441A4257B200F9EB26 /* Alarm.swift in Sources */,
 				5F744B921A4223BF00F4C675 /* Weather.swift in Sources */,
+				5F08AC691A6F38D100F1ED8F /* AlarmsManager.swift in Sources */,
 				5F744B3C1A420C3800F4C675 /* AlertType.swift in Sources */,
 				5F83E29E1A4A6E5200E9E7E3 /* ToolbarController.swift in Sources */,
 				5F744B3A1A420BA900F4C675 /* TaskType.swift in Sources */,
@@ -751,7 +832,7 @@
 				5F472CEE1A5F45E4001E47CF /* Util.swift in Sources */,
 				5F744B381A420B2400F4C675 /* Task.swift in Sources */,
 				5F7F372C1A425956004B7439 /* Settings.swift in Sources */,
-				5FC1FF201A6473BC00253E6C /* ApplicationDataManager.swift in Sources */,
+				5FC1FF201A6473BC00253E6C /* UserDefaultsManager.swift in Sources */,
 				5F744B771A421C3A00F4C675 /* TasksViewController.swift in Sources */,
 				5F80FF151A43B30B00727E25 /* InstallViewController.swift in Sources */,
 				5F744B3E1A420CA900F4C675 /* RepeatType.swift in Sources */,
@@ -773,6 +854,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		5F08AC8C1A6F424100F1ED8F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = DTIActivityIndicator;
+			targetProxy = 5F08AC8B1A6F424100F1ED8F /* PBXContainerItemProxy */;
+		};
 		5FC32F401A423AAC00F9EB26 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = Alamofire;
@@ -824,6 +910,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -867,6 +954,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -890,6 +978,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/bensweett/Documents/DragonMobileSDK_1.4.12,
@@ -910,6 +999,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/bensweett/Documents/DragonMobileSDK_1.4.12,

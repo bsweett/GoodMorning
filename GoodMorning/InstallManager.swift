@@ -20,7 +20,17 @@ class InstallManager: NSObject {
         
         Networking.sharedInstance.openNewJSONRequest(.GET, url: url, parameters: params, {(data: JSON) in
             let json = data
+            var dictionary = Dictionary<String, String>()
+            
             println(json)
+            
+            if let reason = json["reason"].stringValue {
+                if let message = json["message"].stringValue {
+                    dictionary["message"] = message
+                    dictionary["reason"] = reason
+                    NSNotificationCenter.defaultCenter().postNotificationName("InvalidInstallResponse", object: nil, userInfo: dictionary)
+                }
+            }
             
             // Checks to make sure token exists and that deviceId returned is the same as the one given on the device
             if let token = json["userToken"].stringValue {
@@ -31,31 +41,18 @@ class InstallManager: NSObject {
             }
 
             println("Installation on server failed because user token response was invalid")
-            NSNotificationCenter.defaultCenter().postNotificationName("InvalidInstallResponse", object: nil)
-            
         })
     }
     
     private func parseUserData(userData: JSON) {
         
-        let id: String = userData["userId"].stringValue!
+        let userId: String = userData["userId"].stringValue!
         let deviceId: String = userData["deviceId"].stringValue!
         let token: String = userData["userToken"].stringValue!
         let nickname: String = userData["nickname"].stringValue!
         let email: String = userData["email"].stringValue!
         let creationString: String = userData["creationDate"].stringValue!
         let lastActiveString: String = userData["lastActive"].stringValue!
-        
-        // TODO: Add feeds to user on server based on selected values in install
-        // parse them
-        if let feedSet = userData["rssFeeds"].dictionaryValue {
-            //Dictionary<String, JSON>
-        }
-        
-        // TaskSet should always start empty
-        if let taskSet = userData["taskSet"].dictionaryValue {
-            //Dictionary<String, JSON>
-        }
         
         var dateFormatter = NSDateFormatter()
         //Jan 9, 2015 6:52:14 PM
@@ -66,9 +63,9 @@ class InstallManager: NSObject {
         let lastActiveDate: NSDate = dateFormatter.dateFromString(lastActiveString)!
         
         // TODO: Pass feeds to user object constructor
-        var user: User = User(id: id, device: deviceId, token: token, name: nickname, creation: creationDate, lastActive: lastActiveDate)
+        var user: User = User(id: userId, token: token, email: email, name: nickname, creation: creationDate, lastActive: lastActiveDate)
         
-        ApplicationDataManager.sharedInstance.updateUserState(user)
+        UserDefaultsManager.sharedInstance.saveUserData(user)
         NSNotificationCenter.defaultCenter().postNotificationName("InstallComplete", object: nil)
     }
     

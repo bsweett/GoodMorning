@@ -21,8 +21,7 @@ class TasksViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationError:", name:"LocationError", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedWeatherError", name:"WeatherError", object: nil)
+
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -34,18 +33,6 @@ class TasksViewController : UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func receivedWeatherError(notification: NSNotification){
-        self.loading.text = "Response from Weather API was invalid"
-        timer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: Selector("clearError"), userInfo: nil, repeats: false)
-    }
-    
-    func receivedLocationError(notification: NSNotification){
-        self.loading.text = "Cannot find your location"
-        timer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: Selector("clearError"), userInfo: nil, repeats: false)
-    }
-    
-    func clearError() {
-        self.loading.text = ""
-    }
+
 }
     

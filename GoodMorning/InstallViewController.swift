@@ -9,20 +9,28 @@
 import Foundation
 import UIKit
 import QuartzCore
+import DTIActivityIndicator
 
 class InstallViewController : UIViewController, UITextFieldDelegate {
     
-    let manager: InstallManager = InstallManager()
-    let errorColor : UIColor = UIColor( red: 176, green: 35, blue: 14, alpha: 1.0 )
-    let defualtColor : UIColor = UIColor( red: 0.5, green: 0.5, blue:0, alpha: 1.0 )
+    private let errorColor : UIColor = UIColor( red: 176, green: 35, blue: 14, alpha: 1.0 )
+    private let defualtColor : UIColor = UIColor( red: 0.5, green: 0.5, blue:0, alpha: 1.0 )
     
-    let alert = UIAlertView()
+    private let alert = UIAlertView()
     
+    private var blur: UIVisualEffectView!
+    
+    @IBOutlet weak var activityIndicator: DTIActivityIndicatorView!
+    @IBOutlet var titleLabel : UILabel!
+    @IBOutlet var descriptionLabel : UILabel!
     @IBOutlet var nameErrorLabel : UILabel!
     @IBOutlet var emailErrorLabel : UILabel!
     @IBOutlet var nameField : UITextField!
     @IBOutlet var emailField : UITextField!
     @IBOutlet var submitButton: UIButton!
+    
+    private let manager: InstallManager = InstallManager()
+    private let speaker: TextToSpeech = TextToSpeech(enabled: true)
     
     override func viewDidLoad() {
         
@@ -32,8 +40,15 @@ class InstallViewController : UIViewController, UITextFieldDelegate {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedNetworkError:", name:"NetworkError", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name:"InternalServerError", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name:"InvalidInstallResponse", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInstallComplete:", name:"InstallComplete", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationAuthorizeProblem:", name:"LocationDenied", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationAuthorizeProblem:", name:"LocationDisabled", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationUnknown:", name:"LocationUnknown", object: nil)
         
+        blur = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.ExtraLight))
+        blur.frame = view.frame
+        blur.tag = 50
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -46,8 +61,12 @@ class InstallViewController : UIViewController, UITextFieldDelegate {
             alert.message = "You don't appear to be connected to the Internet. Please check your connection."
             alert.addButtonWithTitle("Ok")
             alert.show()
+        } else {
+            LocationManager.sharedInstance.update()
         }
         
+        // TODO: enable when done install
+        //speaker.speakStringsWithPause(titleLabel.text!, words2: descriptionLabel.text!, pauseLength: 2)
     }
     
     override func didReceiveMemoryWarning() {
@@ -77,6 +96,7 @@ class InstallViewController : UIViewController, UITextFieldDelegate {
         }
         
         if(valid) {
+            startLoading()
             manager.sendInstallRequestForUser(nickname, email: email)
             
         } else {
@@ -159,6 +179,8 @@ class InstallViewController : UIViewController, UITextFieldDelegate {
     }
     
     func receivedNetworkError(notification: NSNotification) {
+        stopLoading()
+        
         alert.title = "Network Error"
         alert.message = "Please check your network connection"
         alert.addButtonWithTitle("Ok")
@@ -168,22 +190,46 @@ class InstallViewController : UIViewController, UITextFieldDelegate {
     }
     
     func receivedInternalServerError(notification: NSNotification) {
-        alert.title = "Internal Server Error"
-        alert.message = getUserInfoMessage(notification.userInfo)
+        stopLoading()
+        
+        alert.title = getUserInfoValueForKey(notification.userInfo, "reason")
+        alert.message = getUserInfoValueForKey(notification.userInfo, "message")
         alert.addButtonWithTitle("Dismiss")
         alert.show()
         
         setUIElementsEnabled(true)
     }
     
-    func receivedInstallComplete(notification: NSNotification) {
-        NSUserDefaults.standardUserDefaults().setBool(true, forKey: "isInstalled");
-        NSUserDefaults.standardUserDefaults().synchronize()
+    func receivedLocationAuthorizeProblem(notification: NSNotification) {
+        stopLoading()
+        alert.title = "Location Services Disallowed"
+        alert.message = "Because you have disallowed location services you are required to enter your country and city in order to use GoodMorning"
+        alert.addButtonWithTitle("Ok")
+        alert.show()
         
+        // add a field to the install view to hard code location
+        
+        // use the weather api with a city and country code
+        // example:  api.openweathermap.org/data/2.5/weather?q=London,uk
+    }
+    
+    func receivedInstallComplete(notification: NSNotification) {
+        stopLoading()
         performSegueWithIdentifier("InstallationComplete", sender: self)
     }
     
+    func startLoading() {
+        self.view.addSubview(blur)
+        activityIndicator.startActivity()
+        self.view.bringSubviewToFront(activityIndicator)
+    }
+    
+    func stopLoading() {
+        blur.removeFromSuperview()
+        activityIndicator.stopActivity()
+    }
+    
     override func prepareForSegue(segue: (UIStoryboardSegue!), sender: AnyObject!) {
-        // For now do nothing
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 }

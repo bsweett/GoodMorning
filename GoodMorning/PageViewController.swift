@@ -25,6 +25,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
             self.alarmController = sb.instantiateViewControllerWithIdentifier("Alarms") as? UIViewController
         }
         
+        //self.parentViewController?.
         return self.alarmController
     }
     
@@ -35,6 +36,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
             self.newsController = sb.instantiateViewControllerWithIdentifier("News") as? UIViewController
         }
         
+        self.parentViewController?.navigationItem.title = "News"
         return self.newsController
     }
     
@@ -45,6 +47,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
             self.weatherController = sb.instantiateViewControllerWithIdentifier("Weather") as? UIViewController
         }
         
+        self.parentViewController?.navigationItem.title = "Weather"
         return self.weatherController
     }
     
@@ -55,6 +58,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
             self.tasksController = sb.instantiateViewControllerWithIdentifier("Tasks") as? UIViewController
         }
         
+        self.parentViewController?.navigationItem.title = "Tasks"
         return self.tasksController
     }
     

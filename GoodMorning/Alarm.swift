@@ -19,6 +19,10 @@ class Alarm : NSObject {
     var enabled: Bool
     var notificationId: Int
     
+    // when we install the app create 4 new tasks of type alarms and send them with the install request
+    // we can display alarms in the task list but dont allow them to be editable (IE send them to the alarm view when they tap on them)
+    // if an alarm is deleted hide the view in the alarms
+    // cannot hold more than 4 alarms at the moment
     init(task: Task) {
         self.task = task
         //self.player = AVAudioplayer()

@@ -50,7 +50,7 @@ class Networking: NSObject {
         
         Alamofire.request(.GET, url, parameters: parameters).validate(statusCode: 200..<300).validate(contentType: ["application/json"]).responseJSON {
             (request, response, json, error) in
-            
+
             self.didStopNetworkOperation()
             
             if (error != nil) {

@@ -13,6 +13,8 @@ class ToolbarController: UIViewController {
     
     @IBOutlet var settingsButton: UIBarButtonItem!
     
+    @IBOutlet var navBar: UINavigationBar!
+    
     // Change button symbol and func based on current embeded view container
     @IBOutlet var rightButton: UIBarButtonItem!
     
@@ -44,12 +46,8 @@ class ToolbarController: UIViewController {
         
         if( ios8() ) {
             UIApplication.sharedApplication().openURL(NSURL(string:UIApplicationOpenSettingsURLString)!)
-        } else {
-             //TODO: need a view for iOS7 and below
-            performSegueWithIdentifier("OldSettingsView", sender: self)
-            //send as modal and call dismissViewController when finished
         }
-    
+        
     }
     
     @IBAction func rightBarButtonPushed() {

@@ -12,7 +12,7 @@ import UIKit
 class User : NSObject {
     
     var userId: String
-    var deviceId: String
+    var email: String
     var userToken: String
     var nickname: String
     var creationDate: NSDate
@@ -22,32 +22,16 @@ class User : NSObject {
     //var rssFeeds: Dictionary<String, RSSFeed>
     
     // From Existing JSON
-    init(id: String, device: String, token: String, name: String, creation: NSDate, lastActive: NSDate) {
+    init(id: String, token: String, email: String, name: String, creation: NSDate, lastActive: NSDate) {
+
         self.userId = id
-        self.deviceId = device
         self.userToken = token
+        self.email = email
         self.nickname = name
         self.creationDate = creation
         self.lastActive = lastActive
         
         // TODO Tasks?
-        self.tasks = [:]
-    }
-    
-    // New from first launch (after everything is confirmed with server)
-    init(id: String, name: String, token: String) {
-        
-        // This is done again here to make sure nothing changed from the time the server built the
-        // token till the user object is created on the client
-        let deviceId = UIDevice.currentDevice().identifierForVendor.UUIDString
-        
-        self.userId = id
-        self.deviceId = deviceId
-        self.userToken = token
-        self.nickname = name
-        self.creationDate = NSDate()
-        self.lastActive = NSDate()
-        
         self.tasks = [:]
     }
     

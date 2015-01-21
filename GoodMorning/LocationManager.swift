@@ -26,29 +26,28 @@ class LocationManager : NSObject, CLLocationManagerDelegate {
         return Static.instance!
     }
     
-    func update() {
-        
+    override init() {
+        super.init()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
+    }
+    
+    func update() {
         
         if ( ios8() ) {
             
             if(CLLocationManager.locationServicesEnabled() == true) {
                 locationManager.requestWhenInUseAuthorization()
-            } else {
-                // Not enabled manual set somehow
+                locationManager.startUpdatingLocation()
+                return
             }
         }
         
-        locationManager.startUpdatingLocation()
+        NSNotificationCenter.defaultCenter().postNotificationName("LocationDisabled", object: nil)
     }
     
     func stopUpdate() {
         locationManager.stopUpdatingLocation()
-    }
-    
-    func resetFailureCount() {
-        self.failCount = 0
     }
     
     // Location delegate methods
@@ -56,7 +55,7 @@ class LocationManager : NSObject, CLLocationManagerDelegate {
         var location:CLLocation = locations[locations.count-1] as CLLocation
         
         if (location.horizontalAccuracy > 0) {
-            locationManager.stopUpdatingLocation()
+            self.stopUpdate()
             
             println("updated location")
             
@@ -65,12 +64,34 @@ class LocationManager : NSObject, CLLocationManagerDelegate {
     }
     
     func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
-        println(error)
-        NSNotificationCenter.defaultCenter().postNotificationName("LocationError", object: nil)
-        if(failCount >= 3) {
-            self.stopUpdate()
+        
+        if error.code == CLError.LocationUnknown.rawValue {
+            NSNotificationCenter.defaultCenter().postNotificationName("LocationUnknown", object: nil)
+            
+        } else if error.code == CLError.Denied.rawValue {
+            NSNotificationCenter.defaultCenter().postNotificationName("LocationDenied", object: nil)
+            
+        } else {
+            println("Unknown location error: ", error)
+            
         }
-        failCount += 1
+
+    }
+    
+    func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        
+        if(status == CLAuthorizationStatus.NotDetermined) {
+            locationManager.requestWhenInUseAuthorization()
+            
+            // Might not need this if we just try to update all the time and have the error handler catch the denied option
+        } else if(status == CLAuthorizationStatus.Denied || status == CLAuthorizationStatus.Restricted) {
+            NSNotificationCenter.defaultCenter().postNotificationName("LocationDenied", object: nil)
+            
+        } else if(status == CLAuthorizationStatus.AuthorizedWhenInUse || status == CLAuthorizationStatus.Authorized) {
+            locationManager.startUpdatingLocation()
+            
+        }
+        
     }
     
 }

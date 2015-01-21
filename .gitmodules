@@ -1,3 +1,6 @@
 [submodule "Alamofire"]
 	path = Alamofire
 	url = https://github.com/Alamofire/Alamofire.git
+[submodule "DTIActivityIndicatorView-Swift"]
+	path = DTIActivityIndicatorView-Swift
+	url = https://github.com/dtissera/DTIActivityIndicatorView-Swift.git
