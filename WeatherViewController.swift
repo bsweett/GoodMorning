@@ -44,6 +44,8 @@ class WeatherViewController : UIViewController {
     @IBOutlet var forcastTime4 : UILabel!
     @IBOutlet var forcastIcon4: UIImageView!
     
+    private var blur: UIVisualEffectView!
+    
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
@@ -61,13 +63,30 @@ class WeatherViewController : UIViewController {
         
         roundBlockCorners()
         
+        blur = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.Light))
+        blur.frame = view.frame
+        blur.tag = 50
     }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        if(firstAppear == false) {
+            startLoading()
+        }
+    }
+    
     override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        self.view.bringSubviewToFront(activityIndicator)
+        self.navigationController?.title = "Weather"
         if(firstAppear == false) {
             LocationManager.sharedInstance.update()
             firstAppear = true
         }
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -76,8 +95,6 @@ class WeatherViewController : UIViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        
-        firstAppear = false
     }
     
     private func roundBlockCorners() {
@@ -87,6 +104,18 @@ class WeatherViewController : UIViewController {
 
     }
     
+    func startLoading() {
+        self.view.addSubview(blur)
+        activityIndicator.startActivity()
+        self.view.bringSubviewToFront(activityIndicator)
+    }
+    
+    func stopLoading() {
+        blur.removeFromSuperview()
+        activityIndicator.stopActivity()
+    }
+    
+    // Fix me some slow ui issues.. try without animatation
     private func updateBackgroundAndWeather(current: Weather, forecast: [Weather!]) {
         var unit = ""
         
@@ -98,17 +127,17 @@ class WeatherViewController : UIViewController {
         
         // Update Current
         
-        UIView.transitionWithView(background, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
+        //UIView.transitionWithView(background, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
             if(current.nighttime == true) {
                 self.background.image = UIImage(named:"weathernight.png")
             } else {
                 self.background.image = UIImage(named:"weatherday.png")
             }
-        }, completion: nil)
+        //}, completion: nil)
         
-        UIView.transitionWithView(currentIcon, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
+        //UIView.transitionWithView(currentIcon, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
             self.setImageViewForCondition(current.condition,night: current.nighttime, imageView: self.currentIcon)
-        }, completion: nil)
+        //}, completion: nil)
         
         currentCity.text = current.city
         currentTemp.text = current.temperature.description + unit
@@ -116,21 +145,21 @@ class WeatherViewController : UIViewController {
         
         //Update Forecast
         
-        UIView.transitionWithView(forcastIcon1, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
+        //UIView.transitionWithView(forcastIcon1, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
             self.setImageViewForCondition(forecast[0].condition, night: forecast[0].nighttime, imageView: self.forcastIcon1)
-        }, completion: nil)
+        //}, completion: nil)
         
-        UIView.transitionWithView(forcastIcon2, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
+       // UIView.transitionWithView(forcastIcon2, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
             self.setImageViewForCondition(forecast[1].condition, night: forecast[1].nighttime, imageView: self.forcastIcon2)
-        }, completion: nil)
+       // }, completion: nil)
         
-        UIView.transitionWithView(forcastIcon3, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
+       // UIView.transitionWithView(forcastIcon3, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
             self.setImageViewForCondition(forecast[2].condition, night: forecast[2].nighttime, imageView: self.forcastIcon3)
-        }, completion: nil)
+       // }, completion: nil)
         
-        UIView.transitionWithView(forcastIcon4, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
+       // UIView.transitionWithView(forcastIcon4, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
             self.setImageViewForCondition(forecast[3].condition, night: forecast[3].nighttime, imageView: self.forcastIcon4)
-        }, completion: nil)
+       // }, completion: nil)
         
         
         forcastTemp1.text = forecast[0].temperature.description + unit
@@ -143,6 +172,7 @@ class WeatherViewController : UIViewController {
         forcastTime3.text = forecast[2].time
         forcastTime4.text = forecast[3].time
         
+        stopLoading()
     }
     
     func setImageViewForCondition(condition: Int, night: Bool, imageView: UIImageView) {
@@ -197,7 +227,11 @@ class WeatherViewController : UIViewController {
         
         imageView.image = UIImage(named:(imageName + ".png"))
     }
- 
+    
+    @IBAction func refreshTapped(sender: UIBarButtonItem) {
+        startLoading()
+        LocationManager.sharedInstance.update()
+    }
     
     func receivedWeatherUpdate(notification: NSNotification) {
         

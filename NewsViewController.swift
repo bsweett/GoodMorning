@@ -43,4 +43,8 @@ class NewsViewController : UIViewController {
         //timer.invalidate()
         //timer = nil
     }
+    
+    @IBAction func addNewRSSFeed(sender: UIBarButtonItem) {
+        
+    }
 }

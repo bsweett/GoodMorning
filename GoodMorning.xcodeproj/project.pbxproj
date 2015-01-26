@@ -102,12 +102,13 @@
 		5F80FF151A43B30B00727E25 /* InstallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F80FF141A43B30B00727E25 /* InstallViewController.swift */; };
 		5F80FF171A43B3A400727E25 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F80FF161A43B3A400727E25 /* User.swift */; };
 		5F83E29B1A4A35B100E9E7E3 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F83E29A1A4A35B100E9E7E3 /* PageViewController.swift */; };
-		5F83E29E1A4A6E5200E9E7E3 /* ToolbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F83E29D1A4A6E5200E9E7E3 /* ToolbarController.swift */; };
 		5FA383EC1A4208AE0013B102 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FA383EA1A4208A30013B102 /* CoreLocation.framework */; };
 		5FC1FF1C1A646F8200253E6C /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC1FF1B1A646F8200253E6C /* Reachability.swift */; };
 		5FC1FF201A6473BC00253E6C /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC1FF1F1A6473BC00253E6C /* UserDefaultsManager.swift */; };
 		5FC32F421A423B0600F9EB26 /* Alamofire.framework in Copy Files (1 item) */ = {isa = PBXBuildFile; fileRef = 5FC32F3C1A4239FA00F9EB26 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5FC32F441A4257B200F9EB26 /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC32F431A4257B200F9EB26 /* Alarm.swift */; };
+		5FDDD6A21A75EF15004ABEBD /* TaskPopoverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDDD6A01A75EF15004ABEBD /* TaskPopoverController.swift */; };
+		5FDDD6A31A75EF15004ABEBD /* TaskPopoverController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FDDD6A11A75EF15004ABEBD /* TaskPopoverController.xib */; };
 		5FE8640E1A41ECEA00BB8808 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE8640D1A41ECEA00BB8808 /* AppDelegate.swift */; };
 		5FE864151A41ECEA00BB8808 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FE864131A41ECEA00BB8808 /* Main.storyboard */; };
 		5FE864171A41ECEA00BB8808 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5FE864161A41ECEA00BB8808 /* Images.xcassets */; };
@@ -288,12 +289,13 @@
 		5F80FF141A43B30B00727E25 /* InstallViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstallViewController.swift; sourceTree = "<group>"; };
 		5F80FF161A43B3A400727E25 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		5F83E29A1A4A35B100E9E7E3 /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
-		5F83E29D1A4A6E5200E9E7E3 /* ToolbarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolbarController.swift; sourceTree = "<group>"; };
 		5FA383EA1A4208A30013B102 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		5FC1FF1B1A646F8200253E6C /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		5FC1FF1F1A6473BC00253E6C /* UserDefaultsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		5FC32F361A4239FA00F9EB26 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		5FC32F431A4257B200F9EB26 /* Alarm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; };
+		5FDDD6A01A75EF15004ABEBD /* TaskPopoverController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskPopoverController.swift; sourceTree = "<group>"; };
+		5FDDD6A11A75EF15004ABEBD /* TaskPopoverController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaskPopoverController.xib; sourceTree = "<group>"; };
 		5FE864081A41ECEA00BB8808 /* GoodMorning.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoodMorning.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5FE8640C1A41ECEA00BB8808 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5FE8640D1A41ECEA00BB8808 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -403,7 +405,8 @@
 				5F7F372E1A42649A004B7439 /* AlarmDetailViewController.swift */,
 				5F80FF141A43B30B00727E25 /* InstallViewController.swift */,
 				5F83E29A1A4A35B100E9E7E3 /* PageViewController.swift */,
-				5F83E29D1A4A6E5200E9E7E3 /* ToolbarController.swift */,
+				5FDDD6A01A75EF15004ABEBD /* TaskPopoverController.swift */,
+				5FDDD6A11A75EF15004ABEBD /* TaskPopoverController.xib */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -778,6 +781,7 @@
 				5F7A9CDD1A5CC24F00C595B7 /* like47.png in Resources */,
 				5F01B2741A65E05800CBE01A /* audio.png in Resources */,
 				5F7A9D091A5CC24F00C595B7 /* white.png in Resources */,
+				5FDDD6A31A75EF15004ABEBD /* TaskPopoverController.xib in Resources */,
 				5F7A9CE21A5CC24F00C595B7 /* right127.png in Resources */,
 				5F7A9D061A5CC24F00C595B7 /* n_windy.png in Resources */,
 				5F7A9CDF1A5CC24F00C595B7 /* minus65.png in Resources */,
@@ -817,6 +821,7 @@
 				5F80FF121A4369EB00727E25 /* LocationManager.swift in Sources */,
 				5F744B411A420E9400F4C675 /* SwiftyJSON.swift in Sources */,
 				5F472CF21A5F853B001E47CF /* Networking.swift in Sources */,
+				5FDDD6A21A75EF15004ABEBD /* TaskPopoverController.swift in Sources */,
 				5F472CEA1A5EFF2D001E47CF /* InstallManager.swift in Sources */,
 				5F744B7B1A421C8E00F4C675 /* NewsViewController.swift in Sources */,
 				5F744B901A42229D00F4C675 /* WeatherManager.swift in Sources */,
@@ -825,7 +830,6 @@
 				5F744B921A4223BF00F4C675 /* Weather.swift in Sources */,
 				5F08AC691A6F38D100F1ED8F /* AlarmsManager.swift in Sources */,
 				5F744B3C1A420C3800F4C675 /* AlertType.swift in Sources */,
-				5F83E29E1A4A6E5200E9E7E3 /* ToolbarController.swift in Sources */,
 				5F744B3A1A420BA900F4C675 /* TaskType.swift in Sources */,
 				5F7F372F1A42649A004B7439 /* AlarmDetailViewController.swift in Sources */,
 				5F83E29B1A4A35B100E9E7E3 /* PageViewController.swift in Sources */,

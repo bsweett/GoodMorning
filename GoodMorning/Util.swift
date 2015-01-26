@@ -11,9 +11,10 @@ import UIKit
 
 let ipHome1 = "http://192.168.1.104:8080"
 let ipHome2 = "http://192.168.1.105:8080"
+let ipHome3 = "http://192.168.1.101:8080"
 
 // TODO: Setup router to forward traffic through TCP port 8080 to use static IP
-let SERVER_ADDRESS = ipHome2 + "/GoodMorning-Server"
+let SERVER_ADDRESS = ipHome3 + "/GoodMorning-Server"
 
 let udEmailID: String = "EMAILUD"
 let udToken: String = "TOKENUD"
@@ -22,8 +23,8 @@ let udUserName: String = "USERNAMEUD"
 let udLastActive: String = "LASTACTIVEUD"
 let udCreated: String = "CREATEDUD"
 
-let gmOrangeColor: UIColor = UIColor(red: 194, green: 118, blue: 9, alpha: 1)
-let gmYellowColor: UIColor = UIColor(red: 255, green: 222, blue: 0, alpha: 1)
+let gmOrangeColor: UIColor = UIColor(red: (194/255.0), green: (118/255.0), blue: (9/255.0), alpha: 1.0)
+let gmYellowColor: UIColor = UIColor(red: (225/255.0), green: (222/255.0), blue: (0/255.0), alpha: 1.0)
 
 let radius: CGFloat = 8
 

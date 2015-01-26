@@ -13,6 +13,7 @@ import CoreLocation
 class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate{
 
     var window: UIWindow?
+    var navController : UINavigationController?
 
     // Override point for customization after application launch.
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
@@ -20,9 +21,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         var initialViewController: UIViewController
         
+        UIApplication.sharedApplication().keyWindow?.tintColor = gmOrangeColor
+        
         // app already installed
         if (UserDefaultsManager.sharedInstance.getToken() != "") {
-            initialViewController = storyboard.instantiateViewControllerWithIdentifier("ToolBar") as UIViewController
+            initialViewController = storyboard.instantiateViewControllerWithIdentifier("Pager") as UIViewController
             
         } else {
             // This is the first launch ever
@@ -32,7 +35,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         let frame = UIScreen.mainScreen().bounds
         window = UIWindow(frame: frame)
         
-        window!.rootViewController = initialViewController
+        navController = UINavigationController(rootViewController: initialViewController)
+        navController?.setNavigationBarHidden(true, animated: false)
+        navController?.interactivePopGestureRecognizer.enabled = false;
+        
+        UIBarButtonItem.appearance().tintColor = gmOrangeColor
+        
+        window!.rootViewController = navController
         window!.makeKeyAndVisible()
         
         return true

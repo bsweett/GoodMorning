@@ -54,6 +54,7 @@ class Networking: NSObject {
             self.didStopNetworkOperation()
             
             if (error != nil) {
+                println( error?.localizedDescription)
                 NSNotificationCenter.defaultCenter().postNotificationName("NetworkError", object: nil)
                 
             } else {

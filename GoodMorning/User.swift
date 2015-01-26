@@ -30,8 +30,6 @@ class User : NSObject {
         self.nickname = name
         self.creationDate = creation
         self.lastActive = lastActive
-        
-        // TODO Tasks?
         self.tasks = [:]
     }
     
@@ -43,5 +41,24 @@ class User : NSObject {
         if(self.tasks.count > 0) {
             self.tasks.removeValueForKey(task.id)
         }
+    }
+    
+    /**
+        Returns an array of tasks that match a given type
+    
+        :param: type The type of tasks required
+    
+        :return: [Task] an array of tasks
+    */
+    func getTasksWithType(type: TaskType) -> Dictionary<String, Task> {
+        var results: Dictionary<String, Task> = [:]
+        
+        for item in self.tasks {
+            if(item.1.type == type) {
+                results[item.1.id] = item.1
+            }
+        }
+        
+        return results
     }
 }

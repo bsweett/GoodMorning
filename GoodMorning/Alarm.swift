@@ -16,6 +16,7 @@ class Alarm : NSObject {
     //var player: AVAudioplayer
     var timeToSetOff: NSDate
     var label: String
+    var timeString: String
     var enabled: Bool
     var notificationId: Int
     
@@ -28,6 +29,7 @@ class Alarm : NSObject {
         //self.player = AVAudioplayer()
         self.playing = false
         self.timeToSetOff = task.nextAlertDate
+        self.timeString = task.alertTime
         self.label = task.title
         self.enabled = true
         self.notificationId = 0

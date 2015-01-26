@@ -18,6 +18,8 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
     
     var currentViewController: UIViewController? = nil
     
+    var initalAlarms: Dictionary<String, Task>!
+    
     func getAlarm() -> UIViewController? {
         
         if(alarmController == nil) {
@@ -25,7 +27,6 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
             self.alarmController = sb.instantiateViewControllerWithIdentifier("Alarms") as? UIViewController
         }
         
-        //self.parentViewController?.
         return self.alarmController
     }
     
@@ -36,7 +37,6 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
             self.newsController = sb.instantiateViewControllerWithIdentifier("News") as? UIViewController
         }
         
-        self.parentViewController?.navigationItem.title = "News"
         return self.newsController
     }
     
@@ -47,7 +47,6 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
             self.weatherController = sb.instantiateViewControllerWithIdentifier("Weather") as? UIViewController
         }
         
-        self.parentViewController?.navigationItem.title = "Weather"
         return self.weatherController
     }
     
@@ -58,7 +57,6 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
             self.tasksController = sb.instantiateViewControllerWithIdentifier("Tasks") as? UIViewController
         }
         
-        self.parentViewController?.navigationItem.title = "Tasks"
         return self.tasksController
     }
     
@@ -70,15 +68,16 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         
         self.setViewControllers([self.getAlarm()!], direction: UIPageViewControllerNavigationDirection.Forward, animated: true, completion: nil)
         
+
+        self.navigationItem.title = "Alarms"
+        self.navigationItem.rightBarButtonItem = nil
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"configuration12.png"), style: .Bordered, target: self, action: Selector("settingsTapped:"))
+        
         self.currentViewController = self.getAlarm()!
         
         self.setPageControl()
     }
     
-    // Brings page control to front of view
-    //[self.view bringSubviewToFront:self.pageControl];
-
-    // TODO: Might have to remove this and add our own because clear doesnt work
     func setPageControl() {
         let appearance = UIPageControl.appearance()
         appearance.pageIndicatorTintColor = UIColor.grayColor()
@@ -139,6 +138,10 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
     func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int {
         
         if let current = pageViewController.viewControllers[0] as? UIViewController {
+            if(current == self.getAlarm()) {
+                return 0
+            }
+            
             if(current == self.getWeather()) {
                 return 1
             }
@@ -153,6 +156,43 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         }
         
         return 0
+    }
+    
+    // TODO: Add bar buttons for specific views
+    func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [AnyObject], transitionCompleted completed: Bool) {
+        
+        if let current = pageViewController.viewControllers[0] as? UIViewController {
+                
+            if(current == self.getAlarm()) {
+                self.title = "Alarms"
+                self.navigationItem.rightBarButtonItem = nil
+            }
+            
+            if(current == self.getWeather()) {
+                self.navigationItem.title = "Weather"
+                var refreshButton = UIBarButtonItem(image: UIImage(named:"circular194.png"), style: .Bordered, target: self.getWeather(), action: Selector("refreshTapped:"))
+                self.navigationItem.rightBarButtonItem = refreshButton
+            }
+            
+            if(current == self.getNews()) {
+                var addButton = UIBarButtonItem(image: UIImage(named:"add121.png"), style: .Bordered, target: self.getNews(), action: Selector("addNewRSSFeed:"))
+                self.navigationItem.title = "News"
+                self.navigationItem.rightBarButtonItem = addButton
+            }
+            
+            if(current == self.getTasks()) {
+                var addButton = UIBarButtonItem(image: UIImage(named:"add121.png"), style: .Bordered, target: self.getTasks(), action: Selector("addNewTask:"))
+                self.navigationItem.title = "Tasks"
+                self.navigationItem.rightBarButtonItem = addButton
+            }
+        }
+    }
+    
+    @IBAction func settingsTapped(sender: UIBarButtonItem) {
+        // only supported in iOS8
+        if( ios8() ) {
+            UIApplication.sharedApplication().openURL(NSURL(string:UIApplicationOpenSettingsURLString)!)
+        }
     }
     
 }

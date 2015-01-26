@@ -18,6 +18,9 @@ class TasksViewController : UIViewController {
     @IBOutlet var nextViewButton: UIBarButtonItem!
     @IBOutlet var previousViewButton: UIBarButtonItem!
     
+    private var popoverContent: TaskPopoverController!
+    private var popOverVC: UIPopoverController!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,6 +36,16 @@ class TasksViewController : UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    @IBAction func addNewTask(sender: UIBarButtonItem) {
+        if(self.popoverContent == nil) {
+            self.popoverContent = TaskPopoverController(nibName: "TaskPopoverController", bundle: nil)
+        }
+        
+        if(self.popOverVC == nil) {
+            self.popOverVC = UIPopoverController(contentViewController: popoverContent)
+        }
+        
+        self.popOverVC.presentPopoverFromBarButtonItem(sender, permittedArrowDirections: UIPopoverArrowDirection.Any, animated: true)
+    }
 }
     

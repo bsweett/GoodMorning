@@ -9,17 +9,19 @@
 import Foundation
 import UIKit
 import QuartzCore
+import DTIActivityIndicator
 
 class AlarmsViewController : UIViewController {
     
     private var timer: NSTimer! = NSTimer()
     private var firstAppear: Bool = false
     
+    // TODO: Depreacted replace with UIAlertController
     private let alert = UIAlertView()
     
     private var tapGesture : UIGestureRecognizer!
     
-    @IBOutlet var loadingIndicator : UIActivityIndicatorView! = nil
+    @IBOutlet weak var activityIndicator: DTIActivityIndicatorView!
     @IBOutlet var loading : UILabel!
     @IBOutlet var background: UIImageView!
     
@@ -54,6 +56,9 @@ class AlarmsViewController : UIViewController {
     @IBOutlet var clockFourSwitch : UISwitch!
     
     private var alarmDict: Dictionary<NSInteger, Alarm> = [:]
+
+    private var blur: UIVisualEffectView!
+    
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -72,14 +77,15 @@ class AlarmsViewController : UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationUnknown:", name:"LocationUnknown", object: nil)
         
         self.roundClockBackgrounds()
-        LocationManager.sharedInstance.update()
+        
+        blur = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.Light))
+        blur.frame = view.frame
+        blur.tag = 51
     }
-
-    override func viewDidAppear(animated: Bool) {
-        if(firstAppear == false) {
-            LocationManager.sharedInstance.update()
-            firstAppear == true
-        }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
         
         tapGesture = UITapGestureRecognizer(target: self, action: Selector("clockTapped:"))
         clockOneView.addGestureRecognizer(tapGesture)
@@ -87,16 +93,33 @@ class AlarmsViewController : UIViewController {
         clockThreeView.addGestureRecognizer(tapGesture)
         clockFourView.addGestureRecognizer(tapGesture)
         
+        if(firstAppear == false) {
+            startLoading()
+            LocationManager.sharedInstance.update()
+            firstAppear = true
+        }
+    }
+
+    override func viewDidAppear(animated: Bool) {
         //var task: Task = Task()
         //alarmDict[1] = Alarm(task)
     }
     
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+    }
+    
     override func viewDidDisappear(animated: Bool) {
-        
+        super.viewWillDisappear(animated)
         clockOneView.removeGestureRecognizer(tapGesture)
         clockTwoView.removeGestureRecognizer(tapGesture)
         clockThreeView.removeGestureRecognizer(tapGesture)
         clockFourView.removeGestureRecognizer(tapGesture)
+        
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
     }
     
     private func roundClockBackgrounds() {
@@ -113,6 +136,18 @@ class AlarmsViewController : UIViewController {
         
     }
     
+    func startLoading() {
+        self.view.addSubview(blur)
+        self.view.bringSubviewToFront(blur)
+        activityIndicator.startActivity()
+        self.view.bringSubviewToFront(activityIndicator)
+    }
+    
+    func stopLoading() {
+        blur.removeFromSuperview()
+        activityIndicator.stopActivity()
+    }
+    
     private func updateBackground(current: Weather) {
         var night = current.nighttime
         
@@ -123,6 +158,8 @@ class AlarmsViewController : UIViewController {
                 self.background.image = UIImage(named:"alarmsday.png")
             }
         }, completion: nil)
+        
+        stopLoading()
     }
     
     func receivedWeatherUpdate(notification: NSNotification) {
@@ -133,6 +170,7 @@ class AlarmsViewController : UIViewController {
     }
     
     func receivedNetworkError(notification: NSNotification) {
+        stopLoading()
         alert.title = "Network Error"
         alert.message = "Please check your network connection"
         alert.addButtonWithTitle("Ok")
@@ -140,6 +178,7 @@ class AlarmsViewController : UIViewController {
     }
     
     func receivedInternalServerError(notification: NSNotification) {
+        stopLoading()
         alert.title = getUserInfoValueForKey(notification.userInfo, "reason")
         alert.message = getUserInfoValueForKey(notification.userInfo, "message")
         alert.addButtonWithTitle("Dismiss")
@@ -148,34 +187,11 @@ class AlarmsViewController : UIViewController {
     
     // TODO: Better message to user if they disable it after installing
     func receivedLocationAuthorizeProblem(notification: NSNotification) {
+        stopLoading()
         alert.title = "Location Services Disallowed"
         alert.message = "Because you have disallowed location services you are required to enter your country and city in order to use GoodMorning"
         alert.addButtonWithTitle("Ok")
         alert.show()
-    }
-    
-    func clearError() {
-        self.loading.text = ""
-    }
-    
-    /*
-     @IBAction func nextButtonAction(sender:UIBarButtonItem!) {
-        if let parent = self.parentViewController as? PageViewController {
-            parent.setViewControllers([parent.getWeather()!], direction: UIPageViewControllerNavigationDirection.Forward, animated: true, completion:nil)
-        }
-    }
-    
-     @IBAction func previousButtonAction(sender:UIBarButtonItem!) {
-        if let parent = self.parentViewController as? PageViewController {
-            parent.setViewControllers([parent.getTasks()!], direction: UIPageViewControllerNavigationDirection.Reverse, animated: true,completion:nil)
-        }
-    }*/
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        
-        firstAppear = false
-        // Dispose of any resources that can be recreated.
     }
     
     @IBAction func clockSwitchFlipped(sender: UISwitch) {
