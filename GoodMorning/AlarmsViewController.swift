@@ -69,13 +69,6 @@ class AlarmsViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedNetworkError:", name:"NetworkError", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name:"InternalServerError", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedWeatherUpdate:", name:"WeatherUpdated", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationAuthorizeProblem:", name:"LocationDenied", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationAuthorizeProblem:", name:"LocationDisabled", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationUnknown:", name:"LocationUnknown", object: nil)
-        
         self.roundClockBackgrounds()
         
         blur = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.Light))
@@ -92,6 +85,13 @@ class AlarmsViewController : UIViewController {
         clockTwoView.addGestureRecognizer(tapGesture)
         clockThreeView.addGestureRecognizer(tapGesture)
         clockFourView.addGestureRecognizer(tapGesture)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedNetworkError:", name:"NetworkError", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name:"InternalServerError", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedWeatherUpdate:", name:"WeatherUpdated", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationAuthorizeProblem:", name:"LocationDenied", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationAuthorizeProblem:", name:"LocationDisabled", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationUnknown:", name:"LocationUnknown", object: nil)
         
         if(firstAppear == false) {
             startLoading()
@@ -115,7 +115,7 @@ class AlarmsViewController : UIViewController {
         clockTwoView.removeGestureRecognizer(tapGesture)
         clockThreeView.removeGestureRecognizer(tapGesture)
         clockFourView.removeGestureRecognizer(tapGesture)
-        
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     override func didReceiveMemoryWarning() {
@@ -183,6 +183,11 @@ class AlarmsViewController : UIViewController {
         alert.message = getUserInfoValueForKey(notification.userInfo, "message")
         alert.addButtonWithTitle("Dismiss")
         alert.show()
+    }
+    
+    // TODO: Handle Unknown location
+    func receivedLocationUnknown(notification: NSNotification) {
+        
     }
     
     // TODO: Better message to user if they disable it after installing

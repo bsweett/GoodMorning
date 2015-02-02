@@ -16,6 +16,7 @@ let ipHome3 = "http://192.168.1.101:8080"
 // TODO: Setup router to forward traffic through TCP port 8080 to use static IP
 let SERVER_ADDRESS = ipHome3 + "/GoodMorning-Server"
 
+// UserDefault Keys
 let udEmailID: String = "EMAILUD"
 let udToken: String = "TOKENUD"
 let udUserID: String = "USERIDUD"
@@ -23,11 +24,19 @@ let udUserName: String = "USERNAMEUD"
 let udLastActive: String = "LASTACTIVEUD"
 let udCreated: String = "CREATEDUD"
 
+// Colors
 let gmOrangeColor: UIColor = UIColor(red: (194/255.0), green: (118/255.0), blue: (9/255.0), alpha: 1.0)
 let gmYellowColor: UIColor = UIColor(red: (225/255.0), green: (222/255.0), blue: (0/255.0), alpha: 1.0)
 
+// Numbers
 let radius: CGFloat = 8
 
+// Font
+let gmFontQuote: UIFont = UIFont(name: "Avenir-MediumOblique", size: 15)!
+let gmFontNormal: UIFont = UIFont(name: "Avenir-Medium", size: 17)!
+let gmFontBold: UIFont = UIFont(name: "Avenir-Heavy", size: 18)!
+
+// Functions
 func ios8() -> Bool {
     if ( NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_7_1 ) {
         return false
@@ -46,14 +55,4 @@ func getUserInfoValueForKey(userinfo: [NSObject : AnyObject]?, key: String) -> S
     return "Internal Server Error"
 }
 
-extension String {
-    func isEmail() -> Bool {
-        let regex = NSRegularExpression(pattern: "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$", options: .CaseInsensitive, error: nil)
-        return regex?.firstMatchInString(self, options: nil, range: NSMakeRange(0, countElements(self))) != nil
-    }
-    
-    func isName() -> Bool {
-        let regex = NSRegularExpression(pattern: "^([a-zA-Z]){3,35}$", options: .CaseInsensitive, error: nil)
-        return regex?.firstMatchInString(self, options: nil, range: NSMakeRange(0, countElements(self))) != nil
-    }
-}
+

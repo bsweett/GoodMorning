@@ -7,19 +7,19 @@
 //
 
 enum AlertType: String {
-    case NOTIFICATION = "notification", SOUND = "sound", VIBERATE = "viberate", ALL = "all", NONE = ""
+    case NOTIFICATION = "Notification", SOUND = "Sound", VIBERATE = "Viberate", ALL = "All", NONE = "None"
     
     static let allValues = [NOTIFICATION, SOUND, VIBERATE, ALL, NONE]
     
     static func valueFromString(string: String) -> AlertType {
         switch(string) {
-        case "notification":
+        case "Notification":
             return AlertType.NOTIFICATION
-        case "sound":
+        case "Sound":
             return AlertType.SOUND
-        case "viberate":
+        case "Viberate":
             return AlertType.VIBERATE
-        case "all":
+        case "All":
             return AlertType.ALL
         default:
             return AlertType.NONE

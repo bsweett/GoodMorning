@@ -17,8 +17,6 @@ class WeatherViewController : UIViewController {
     private var timer: NSTimer! = NSTimer()
     private var firstAppear: Bool = false
     
-    private let alert: UIAlertView!
-    
     @IBOutlet weak var activityIndicator: DTIActivityIndicatorView!
     //@IBOutlet weak var forcastBlock : UIView!
     @IBOutlet weak var forcastBlock: UIView!
@@ -54,13 +52,6 @@ class WeatherViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedNetworkError:", name:"NetworkError", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name:"InternalServerError", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedWeatherUpdate:", name:"WeatherUpdated", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationAuthorizeProblem:", name:"LocationDenied", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationAuthorizeProblem:", name:"LocationDisabled", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationUnknown:", name:"LocationUnknown", object: nil)
-        
         roundBlockCorners()
         
         blur = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.Light))
@@ -79,6 +70,14 @@ class WeatherViewController : UIViewController {
         super.viewDidAppear(animated)
         self.view.bringSubviewToFront(activityIndicator)
         self.navigationController?.title = "Weather"
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedNetworkError:", name:"NetworkError", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name:"InternalServerError", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedWeatherUpdate:", name:"WeatherUpdated", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationAuthorizeProblem:", name:"LocationDenied", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationAuthorizeProblem:", name:"LocationDisabled", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationUnknown:", name:"LocationUnknown", object: nil)
+        
         if(firstAppear == false) {
             LocationManager.sharedInstance.update()
             firstAppear = true
@@ -90,7 +89,7 @@ class WeatherViewController : UIViewController {
     }
     
     override func viewDidDisappear(animated: Bool) {
-
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     override func didReceiveMemoryWarning() {
@@ -247,26 +246,49 @@ class WeatherViewController : UIViewController {
         self.updateBackgroundAndWeather(current, forecast: forecastArray)
     }
 
-    func receivedNetworkError(notification: NSNotification){
-        alert.title = "Network Error"
-        alert.message = "Please check your network connection"
-        alert.addButtonWithTitle("Ok")
-        alert.show()
+    func receivedNetworkError(notification: NSNotification) {
+        stopLoading()
+        
+        let alert = UIAlertController(title:  "Network Error", message: "Please check your network connection", preferredStyle: UIAlertControllerStyle.Alert)
+        let cancelAction = UIAlertAction(title: "Ok", style: .Cancel) { (action) in
+            
+        }
+        
+        alert.addAction(cancelAction)
+        
+        self.presentViewController(alert, animated: true) {
+            // ...
+        }
     }
     
     func receivedInternalServerError(notification: NSNotification) {
-        alert.title = getUserInfoValueForKey(notification.userInfo, "reason")
-        alert.message = getUserInfoValueForKey(notification.userInfo, "message")
-        alert.addButtonWithTitle("Dismiss")
-        alert.show()
+        stopLoading()
+        
+        let alert = UIAlertController(title:  getUserInfoValueForKey(notification.userInfo, "reason"), message: getUserInfoValueForKey(notification.userInfo, "message"), preferredStyle: UIAlertControllerStyle.Alert)
+        let cancelAction = UIAlertAction(title: "Dismiss", style: .Cancel) { (action) in
+            
+        }
+        
+        alert.addAction(cancelAction)
+        
+        self.presentViewController(alert, animated: true) {
+            // ...
+        }
     }
     
     // TODO: Better message to user if they disable it after installing
     func receivedLocationAuthorizeProblem(notification: NSNotification) {
-        alert.title = "Location Services Disallowed"
-        alert.message = "Because you have disallowed location services you are required to enter your country and city in order to use GoodMorning"
-        alert.addButtonWithTitle("Ok")
-        alert.show()
+        stopLoading()
+        
+        let alert = UIAlertController(title:  "Location Services Disallowed", message: "Because you have disallowed location services you are required to enter your country and city in order to use GoodMorning", preferredStyle: UIAlertControllerStyle.Alert)
+        let cancelAction = UIAlertAction(title: "Ok", style: .Cancel) { (action) in
+            
+        }
+        
+        alert.addAction(cancelAction)
+        
+        //self.presentViewController(alert, animated: true) {
+        //}
     }
 
 }

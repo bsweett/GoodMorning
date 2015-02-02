@@ -20,13 +20,13 @@ class Task: NSObject {
     var alertType: AlertType
     //var media: MPMediaItem
     
-    var mon: Bool!
-    var tue: Bool!
-    var wed: Bool!
-    var thu: Bool!
-    var fri: Bool!
-    var sat: Bool!
-    var sun: Bool!
+    var mon: Bool = false
+    var tue: Bool = false
+    var wed: Bool = false
+    var thu: Bool = false
+    var fri: Bool = false
+    var sat: Bool = false
+    var sun: Bool = false
 
     var notes: String
     
@@ -75,6 +75,66 @@ class Task: NSObject {
         self.sat = sat
         self.sun = sun
         
+    }
+    
+    func setDaysOfTheWeekFromString(values: String) {
+        let characters = Array(values)
+        if(characters.count == 7) {
+            characters[0] == "1" ? ( mon = true ) : ( mon = false )
+            characters[1] == "1" ? ( tue = true ) : ( tue = false )
+            characters[2] == "1" ? ( wed = true ) : ( wed = false )
+            characters[3] == "1" ? ( thu = true ) : ( thu = false )
+            characters[4] == "1" ? ( fri = true ) : ( fri = false )
+            characters[5] == "1" ? ( sat = true ) : ( sat = false )
+            characters[6] == "1" ? ( sun = true ) : ( sun = false )
+        }
+    }
+    
+    func daysOfWeekFromDictionary(dictionary: Dictionary<Int, Bool> ) {
+        if(dictionary.count == 7) {
+            mon = dictionary[0]!
+            tue = dictionary[1]!
+            wed = dictionary[2]!
+            thu = dictionary[3]!
+            fri = dictionary[4]!
+            sat = dictionary[5]!
+            sun = dictionary[6]!
+        }
+    }
+    
+    func daysOfWeekToDictionary() -> Dictionary<Int, Bool> {
+        var dictionary = Dictionary<Int, Bool>()
+        dictionary[0] = mon
+        dictionary[1] = tue
+        dictionary[2] = wed
+        dictionary[3] = thu
+        dictionary[4] = fri
+        dictionary[5] = sat
+        dictionary[6] = sun
+        
+        return dictionary
+    }
+    
+    func daysOfWeekToDisplayString() -> String {
+        var output: String = ""
+        
+        mon ? (output = output + "Mon ") : (output = output + "")
+        tue ? (output = output + "Tue ") : (output = output + "")
+        wed ? (output = output + "Wed ") : (output = output + "")
+        thu ? (output = output + "Thu ") : (output = output + "")
+        fri ? (output = output + "Fri ") : (output = output + "")
+        sat ? (output = output + "Sat ") : (output = output + "")
+        sun ? (output = output + "Sun ") : (output = output + "")
+        
+        if mon && tue && wed && thu && fri && sat && sun {
+            output = "Every Day"
+        }
+        
+        if !mon && !tue && !wed && !thu && !fri && !sat && !sun {
+            output = "Never"
+        }
+        
+        return output
     }
 
     

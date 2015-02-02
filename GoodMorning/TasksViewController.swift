@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class TasksViewController : UIViewController {
+class TasksViewController : UIViewController, UIPopoverControllerDelegate {
     
     var timer: NSTimer! = NSTimer()
     
@@ -18,7 +18,8 @@ class TasksViewController : UIViewController {
     @IBOutlet var nextViewButton: UIBarButtonItem!
     @IBOutlet var previousViewButton: UIBarButtonItem!
     
-    private var popoverContent: TaskPopoverController!
+    private var popOverNavController: UINavigationController!
+    private var popoverContent: TaskPopoverViewController!
     private var popOverVC: UIPopoverController!
     
     override func viewDidLoad() {
@@ -38,14 +39,48 @@ class TasksViewController : UIViewController {
     
     @IBAction func addNewTask(sender: UIBarButtonItem) {
         if(self.popoverContent == nil) {
-            self.popoverContent = TaskPopoverController(nibName: "TaskPopoverController", bundle: nil)
+            let sb: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            self.popoverContent = TaskPopoverViewController(nibName: "TaskPopoverViewController", bundle: nil)
+        }
+        
+        if(self.popOverNavController == nil) {
+            self.popOverNavController = UINavigationController(rootViewController: popoverContent)
+            
+            var saveButton = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.Bordered, target: self, action: Selector("saveTaskTapped:"))
+            
+            var cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Bordered, target: self, action: Selector("cancelTaskTapped:"))
+            
+            self.popoverContent.navigationItem.title = "New Task"
+            self.popoverContent.navigationItem.rightBarButtonItem = saveButton
+            self.popoverContent.navigationItem.leftBarButtonItem = cancelButton
         }
         
         if(self.popOverVC == nil) {
-            self.popOverVC = UIPopoverController(contentViewController: popoverContent)
+            self.popOverVC = UIPopoverController(contentViewController: popOverNavController)
         }
         
+        self.popOverVC.popoverContentSize = CGSize(width: 400, height: 550)
+        
+        self.popOverVC.delegate = self
         self.popOverVC.presentPopoverFromBarButtonItem(sender, permittedArrowDirections: UIPopoverArrowDirection.Any, animated: true)
+    }
+    
+    @IBAction func cancelTaskTapped(sender: UIBarButtonItem) {
+        if(self.popOverVC != nil) {
+            // Clear all fields here?
+            // Or overwrite defualt values on viewDidLoad?
+            self.popOverVC.dismissPopoverAnimated(true)
+        }
+    }
+    
+    @IBAction func saveTaskTapped(sender: UIBarButtonItem) {
+        
+    }
+    
+    // MARK: - UIPopOverController Delegate
+    
+    func popoverControllerDidDismissPopover(popoverController: UIPopoverController) {
+        
     }
 }
     

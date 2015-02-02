@@ -7,10 +7,9 @@
 //
 
 import UIKit
-import CoreLocation
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate{
+class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var navController : UINavigationController?
@@ -40,6 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         navController?.interactivePopGestureRecognizer.enabled = false;
         
         UIBarButtonItem.appearance().tintColor = gmOrangeColor
+        UINavigationBar.appearance().tintColor = gmOrangeColor
         
         window!.rootViewController = navController
         window!.makeKeyAndVisible()
