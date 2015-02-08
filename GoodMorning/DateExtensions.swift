@@ -18,6 +18,14 @@ extension NSDate {
         return newDate!
     }
     
+    func addMinutesToDate(minutes: Int) -> NSDate {
+        
+        var components = NSDateComponents()
+        components.setValue(minutes, forComponent: NSCalendarUnit.CalendarUnitMinute);
+        var newDate = NSCalendar.currentCalendar().dateByAddingComponents(components, toDate: self, options: NSCalendarOptions(0))
+        return newDate!
+    }
+    
     /*
         Returns a Time String in the HH:mm:ss from for a date
     

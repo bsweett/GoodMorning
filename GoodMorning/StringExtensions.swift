@@ -26,4 +26,28 @@ extension String {
         
         return false
     }
+    
+    func removeCharsFromEnd(count:Int) -> String{
+        let stringLength = countElements(self)
+        
+        let substringIndex = (stringLength < count) ? 0 : stringLength - count
+        
+        return self.substringToIndex(advance(self.startIndex, substringIndex))
+    }
+    
+    func length() -> Int {
+        return countElements(self)
+    }
+    
+    subscript (i: Int) -> Character {
+        return self[advance(self.startIndex, i)]
+    }
+    
+    subscript (i: Int) -> String {
+        return String(self[i] as Character)
+    }
+    
+    subscript (r: Range<Int>) -> String {
+        return substringWithRange(Range(start: advance(startIndex, r.startIndex), end: advance(startIndex, r.endIndex)))
+    }
 }

@@ -13,14 +13,14 @@ enum TaskType: String {
     static let displayValues = [CHORE.rawValue, TRAVEL.rawValue, ENTERTAINMENT.rawValue, ALARM.rawValue]
     
     static func typeFromString(string: String) -> TaskType {
-        switch(string) {
-        case "Chore":
+        switch(string.lowercaseString) {
+        case "chore":
             return TaskType.CHORE
-        case "Travel":
+        case "travel":
             return TaskType.TRAVEL
-        case "Entertainment":
+        case "entertainment":
             return TaskType.ENTERTAINMENT
-        case "Alarm":
+        case "alarm":
             return TaskType.ALARM
         default:
             return TaskType.UNKNOWN

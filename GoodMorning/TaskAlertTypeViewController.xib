@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6750" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6735"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TaskAlertTypeViewController" customModule="GoodMorning" customModuleProvider="target">
+            <connections>
+                <outlet property="alertTable" destination="Kzh-1e-0gZ" id="MJJ-G2-Uix"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Kzh-1e-0gZ">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="200" id="eWx-lj-AmZ"/>
+                    </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="eWx-lj-AmZ"/>
+                        </mask>
+                    </variation>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="Kzh-1e-0gZ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="50" id="6V1-cc-iv3"/>
+                <constraint firstAttribute="trailing" secondItem="Kzh-1e-0gZ" secondAttribute="trailing" id="7ae-zo-hZt"/>
+                <constraint firstItem="Kzh-1e-0gZ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Eup-nd-c0a"/>
+                <constraint firstAttribute="bottom" secondItem="Kzh-1e-0gZ" secondAttribute="bottom" id="TrP-5v-Ybc"/>
+                <constraint firstItem="Kzh-1e-0gZ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="wHs-fa-vyK"/>
+            </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="6V1-cc-iv3"/>
+                </mask>
+            </variation>
+        </view>
+    </objects>
+</document>

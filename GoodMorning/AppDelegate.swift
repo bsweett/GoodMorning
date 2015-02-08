@@ -22,6 +22,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UIApplication.sharedApplication().keyWindow?.tintColor = gmOrangeColor
         
+        if(UIApplication.instancesRespondToSelector(Selector("registerUserNotificationSettings:"))) {
+            application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: UIUserNotificationType.Sound | UIUserNotificationType.Alert | UIUserNotificationType.Badge, categories: nil))
+        }
+        
         // app already installed
         if (UserDefaultsManager.sharedInstance.getToken() != "") {
             initialViewController = storyboard.instantiateViewControllerWithIdentifier("Pager") as UIViewController
@@ -74,6 +78,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(application: UIApplication) {
        
         LocationManager.sharedInstance.update()
+        UIApplication.sharedApplication().applicationIconBadgeNumber = 0
         
     }
 
@@ -82,5 +87,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
     }
 
+    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+        
+    }
 }
 

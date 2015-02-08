@@ -13,6 +13,18 @@
 		5F08AC691A6F38D100F1ED8F /* AlarmsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F08AC681A6F38D100F1ED8F /* AlarmsManager.swift */; };
 		5F08AC871A6F418000F1ED8F /* DTIActivityIndicator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F08AC841A6F412C00F1ED8F /* DTIActivityIndicator.framework */; };
 		5F08AC8E1A6F429700F1ED8F /* DTIActivityIndicator.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5F08AC841A6F412C00F1ED8F /* DTIActivityIndicator.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5F412CDE1A811C2E004F8DE0 /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F412CDD1A811C2E004F8DE0 /* TaskManager.swift */; };
+		5F412CE61A814988004F8DE0 /* TaskAlertTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F412CE41A814988004F8DE0 /* TaskAlertTypeViewController.swift */; };
+		5F412CE71A814988004F8DE0 /* TaskAlertTypeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F412CE51A814988004F8DE0 /* TaskAlertTypeViewController.xib */; };
+		5F412CED1A815C69004F8DE0 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F412CEC1A815C69004F8DE0 /* AudioManager.swift */; };
+		5F412CF01A8162B2004F8DE0 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F412CEF1A8162B2004F8DE0 /* NotificationManager.swift */; };
+		5F412CFE1A8168CF004F8DE0 /* ambient.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5F412CF21A8168CF004F8DE0 /* ambient.wav */; };
+		5F412CFF1A8168CF004F8DE0 /* jungle.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5F412CF31A8168CF004F8DE0 /* jungle.wav */; };
+		5F412D001A8168CF004F8DE0 /* pop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5F412CF41A8168CF004F8DE0 /* pop.wav */; };
+		5F412D011A8168CF004F8DE0 /* alternative.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5F412CF51A8168CF004F8DE0 /* alternative.wav */; };
+		5F412D031A8168CF004F8DE0 /* electronic.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5F412CF71A8168CF004F8DE0 /* electronic.wav */; };
+		5F412D051A8168CF004F8DE0 /* acid.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5F412CF91A8168CF004F8DE0 /* acid.wav */; };
+		5F412D0D1A816BE6004F8DE0 /* sunrise.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5F412D0C1A816BE6004F8DE0 /* sunrise.jpg */; };
 		5F472CEA1A5EFF2D001E47CF /* InstallManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F472CE91A5EFF2D001E47CF /* InstallManager.swift */; };
 		5F472CEE1A5F45E4001E47CF /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F472CED1A5F45E4001E47CF /* Util.swift */; };
 		5F472CF21A5F853B001E47CF /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F472CF11A5F853B001E47CF /* Networking.swift */; };
@@ -27,7 +39,6 @@
 		5F6110C61A42014000B83410 /* TextToSpeech.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F6110C51A42014000B83410 /* TextToSpeech.swift */; };
 		5F744B381A420B2400F4C675 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F744B371A420B2400F4C675 /* Task.swift */; };
 		5F744B3A1A420BA900F4C675 /* TaskType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F744B391A420BA900F4C675 /* TaskType.swift */; };
-		5F744B3C1A420C3800F4C675 /* AlertType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F744B3B1A420C3800F4C675 /* AlertType.swift */; };
 		5F744B411A420E9400F4C675 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F744B401A420E9400F4C675 /* SwiftyJSON.swift */; };
 		5F744B751A421A5400F4C675 /* AlarmsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F744B741A421A5400F4C675 /* AlarmsViewController.swift */; };
 		5F744B771A421C3A00F4C675 /* TasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F744B761A421C3A00F4C675 /* TasksViewController.swift */; };
@@ -110,6 +121,9 @@
 		5FC1FF201A6473BC00253E6C /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC1FF1F1A6473BC00253E6C /* UserDefaultsManager.swift */; };
 		5FC32F421A423B0600F9EB26 /* Alamofire.framework in Copy Files (1 item) */ = {isa = PBXBuildFile; fileRef = 5FC32F3C1A4239FA00F9EB26 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5FC32F441A4257B200F9EB26 /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC32F431A4257B200F9EB26 /* Alarm.swift */; };
+		5FD1A3AF1A86A41B00842FB2 /* TaskViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD1A3AD1A86A41B00842FB2 /* TaskViewCell.swift */; };
+		5FD1A3B01A86A41B00842FB2 /* TaskViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FD1A3AE1A86A41B00842FB2 /* TaskViewCell.xib */; };
+		5FD1A3B21A86E83500842FB2 /* JSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD1A3B11A86E83500842FB2 /* JSONParser.swift */; };
 		5FDE45311A781E2100608EC8 /* TaskPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDE45301A781E2100608EC8 /* TaskPopoverViewController.swift */; };
 		5FDE45361A782C4F00608EC8 /* PopoverViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDE45341A782C4F00608EC8 /* PopoverViewCell.swift */; };
 		5FDE45371A782C4F00608EC8 /* PopoverViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FDE45351A782C4F00608EC8 /* PopoverViewCell.xib */; };
@@ -217,6 +231,18 @@
 		5F01B2781A65E5DE00CBE01A /* buzzer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buzzer.png; sourceTree = "<group>"; };
 		5F08AC681A6F38D100F1ED8F /* AlarmsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmsManager.swift; sourceTree = "<group>"; };
 		5F08AC7E1A6F412C00F1ED8F /* DTIActivityIndicator.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DTIActivityIndicator.xcodeproj; path = "DTIActivityIndicatorView-Swift/DTIActivityIndicator.xcodeproj"; sourceTree = "<group>"; };
+		5F412CDD1A811C2E004F8DE0 /* TaskManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskManager.swift; sourceTree = "<group>"; };
+		5F412CE41A814988004F8DE0 /* TaskAlertTypeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskAlertTypeViewController.swift; sourceTree = "<group>"; };
+		5F412CE51A814988004F8DE0 /* TaskAlertTypeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaskAlertTypeViewController.xib; sourceTree = "<group>"; };
+		5F412CEC1A815C69004F8DE0 /* AudioManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
+		5F412CEF1A8162B2004F8DE0 /* NotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		5F412CF21A8168CF004F8DE0 /* ambient.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ambient.wav; sourceTree = "<group>"; };
+		5F412CF31A8168CF004F8DE0 /* jungle.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = jungle.wav; sourceTree = "<group>"; };
+		5F412CF41A8168CF004F8DE0 /* pop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pop.wav; sourceTree = "<group>"; };
+		5F412CF51A8168CF004F8DE0 /* alternative.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = alternative.wav; sourceTree = "<group>"; };
+		5F412CF71A8168CF004F8DE0 /* electronic.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = electronic.wav; sourceTree = "<group>"; };
+		5F412CF91A8168CF004F8DE0 /* acid.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = acid.wav; sourceTree = "<group>"; };
+		5F412D0C1A816BE6004F8DE0 /* sunrise.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = sunrise.jpg; sourceTree = "<group>"; };
 		5F472CE91A5EFF2D001E47CF /* InstallManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstallManager.swift; sourceTree = "<group>"; };
 		5F472CED1A5F45E4001E47CF /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		5F472CF11A5F853B001E47CF /* Networking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
@@ -231,7 +257,6 @@
 		5F6110C51A42014000B83410 /* TextToSpeech.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextToSpeech.swift; sourceTree = "<group>"; };
 		5F744B371A420B2400F4C675 /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		5F744B391A420BA900F4C675 /* TaskType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskType.swift; sourceTree = "<group>"; };
-		5F744B3B1A420C3800F4C675 /* AlertType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertType.swift; sourceTree = "<group>"; };
 		5F744B3F1A420E9400F4C675 /* SwiftyJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SwiftyJSON.h; path = "../../../Downloads/SwiftyJSON-master/SwiftyJSON/SwiftyJSON.h"; sourceTree = "<group>"; };
 		5F744B401A420E9400F4C675 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftyJSON.swift; path = "../../../Downloads/SwiftyJSON-master/SwiftyJSON/SwiftyJSON.swift"; sourceTree = "<group>"; };
 		5F744B741A421A5400F4C675 /* AlarmsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmsViewController.swift; sourceTree = "<group>"; };
@@ -316,6 +341,9 @@
 		5FC1FF1F1A6473BC00253E6C /* UserDefaultsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		5FC32F361A4239FA00F9EB26 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		5FC32F431A4257B200F9EB26 /* Alarm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; };
+		5FD1A3AD1A86A41B00842FB2 /* TaskViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskViewCell.swift; sourceTree = "<group>"; };
+		5FD1A3AE1A86A41B00842FB2 /* TaskViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaskViewCell.xib; sourceTree = "<group>"; };
+		5FD1A3B11A86E83500842FB2 /* JSONParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONParser.swift; sourceTree = "<group>"; };
 		5FDE45301A781E2100608EC8 /* TaskPopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskPopoverViewController.swift; sourceTree = "<group>"; };
 		5FDE45341A782C4F00608EC8 /* PopoverViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverViewCell.swift; sourceTree = "<group>"; };
 		5FDE45351A782C4F00608EC8 /* PopoverViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PopoverViewCell.xib; sourceTree = "<group>"; };
@@ -375,6 +403,27 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		5F412CEE1A815F60004F8DE0 /* sounds */ = {
+			isa = PBXGroup;
+			children = (
+				5F412CF21A8168CF004F8DE0 /* ambient.wav */,
+				5F412CF31A8168CF004F8DE0 /* jungle.wav */,
+				5F412CF41A8168CF004F8DE0 /* pop.wav */,
+				5F412CF51A8168CF004F8DE0 /* alternative.wav */,
+				5F412CF71A8168CF004F8DE0 /* electronic.wav */,
+				5F412CF91A8168CF004F8DE0 /* acid.wav */,
+			);
+			name = sounds;
+			sourceTree = "<group>";
+		};
+		5F412D0B1A816A17004F8DE0 /* jpeg */ = {
+			isa = PBXGroup;
+			children = (
+				5F412D0C1A816BE6004F8DE0 /* sunrise.jpg */,
+			);
+			name = jpeg;
+			sourceTree = "<group>";
+		};
 		5F472CEC1A5F45B8001E47CF /* Utilites */ = {
 			isa = PBXGroup;
 			children = (
@@ -384,6 +433,7 @@
 				5FDE45411A784B6C00608EC8 /* ViewExtensions.swift */,
 				5FDE45431A784BC300608EC8 /* StringExtensions.swift */,
 				5FEEC25F1A79DB0800E2C452 /* DateExtensions.swift */,
+				5FD1A3B11A86E83500842FB2 /* JSONParser.swift */,
 			);
 			name = Utilites;
 			sourceTree = "<group>";
@@ -422,6 +472,8 @@
 		5F6110BC1A41F59200B83410 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5F412D0B1A816A17004F8DE0 /* jpeg */,
+				5F412CEE1A815F60004F8DE0 /* sounds */,
 				5F7A9C8E1A5CC24F00C595B7 /* png */,
 				5FE864181A41ECEA00BB8808 /* LaunchScreen.xib */,
 				5FE864131A41ECEA00BB8808 /* Main.storyboard */,
@@ -457,7 +509,6 @@
 			children = (
 				5F744B371A420B2400F4C675 /* Task.swift */,
 				5F744B391A420BA900F4C675 /* TaskType.swift */,
-				5F744B3B1A420C3800F4C675 /* AlertType.swift */,
 				5F744B911A4223BF00F4C675 /* Weather.swift */,
 				5FC32F431A4257B200F9EB26 /* Alarm.swift */,
 				5F7F372B1A425956004B7439 /* Settings.swift */,
@@ -568,6 +619,9 @@
 				5F472CE91A5EFF2D001E47CF /* InstallManager.swift */,
 				5FC1FF1F1A6473BC00253E6C /* UserDefaultsManager.swift */,
 				5F08AC681A6F38D100F1ED8F /* AlarmsManager.swift */,
+				5F412CDD1A811C2E004F8DE0 /* TaskManager.swift */,
+				5F412CEC1A815C69004F8DE0 /* AudioManager.swift */,
+				5F412CEF1A8162B2004F8DE0 /* NotificationManager.swift */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -587,6 +641,8 @@
 			children = (
 				5FDE45341A782C4F00608EC8 /* PopoverViewCell.swift */,
 				5FDE45351A782C4F00608EC8 /* PopoverViewCell.xib */,
+				5FD1A3AD1A86A41B00842FB2 /* TaskViewCell.swift */,
+				5FD1A3AE1A86A41B00842FB2 /* TaskViewCell.xib */,
 			);
 			name = CustomCells;
 			sourceTree = "<group>";
@@ -612,6 +668,8 @@
 				5F93A3691A7ED8190059829F /* TaskRepeatTypeViewController.xib */,
 				5F93A36C1A7EEFA20059829F /* TaskNotesViewController.swift */,
 				5F93A36D1A7EEFA20059829F /* TaskNotesViewController.xib */,
+				5F412CE41A814988004F8DE0 /* TaskAlertTypeViewController.swift */,
+				5F412CE51A814988004F8DE0 /* TaskAlertTypeViewController.xib */,
 			);
 			name = NewTask;
 			sourceTree = "<group>";
@@ -819,16 +877,20 @@
 				5F7A9CE31A5CC24F00C595B7 /* search67.png in Resources */,
 				5FE864151A41ECEA00BB8808 /* Main.storyboard in Resources */,
 				5F7A9D051A5CC24F00C595B7 /* n_tornado.png in Resources */,
+				5F412D031A8168CF004F8DE0 /* electronic.wav in Resources */,
 				5FE8641A1A41ECEA00BB8808 /* LaunchScreen.xib in Resources */,
 				5F7A9D001A5CC24F00C595B7 /* n_scattered.png in Resources */,
 				5F7A9CDA1A5CC24F00C595B7 /* exclamation22.png in Resources */,
 				5F01B2791A65E5DE00CBE01A /* buzzer.png in Resources */,
+				5F412D011A8168CF004F8DE0 /* alternative.wav in Resources */,
 				5F7A9CD41A5CC24F00C595B7 /* circular191.png in Resources */,
 				5FDE453A1A78399500608EC8 /* TaskPopoverViewController.xib in Resources */,
+				5FD1A3B01A86A41B00842FB2 /* TaskViewCell.xib in Resources */,
 				5F7A9CF11A5CC24F00C595B7 /* d_storm.png in Resources */,
 				5F7A9D021A5CC24F00C595B7 /* n_snowandrain.png in Resources */,
 				5F7A9CEA1A5CC24F00C595B7 /* d_heat.png in Resources */,
 				5F7A9CF41A5CC24F00C595B7 /* d_windy.png in Resources */,
+				5F412CFE1A8168CF004F8DE0 /* ambient.wav in Resources */,
 				5F7A9CFE1A5CC24F00C595B7 /* n_overcast.png in Resources */,
 				5F7A9CEC1A5CC24F00C595B7 /* d_overcast.png in Resources */,
 				5F7A9CFF1A5CC24F00C595B7 /* n_rain.png in Resources */,
@@ -838,6 +900,7 @@
 				5F7A9CFD1A5CC24F00C595B7 /* n_heavysnow.png in Resources */,
 				5F7A9CE01A5CC24F00C595B7 /* mode.png in Resources */,
 				5F7A9CF61A5CC24F00C595B7 /* n_calm.png in Resources */,
+				5F412D051A8168CF004F8DE0 /* acid.wav in Resources */,
 				5F7A9CE61A5CC24F00C595B7 /* d_cold.png in Resources */,
 				5F7A9CE51A5CC24F00C595B7 /* d_clear.png in Resources */,
 				5F7A9CCF1A5CC24F00C595B7 /* alarmsday.png in Resources */,
@@ -856,9 +919,12 @@
 				5F7A9CED1A5CC24F00C595B7 /* d_rain.png in Resources */,
 				5F7A9CD21A5CC24F00C595B7 /* back28.png in Resources */,
 				5F7A9CDE1A5CC24F00C595B7 /* menu33.png in Resources */,
+				5F412D0D1A816BE6004F8DE0 /* sunrise.jpg in Resources */,
 				5F7A9CE41A5CC24F00C595B7 /* d_calm.png in Resources */,
+				5F412CFF1A8168CF004F8DE0 /* jungle.wav in Resources */,
 				5FEEC25B1A79CDC800E2C452 /* TaskTypeViewController.xib in Resources */,
 				5F7A9D031A5CC24F00C595B7 /* n_storm.png in Resources */,
+				5F412CE71A814988004F8DE0 /* TaskAlertTypeViewController.xib in Resources */,
 				5F7A9CF31A5CC24F00C595B7 /* d_tornado.png in Resources */,
 				5F7A9CF01A5CC24F00C595B7 /* d_snowandrain.png in Resources */,
 				5F7A9CD51A5CC24F00C595B7 /* circular194.png in Resources */,
@@ -874,6 +940,7 @@
 				5F7A9CDF1A5CC24F00C595B7 /* minus65.png in Resources */,
 				5F7A9CD01A5CC24F00C595B7 /* alarmsnight.png in Resources */,
 				5F7A9CDC1A5CC24F00C595B7 /* internet28.png in Resources */,
+				5F412D001A8168CF004F8DE0 /* pop.wav in Resources */,
 				5F7A9CD11A5CC24F00C595B7 /* approve9.png in Resources */,
 				5F7A9CF51A5CC24F00C595B7 /* unknown.png in Resources */,
 				5F93A36B1A7ED8190059829F /* TaskRepeatTypeViewController.xib in Resources */,
@@ -911,20 +978,25 @@
 				5F472CF21A5F853B001E47CF /* Networking.swift in Sources */,
 				5F472CEA1A5EFF2D001E47CF /* InstallManager.swift in Sources */,
 				5FEEC2601A79DB0800E2C452 /* DateExtensions.swift in Sources */,
+				5F412CED1A815C69004F8DE0 /* AudioManager.swift in Sources */,
 				5F744B7B1A421C8E00F4C675 /* NewsViewController.swift in Sources */,
+				5F412CF01A8162B2004F8DE0 /* NotificationManager.swift in Sources */,
 				5FDE45361A782C4F00608EC8 /* PopoverViewCell.swift in Sources */,
+				5F412CE61A814988004F8DE0 /* TaskAlertTypeViewController.swift in Sources */,
 				5FDE453F1A783F5B00608EC8 /* TaskNameViewController.swift in Sources */,
 				5F744B901A42229D00F4C675 /* WeatherManager.swift in Sources */,
 				5F744B751A421A5400F4C675 /* AlarmsViewController.swift in Sources */,
 				5FC32F441A4257B200F9EB26 /* Alarm.swift in Sources */,
+				5F412CDE1A811C2E004F8DE0 /* TaskManager.swift in Sources */,
 				5FEEC25A1A79CDC800E2C452 /* TaskTypeViewController.swift in Sources */,
 				5F744B921A4223BF00F4C675 /* Weather.swift in Sources */,
 				5F93A36A1A7ED8190059829F /* TaskRepeatTypeViewController.swift in Sources */,
 				5F08AC691A6F38D100F1ED8F /* AlarmsManager.swift in Sources */,
-				5F744B3C1A420C3800F4C675 /* AlertType.swift in Sources */,
 				5F744B3A1A420BA900F4C675 /* TaskType.swift in Sources */,
+				5FD1A3B21A86E83500842FB2 /* JSONParser.swift in Sources */,
 				5F7F372F1A42649A004B7439 /* AlarmDetailViewController.swift in Sources */,
 				5FDE45311A781E2100608EC8 /* TaskPopoverViewController.swift in Sources */,
+				5FD1A3AF1A86A41B00842FB2 /* TaskViewCell.swift in Sources */,
 				5F83E29B1A4A35B100E9E7E3 /* PageViewController.swift in Sources */,
 				5F472CEE1A5F45E4001E47CF /* Util.swift in Sources */,
 				5F744B381A420B2400F4C675 /* Task.swift in Sources */,

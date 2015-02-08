@@ -70,6 +70,7 @@ class AlarmsViewController : UIViewController {
         super.viewDidLoad()
         
         self.roundClockBackgrounds()
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
         
         blur = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.Light))
         blur.frame = view.frame
@@ -78,8 +79,7 @@ class AlarmsViewController : UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
-        
+    
         tapGesture = UITapGestureRecognizer(target: self, action: Selector("clockTapped:"))
         clockOneView.addGestureRecognizer(tapGesture)
         clockTwoView.addGestureRecognizer(tapGesture)
@@ -110,7 +110,7 @@ class AlarmsViewController : UIViewController {
     }
     
     override func viewDidDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
+        super.viewDidDisappear(animated)
         clockOneView.removeGestureRecognizer(tapGesture)
         clockTwoView.removeGestureRecognizer(tapGesture)
         clockThreeView.removeGestureRecognizer(tapGesture)
@@ -134,6 +134,10 @@ class AlarmsViewController : UIViewController {
         clockThreeView.clipsToBounds = true
         clockFourView.clipsToBounds = true
         
+    }
+    
+    func setAlarmsFromInstall(alarms: Dictionary<String, Task>) {
+        println("Called")
     }
     
     func startLoading() {

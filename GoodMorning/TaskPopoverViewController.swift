@@ -12,7 +12,7 @@ protocol popOverNavDelegate {
     func saveName(value: String)
     func saveType(value: String)
     func saveRepeat(value: Dictionary<Int,Bool>)
-    func saveNotification(value: String) // TODO: Probably need sound file and such as well
+    func saveAlert(value: String) // TODO: Probably need sound file and such as well
     func saveNotes(value: String)
     func saveCustom(value: String)
 }
@@ -26,6 +26,7 @@ class TaskPopoverViewController: UIViewController, UITableViewDataSource, UITabl
     var nameVC: TaskNameViewController!
     var typeVC: TaskTypeViewController!
     var repeatVC: TaskRepeatTypeViewController!
+    var alertVC: TaskAlertTypeViewController!
     var notesVC: TaskNotesViewController!
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
@@ -40,8 +41,10 @@ class TaskPopoverViewController: UIViewController, UITableViewDataSource, UITabl
         super.viewDidLoad()
         
         var now: NSDate = NSDate()
-        displayTask = Task(id: "temp", title: "New Task", creation: now, nextAlert: now, type: TaskType.CHORE, alertTime: now.toTimeString(), alert: AlertType.SOUND, notes: "")
+        displayTask = Task(id: "temp", title: "New Task", creation: now, nextAlert: now.addMinutesToDate(1), type: TaskType.CHORE, alertTime: now.toTimeString(), soundFileName: UNKNOWN, notes: "")
         displayTask.setDaysOfTheWeek(false, tue: false, wed: false, thu: false, fri: false, sat: false, sun: false)
+        
+        NotificationManager.sharedInstance.scheduleNotificationForTask(displayTask)
         
         taskFieldsTableView.registerNib(UINib(nibName: "PopoverViewCell", bundle: nil), forCellReuseIdentifier: "taskPopoverCell")
         taskFieldsTableView.dataSource = self
@@ -57,6 +60,10 @@ class TaskPopoverViewController: UIViewController, UITableViewDataSource, UITabl
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func getDisplayTask() -> Task {
+        return self.displayTask
     }
     
     // MARK: - UITableView DataSource
@@ -83,8 +90,8 @@ class TaskPopoverViewController: UIViewController, UITableViewDataSource, UITabl
             cell.setValue(displayTask.daysOfWeekToDisplayString())
             break
         case 3:
-            cell.setTitle("Notification")
-            cell.setValue("Default")
+            cell.setTitle("Alert")
+            cell.setValue(displayTask.displaySoundEnabledFlag())
             break
         case 4:
             cell.setTitle("Custom")
@@ -92,7 +99,7 @@ class TaskPopoverViewController: UIViewController, UITableViewDataSource, UITabl
             break
         case 5:
             cell.setTitle("Notes")
-            cell.setValue(displayTask.notes)
+            cell.setValue(displayTask.notesDisplayPreview())
             break
         default:
             cell.setTitle("")
@@ -101,6 +108,10 @@ class TaskPopoverViewController: UIViewController, UITableViewDataSource, UITabl
         }
         
         return cell
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 44
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -142,14 +153,20 @@ class TaskPopoverViewController: UIViewController, UITableViewDataSource, UITabl
             self.repeatVC.setCellSelectionList(self.displayTask.daysOfWeekToDictionary())
             self.navigationController?.pushViewController(self.repeatVC, animated: true)
             break
-        case "Notification":
+        case "Alert":
+            if(self.alertVC == nil) {
+                self.alertVC = TaskAlertTypeViewController(nibName: "TaskAlertTypeViewController", bundle: nil)
+                self.alertVC.delegate = self
+            }
+            self.alertVC.setSelectedItem(self.displayTask.soundFileName)
+            self.navigationController?.pushViewController(self.alertVC, animated: true)
             return
         case "Notes":
             if(self.notesVC == nil) {
                 self.notesVC = TaskNotesViewController(nibName: "TaskNotesViewController", bundle: nil)
                 self.notesVC.delegate = self
             }
-
+            self.notesVC.setNotes(self.displayTask.notes)
             self.navigationController?.pushViewController(self.notesVC, animated: true)
             break
         case "Custom":
@@ -186,12 +203,14 @@ class TaskPopoverViewController: UIViewController, UITableViewDataSource, UITabl
         taskFieldsTableView.reloadData()
     }
     
-    func saveNotification(value: String) {
-        
+    func saveAlert(value: String) {
+        self.displayTask.soundFileName = value
+        taskFieldsTableView.reloadData()
     }
     
     func saveNotes(value: String) {
-        
+        self.displayTask.notes = value
+        taskFieldsTableView.reloadData()
     }
     
     func saveCustom(value: String) {

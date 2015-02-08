@@ -9,12 +9,13 @@
 import Foundation
 import UIKit
 
-let ipHome1 = "http://192.168.1.104:8080"
-let ipHome2 = "http://192.168.1.105:8080"
-let ipHome3 = "http://192.168.1.101:8080"
+let ipHome1 = "http://192.168.1.101:8080"
+let ipHome4 = "http://192.168.1.104:8080"
+let ipHome5 = "http://192.168.1.105:8080"
+let ipHome7 = "http://192.168.1.107:8080"
 
 // TODO: Setup router to forward traffic through TCP port 8080 to use static IP
-let SERVER_ADDRESS = ipHome3 + "/GoodMorning-Server"
+let SERVER_ADDRESS = ipHome7 + "/GoodMorning-Server"
 
 // UserDefault Keys
 let udEmailID: String = "EMAILUD"
@@ -35,6 +36,9 @@ let radius: CGFloat = 8
 let gmFontQuote: UIFont = UIFont(name: "Avenir-MediumOblique", size: 15)!
 let gmFontNormal: UIFont = UIFont(name: "Avenir-Medium", size: 17)!
 let gmFontBold: UIFont = UIFont(name: "Avenir-Heavy", size: 18)!
+
+// Strings
+let UNKNOWN: String = "UNKNOWN"
 
 // Functions
 func ios8() -> Bool {

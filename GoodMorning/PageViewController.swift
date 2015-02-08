@@ -24,7 +24,13 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         
         if(alarmController == nil) {
             let sb: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            self.alarmController = sb.instantiateViewControllerWithIdentifier("Alarms") as? UIViewController
+            let alarmVC = sb.instantiateViewControllerWithIdentifier("Alarms") as? AlarmsViewController
+            
+            if(initalAlarms != nil) {
+                alarmVC?.setAlarmsFromInstall(initalAlarms)
+            }
+            
+            self.alarmController = alarmVC
         }
         
         return self.alarmController
@@ -68,7 +74,6 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         
         self.setViewControllers([self.getAlarm()!], direction: UIPageViewControllerNavigationDirection.Forward, animated: true, completion: nil)
         
-
         self.navigationItem.title = "Alarms"
         self.navigationItem.rightBarButtonItem = nil
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"configuration12.png"), style: .Bordered, target: self, action: Selector("settingsTapped:"))

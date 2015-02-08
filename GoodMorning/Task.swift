@@ -17,8 +17,7 @@ class Task: NSObject {
     var nextAlertDate: NSDate
     var type: TaskType
     var alertTime: String
-    var alertType: AlertType
-    //var media: MPMediaItem
+    var soundFileName: String
     
     var mon: Bool = false
     var tue: Bool = false
@@ -31,7 +30,7 @@ class Task: NSObject {
     var notes: String
     
     // From existing JSON
-    init(id: String, title: String, creation: NSDate, nextAlert: NSDate, type: TaskType, alertTime: String, alert: AlertType, notes: String) {
+    init(id: String, title: String, creation: NSDate, nextAlert: NSDate, type: TaskType, alertTime: String, soundFileName: String, notes: String) {
         
         self.id = id
         self.title = title
@@ -39,13 +38,13 @@ class Task: NSObject {
         self.nextAlertDate = nextAlert
         self.type = type
         self.alertTime = alertTime
-        self.alertType = alert
+        self.soundFileName = soundFileName
         self.notes = notes
         
     }
     
     // New task from UI
-    init(title: String, type: TaskType, alertTime: String, alertType: AlertType, notes: String) {
+    init(title: String, type: TaskType, alertTime: String, soundFileName: String, notes: String) {
         
         let today = NSDate()
         let newId = NSUUID().UUIDString
@@ -55,7 +54,7 @@ class Task: NSObject {
         self.type = type
         self.creationDate = today
         self.alertTime = alertTime
-        self.alertType = alertType
+        self.soundFileName = soundFileName
         self.notes = notes
         
         // TODO: Set next alert based on alerttime and creatition date
@@ -75,6 +74,20 @@ class Task: NSObject {
         self.sat = sat
         self.sun = sun
         
+    }
+    
+    func daysOfTheWeekToString() -> String {
+        var output = ""
+        
+        mon ? (output = output + "1") : (output = output + "0")
+        tue ? (output = output + "1") : (output = output + "0")
+        wed ? (output = output + "1") : (output = output + "0")
+        thu ? (output = output + "1") : (output = output + "0")
+        fri ? (output = output + "1") : (output = output + "0")
+        sat ? (output = output + "1") : (output = output + "0")
+        sun ? (output = output + "1") : (output = output + "0")
+        
+        return output
     }
     
     func setDaysOfTheWeekFromString(values: String) {
@@ -137,6 +150,40 @@ class Task: NSObject {
         return output
     }
 
+    /**
+        Returns the display preview for the notes field. Caps it at 100 characters.
+    */
+    func notesDisplayPreview() -> String {
+        var preview = ""
+        
+        if((notes as NSString).length > 100) {
+            let rangeOfPreview = Range(start: notes.startIndex, end: advance(notes.startIndex, 100))
+            preview = notes.substringWithRange(rangeOfPreview)
+        } else {
+            preview = notes
+        }
+        
+        return preview
+    }
     
+    func displayAlertTime() -> String {
+        var result = ""
+        
+        //"07:00:00 AM"
+        if alertTime != "" {
+            var time = alertTime
+            result = (alertTime[0...4]) + " " + (time[9...10])
+        }
+        //"07:00 AM"
+        
+        return result
+    }
     
+    func displaySoundEnabledFlag() -> String {
+        if (soundFileName == "" || soundFileName == UNKNOWN) {
+            return "Sound & Notification"
+        } else {
+            return "Notification"
+        }
+    }
 }

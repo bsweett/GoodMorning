@@ -87,7 +87,7 @@ class LocationManager : NSObject, CLLocationManagerDelegate {
         } else if(status == CLAuthorizationStatus.Denied || status == CLAuthorizationStatus.Restricted) {
             NSNotificationCenter.defaultCenter().postNotificationName("LocationDenied", object: nil)
             
-        } else if(status == CLAuthorizationStatus.AuthorizedWhenInUse || status == CLAuthorizationStatus.Authorized) {
+        } else if(status == CLAuthorizationStatus.AuthorizedWhenInUse || status == CLAuthorizationStatus.AuthorizedAlways) {
             locationManager.startUpdatingLocation()
             
         }
