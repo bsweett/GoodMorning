@@ -58,10 +58,10 @@ class Networking: NSObject {
                 NSNotificationCenter.defaultCenter().postNotificationName("NetworkError", object: nil)
                 
             } else {
-                let json = JSON(object: json!)
+                let json = JSON(json!)
                 var dictionary = Dictionary<String, String>()
-                let message = json["message"].stringValue
-                let reason = json["reason"].stringValue
+                let message = json["message"].string
+                let reason = json["reason"].string
                 
                 if(reason == "Exception" && message != "") {
                     dictionary["message"] = message

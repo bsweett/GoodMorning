@@ -26,15 +26,15 @@ class AlarmsManager: NSObject {
             
             println(json)
             
-            if let reason = json["reason"].stringValue {
-                if let message = json["message"].stringValue {
+            if let reason = json["reason"].string {
+                if let message = json["message"].string {
                     dictionary["message"] = message
                     dictionary["reason"] = reason
                     NSNotificationCenter.defaultCenter().postNotificationName("InvalidTaskResponse", object: self, userInfo: dictionary)
                 }
             }
             
-            if let array = json.arrayValue {
+            if let array = json.array {
                 self.parser.parseAlarmTasks(json)
                 return
             }

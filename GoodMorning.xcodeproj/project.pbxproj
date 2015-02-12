@@ -28,6 +28,8 @@
 		5F472CEA1A5EFF2D001E47CF /* InstallManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F472CE91A5EFF2D001E47CF /* InstallManager.swift */; };
 		5F472CEE1A5F45E4001E47CF /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F472CED1A5F45E4001E47CF /* Util.swift */; };
 		5F472CF21A5F853B001E47CF /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F472CF11A5F853B001E47CF /* Networking.swift */; };
+		5F4A62A51A8C25D7003C6B18 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4A62A41A8C25D7003C6B18 /* SwiftyJSON.swift */; };
+		5F4A62AA1A8C2AC5003C6B18 /* BoolExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4A62A91A8C2AC5003C6B18 /* BoolExtensions.swift */; };
 		5F6110AB1A41F4DD00B83410 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F6110A51A41F48000B83410 /* CFNetwork.framework */; };
 		5F6110AC1A41F4E500B83410 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F6110A71A41F48800B83410 /* CoreGraphics.framework */; };
 		5F6110AD1A41F4EA00B83410 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F6110A31A41F47100B83410 /* AVFoundation.framework */; };
@@ -39,7 +41,6 @@
 		5F6110C61A42014000B83410 /* TextToSpeech.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F6110C51A42014000B83410 /* TextToSpeech.swift */; };
 		5F744B381A420B2400F4C675 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F744B371A420B2400F4C675 /* Task.swift */; };
 		5F744B3A1A420BA900F4C675 /* TaskType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F744B391A420BA900F4C675 /* TaskType.swift */; };
-		5F744B411A420E9400F4C675 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F744B401A420E9400F4C675 /* SwiftyJSON.swift */; };
 		5F744B751A421A5400F4C675 /* AlarmsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F744B741A421A5400F4C675 /* AlarmsViewController.swift */; };
 		5F744B771A421C3A00F4C675 /* TasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F744B761A421C3A00F4C675 /* TasksViewController.swift */; };
 		5F744B791A421C7E00F4C675 /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F744B781A421C7E00F4C675 /* WeatherViewController.swift */; };
@@ -246,6 +247,8 @@
 		5F472CE91A5EFF2D001E47CF /* InstallManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstallManager.swift; sourceTree = "<group>"; };
 		5F472CED1A5F45E4001E47CF /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		5F472CF11A5F853B001E47CF /* Networking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
+		5F4A62A41A8C25D7003C6B18 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
+		5F4A62A91A8C2AC5003C6B18 /* BoolExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoolExtensions.swift; sourceTree = "<group>"; };
 		5F6110A11A41F45A00B83410 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		5F6110A31A41F47100B83410 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		5F6110A51A41F48000B83410 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -257,8 +260,6 @@
 		5F6110C51A42014000B83410 /* TextToSpeech.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextToSpeech.swift; sourceTree = "<group>"; };
 		5F744B371A420B2400F4C675 /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		5F744B391A420BA900F4C675 /* TaskType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskType.swift; sourceTree = "<group>"; };
-		5F744B3F1A420E9400F4C675 /* SwiftyJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SwiftyJSON.h; path = "../../../Downloads/SwiftyJSON-master/SwiftyJSON/SwiftyJSON.h"; sourceTree = "<group>"; };
-		5F744B401A420E9400F4C675 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftyJSON.swift; path = "../../../Downloads/SwiftyJSON-master/SwiftyJSON/SwiftyJSON.swift"; sourceTree = "<group>"; };
 		5F744B741A421A5400F4C675 /* AlarmsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmsViewController.swift; sourceTree = "<group>"; };
 		5F744B761A421C3A00F4C675 /* TasksViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksViewController.swift; sourceTree = "<group>"; };
 		5F744B781A421C7E00F4C675 /* WeatherViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WeatherViewController.swift; path = ../WeatherViewController.swift; sourceTree = "<group>"; };
@@ -434,6 +435,7 @@
 				5FDE45431A784BC300608EC8 /* StringExtensions.swift */,
 				5FEEC25F1A79DB0800E2C452 /* DateExtensions.swift */,
 				5FD1A3B11A86E83500842FB2 /* JSONParser.swift */,
+				5F4A62A91A8C2AC5003C6B18 /* BoolExtensions.swift */,
 			);
 			name = Utilites;
 			sourceTree = "<group>";
@@ -497,9 +499,8 @@
 		5F744B8D1A42225200F4C675 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				5F4A62A41A8C25D7003C6B18 /* SwiftyJSON.swift */,
 				5FC1FF1B1A646F8200253E6C /* Reachability.swift */,
-				5F744B3F1A420E9400F4C675 /* SwiftyJSON.h */,
-				5F744B401A420E9400F4C675 /* SwiftyJSON.swift */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -974,7 +975,7 @@
 			files = (
 				5F6110C61A42014000B83410 /* TextToSpeech.swift in Sources */,
 				5F80FF121A4369EB00727E25 /* LocationManager.swift in Sources */,
-				5F744B411A420E9400F4C675 /* SwiftyJSON.swift in Sources */,
+				5F4A62A51A8C25D7003C6B18 /* SwiftyJSON.swift in Sources */,
 				5F472CF21A5F853B001E47CF /* Networking.swift in Sources */,
 				5F472CEA1A5EFF2D001E47CF /* InstallManager.swift in Sources */,
 				5FEEC2601A79DB0800E2C452 /* DateExtensions.swift in Sources */,
@@ -999,6 +1000,7 @@
 				5FD1A3AF1A86A41B00842FB2 /* TaskViewCell.swift in Sources */,
 				5F83E29B1A4A35B100E9E7E3 /* PageViewController.swift in Sources */,
 				5F472CEE1A5F45E4001E47CF /* Util.swift in Sources */,
+				5F4A62AA1A8C2AC5003C6B18 /* BoolExtensions.swift in Sources */,
 				5F744B381A420B2400F4C675 /* Task.swift in Sources */,
 				5F7F372C1A425956004B7439 /* Settings.swift in Sources */,
 				5FC1FF201A6473BC00253E6C /* UserDefaultsManager.swift in Sources */,

@@ -25,6 +25,8 @@ let udUserName: String = "USERNAMEUD"
 let udLastActive: String = "LASTACTIVEUD"
 let udCreated: String = "CREATEDUD"
 
+let udNight: String = "NIGHTUD"
+
 // Colors
 let gmOrangeColor: UIColor = UIColor(red: (194/255.0), green: (118/255.0), blue: (9/255.0), alpha: 1.0)
 let gmYellowColor: UIColor = UIColor(red: (225/255.0), green: (222/255.0), blue: (0/255.0), alpha: 1.0)

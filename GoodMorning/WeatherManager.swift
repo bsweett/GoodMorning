@@ -28,8 +28,8 @@ class WeatherManager : NSObject {
             let json = data
             
             let city: JSON = json["city"]
-            cityname = city["name"].stringValue!
-            country = city["country"].stringValue!
+            cityname = city["name"].string!
+            country = city["country"].string!
             
             let list: JSON = json["list"]
             
@@ -54,22 +54,37 @@ class WeatherManager : NSObject {
         var currenttemperature: Double
         
         let currentItem: JSON = data[0]
-        var currentTemp: Double = currentItem["main"]["temp"].doubleValue!
+        var currentTemp: Double = currentItem["main"]["temp"].double!
         if(country == "US") {
             currenttemperature = round(((currentTemp - 273.15) * 1.8) + 32)
         } else {
             currenttemperature = round(currentTemp - 273.15)
         }
-        var currentIcon: String = currentItem["weather"][0]["icon"].stringValue!
-        var currentCond: Int = currentItem["weather"][0]["id"].integerValue!
+        var currentIcon: String = currentItem["weather"][0]["icon"].string!
+        var currentCond: Int = currentItem["weather"][0]["id"].int!
         
         var currentNight = false
         if currentIcon.rangeOfString("n") != nil{
             currentNight = true
         }
+        
+        cacheNightValue(currentNight)
+        
         var now = NSDate()
         
         current.update(currenttemperature, country: country, city: city, time: dateFormatter.stringFromDate(now), condition: currentCond, icon: currentIcon, nighttime: currentNight)
+    }
+    
+    private func cacheNightValue(newValue: Bool) {
+        
+        let cachedValue: Bool = UserDefaultsManager.sharedInstance.getNight().boolValue()
+        
+        if(newValue != cachedValue) {
+            println("Changed")
+            
+            UserDefaultsManager.sharedInstance.saveNight(newValue.toString())
+            NSNotificationCenter.defaultCenter().postNotificationName("NightCachedChanged", object: nil)
+        }
     }
     
     private func updateForecastWeather(data: JSON, country: String, city: String) {
@@ -83,7 +98,7 @@ class WeatherManager : NSObject {
             let item: JSON = data[index]
             
             let main: JSON = item["main"]
-            var temp: Double = main["temp"].doubleValue!
+            var temp: Double = main["temp"].double!
             
             var temperature: Double
             
@@ -93,13 +108,13 @@ class WeatherManager : NSObject {
                 temperature = round(temp - 273.15)
             }
             
-            var date: Double = item["dt"].doubleValue!
+            var date: Double = item["dt"].double!
             let thisDate = NSDate(timeIntervalSince1970: date)
             let forecastTime = dateFormatter.stringFromDate(thisDate)
             
             let weath: JSON = item["weather"]
-            var condition: Int = weath[0]["id"].integerValue!
-            var icon: String = weath[0]["icon"].stringValue!
+            var condition: Int = weath[0]["id"].int!
+            var icon: String = weath[0]["icon"].string!
             var night = false;
             if icon.rangeOfString("n") != nil{
                 night = true

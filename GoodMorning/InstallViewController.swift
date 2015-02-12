@@ -32,8 +32,6 @@ class InstallViewController : UIViewController, UITextFieldDelegate {
     private let manager: InstallManager = InstallManager()
     private let speaker: TextToSpeech = TextToSpeech(enabled: true)
     
-    private var installedAlarms: Dictionary<String, Task>!
-    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -218,7 +216,6 @@ class InstallViewController : UIViewController, UITextFieldDelegate {
     func receivedInstallComplete(notification: NSNotification) {
         stopLoading()
         
-        self.installedAlarms = notification.userInfo as Dictionary<String,Task>
         performSegueWithIdentifier("InstallationComplete", sender: self)
     }
     
@@ -235,7 +232,5 @@ class InstallViewController : UIViewController, UITextFieldDelegate {
     
     override func prepareForSegue(segue: (UIStoryboardSegue!), sender: AnyObject!) {
         NSNotificationCenter.defaultCenter().removeObserver(self)
-        var pageVC = segue!.destinationViewController as PageViewController;
-        pageVC.initalAlarms = installedAlarms
     }
 }

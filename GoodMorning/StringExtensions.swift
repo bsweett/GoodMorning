@@ -35,6 +35,14 @@ extension String {
         return self.substringToIndex(advance(self.startIndex, substringIndex))
     }
     
+    func boolValue() -> Bool {
+        if self == "true" {
+            return true
+        } else {
+            return false
+        }
+    }
+    
     func length() -> Int {
         return countElements(self)
     }

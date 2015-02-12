@@ -18,18 +18,11 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
     
     var currentViewController: UIViewController? = nil
     
-    var initalAlarms: Dictionary<String, Task>!
-    
     func getAlarm() -> UIViewController? {
         
         if(alarmController == nil) {
             let sb: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let alarmVC = sb.instantiateViewControllerWithIdentifier("Alarms") as? AlarmsViewController
-            
-            if(initalAlarms != nil) {
-                alarmVC?.setAlarmsFromInstall(initalAlarms)
-            }
-            
             self.alarmController = alarmVC
         }
         
@@ -163,14 +156,14 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         return 0
     }
     
-    // TODO: Add bar buttons for specific views
     func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [AnyObject], transitionCompleted completed: Bool) {
         
         if let current = pageViewController.viewControllers[0] as? UIViewController {
                 
             if(current == self.getAlarm()) {
                 self.title = "Alarms"
-                self.navigationItem.rightBarButtonItem = nil
+                var refreshButton = UIBarButtonItem(image: UIImage(named:"circular194.png"), style: .Bordered, target: self.getAlarm(), action: Selector("refreshTapped:"))
+                self.navigationItem.rightBarButtonItem = refreshButton
             }
             
             if(current == self.getWeather()) {

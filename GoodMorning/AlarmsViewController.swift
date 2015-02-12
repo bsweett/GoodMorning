@@ -55,14 +55,15 @@ class AlarmsViewController : UIViewController {
     @IBOutlet var clockThreeSwitch : UISwitch!
     @IBOutlet var clockFourSwitch : UISwitch!
     
-    private var alarmDict: Dictionary<NSInteger, Alarm> = [:]
+    private var alarmDict: Dictionary<String, Task> = [:]
 
     private var blur: UIVisualEffectView!
     
+    private var alarmManger: AlarmsManager!
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
+        alarmManger = AlarmsManager()
         //LocationManager.sharedInstance.update()
     }
     
@@ -89,20 +90,27 @@ class AlarmsViewController : UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedNetworkError:", name:"NetworkError", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name:"InternalServerError", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedWeatherUpdate:", name:"WeatherUpdated", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateBackground", name: "NightCachedChanged", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateAlarms:", name: "AlarmListUpdated", object: nil)
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationAuthorizeProblem:", name:"LocationDenied", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationAuthorizeProblem:", name:"LocationDisabled", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationUnknown:", name:"LocationUnknown", object: nil)
         
-        if(firstAppear == false) {
-            startLoading()
-            LocationManager.sharedInstance.update()
-            firstAppear = true
-        }
+        updateBackground()
     }
 
     override func viewDidAppear(animated: Bool) {
         //var task: Task = Task()
         //alarmDict[1] = Alarm(task)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        if(firstAppear == false) {
+            startLoading()
+            alarmManger.getAllAlarmsRequest()
+            firstAppear = true
+        }
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -136,10 +144,6 @@ class AlarmsViewController : UIViewController {
         
     }
     
-    func setAlarmsFromInstall(alarms: Dictionary<String, Task>) {
-        println("Called")
-    }
-    
     func startLoading() {
         self.view.addSubview(blur)
         self.view.bringSubviewToFront(blur)
@@ -152,8 +156,8 @@ class AlarmsViewController : UIViewController {
         activityIndicator.stopActivity()
     }
     
-    private func updateBackground(current: Weather) {
-        var night = current.nighttime
+    func updateBackground() {
+        var night: Bool = UserDefaultsManager.sharedInstance.getNight().boolValue()
         
         UIView.transitionWithView(background, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
             if(night == true) {
@@ -166,11 +170,36 @@ class AlarmsViewController : UIViewController {
         stopLoading()
     }
     
+    func updateAlarms(notification: NSNotification) {
+        let taskDictionary = notification.userInfo as Dictionary<String,Task>
+        self.alarmDict = taskDictionary
+        
+        let name1 : String = Array(taskDictionary.keys)[0]
+        let name2 : String = Array(taskDictionary.keys)[1]
+        let name3 : String = Array(taskDictionary.keys)[2]
+        let name4 : String = Array(taskDictionary.keys)[3]
+        
+        let task1 : Task = taskDictionary[name1]!
+        let task2 : Task = taskDictionary[name2]!
+        let task3 : Task = taskDictionary[name3]!
+        let task4 : Task = taskDictionary[name4]!
+        
+        updateAlarmDisplay(task1, task2: task2, task3: task3, task4: task4)
+    }
+    
+    private func updateAlarmDisplay(task1: Task, task2: Task, task3: Task, task4: Task) {
+        self.clockOneName.text = task1.title
+        self.clockOneTime.text = task1.displayAlertTime()
+        self.clockOneDates.text = task1.daysOfWeekToDisplayString()
+        self.clockOneSound.text = task1.displaySoundEnabledFlag()
+        
+        // TODO: Finish alarm configuration
+        
+        stopLoading()
+    }
+    
     func receivedWeatherUpdate(notification: NSNotification) {
-        let userInfo:Dictionary<String,Weather> = notification.userInfo as Dictionary<String,Weather>
-        let current: Weather = userInfo["current"]!
-
-        self.updateBackground(current)
+        stopLoading()
     }
     
     func receivedNetworkError(notification: NSNotification) {
@@ -201,6 +230,13 @@ class AlarmsViewController : UIViewController {
         alert.message = "Because you have disallowed location services you are required to enter your country and city in order to use GoodMorning"
         alert.addButtonWithTitle("Ok")
         alert.show()
+    }
+    
+    // MARK: - Actions
+    
+    @IBAction func refreshTapped(sender: UIBarButtonItem) {
+        startLoading()
+        alarmManger.getAllAlarmsRequest()
     }
     
     @IBAction func clockSwitchFlipped(sender: UISwitch) {

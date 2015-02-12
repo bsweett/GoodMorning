@@ -106,4 +106,13 @@ class UserDefaultsManager {
     func getCreated() -> String {
         return userDefaults.valueForKey(udCreated)==nil ? "" : userDefaults.valueForKey(udCreated) as String
     }
+    
+    //NightTime - Save / Get
+    func saveNight(night: String) {
+        userDefaults.setValue(night, forKey: udNight)
+    }
+    
+    func getNight() -> String {
+        return userDefaults.valueForKey(udNight)==nil ? "" : userDefaults.valueForKey(udNight) as String
+    }
 }

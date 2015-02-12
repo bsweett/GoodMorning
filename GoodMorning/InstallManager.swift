@@ -25,8 +25,8 @@ class InstallManager: NSObject {
             
             println(json)
             
-            if let reason = json["reason"].stringValue {
-                if let message = json["message"].stringValue {
+            if let reason = json["reason"].string {
+                if let message = json["message"].string {
                     dictionary["message"] = message
                     dictionary["reason"] = reason
                     NSNotificationCenter.defaultCenter().postNotificationName("InvalidInstallResponse", object: nil, userInfo: dictionary)
@@ -34,7 +34,7 @@ class InstallManager: NSObject {
             }
             
             // Checks to make sure token exists and that deviceId returned is the same as the one given on the device
-            if let token = json["userToken"].stringValue {
+            if let token = json["userToken"].string {
                 if(json["deviceId"].stringValue == self.deviceId) {
                     self.parser.parseInstallUserData(json)
                     return

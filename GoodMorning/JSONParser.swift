@@ -25,13 +25,13 @@ class JSONParser: NSObject {
 
         let tempDate: NSDate = NSDate()
         
-        let userId: String = userData["userId"].stringValue!
-        let deviceId: String = userData["deviceId"].stringValue!
-        let token: String = userData["userToken"].stringValue!
-        let nickname: String = userData["nickname"].stringValue!
-        let email: String = userData["email"].stringValue!
-        let creationString: String = userData["creationDate"].stringValue!
-        let lastActiveString: String = userData["lastActive"].stringValue!
+        let userId: String = userData["userId"].string!
+        let deviceId: String = userData["deviceId"].string!
+        let token: String = userData["userToken"].string!
+        let nickname: String = userData["nickname"].string!
+        let email: String = userData["email"].string!
+        let creationString: String = userData["creationDate"].string!
+        let lastActiveString: String = userData["lastActive"].string!
         
         let creationDate: NSDate = dateFormatter.dateFromString(creationString)!
         let lastActiveDate: NSDate = dateFormatter.dateFromString(lastActiveString)!
@@ -39,23 +39,23 @@ class JSONParser: NSObject {
         var user: User = User(id: userId, token: token, email: email, name: nickname, creation: creationDate, lastActive: lastActiveDate)
         
         // TODO: Pass feeds to user object constructor
-        if let list: Array<JSON> = userData["rssFeeds"].arrayValue {
+        if let list: Array<JSON> = userData["rssFeeds"].array {
             
             
         }
         
         //If not a Array or nil, return []
-        if let list: Array<JSON> = userData["taskSet"].arrayValue {
+        if let list: Array<JSON> = userData["taskSet"].array {
             
             for task in list {
-                let taskId = task["taskId"].stringValue!
-                let taskName = task["name"].stringValue!
-                let taskTypeString = task["taskType"].stringValue!
-                let taskCreateString = task["creationTimestamp"].stringValue!
-                let taskNextAlertString = task["nextAlertTimestamp"].stringValue!
-                let taskAlertTimeString = task["alertTime"].stringValue!
-                let soundEnabled = task["soundFileName"].stringValue!
-                let notes = task["Notes"].stringValue!
+                let taskId = task["taskId"].string!
+                let taskName = task["name"].string!
+                let taskTypeString = task["taskType"].string!
+                let taskCreateString = task["creationTimestamp"].string!
+                let taskNextAlertString = task["nextAlertTimestamp"].string!
+                let taskAlertTimeString = task["alertTime"].string!
+                let soundEnabled = task["soundFileName"].string!
+                let notes = task["Notes"].string!
                 
                 let monday = task["monday"].boolValue
                 let tuesday = task["tuesday"].boolValue
@@ -100,17 +100,17 @@ class JSONParser: NSObject {
         let tempDate: NSDate = NSDate()
         var taskList: Dictionary<String, Task>! = [:]
         
-        if let list: Array<JSON> = taskData.arrayValue {
+        if let list: Array<JSON> = taskData.array {
             
             for task in list {
-                let taskId = task["taskId"].stringValue!
-                let taskName = task["name"].stringValue!
-                let taskTypeString = task["taskType"].stringValue!
-                let taskCreateString = task["creationTimestamp"].stringValue!
-                let taskNextAlertString = task["nextAlertTimestamp"].stringValue!
-                let taskAlertTimeString = task["alertTime"].stringValue!
-                let soundEnabled = task["soundFileName"].stringValue!
-                let notes = task["Notes"].stringValue!
+                let taskId = task["taskId"].string!
+                let taskName = task["name"].string!
+                let taskTypeString = task["taskType"].string!
+                let taskCreateString = task["creationTimestamp"].string!
+                let taskNextAlertString = task["nextAlertTimestamp"].string!
+                let taskAlertTimeString = task["alertTime"].string!
+                let soundEnabled = task["soundFileName"].string!
+                let notes = task["Notes"].string!
                 
                 let monday = task["monday"].boolValue
                 let tuesday = task["tuesday"].boolValue
