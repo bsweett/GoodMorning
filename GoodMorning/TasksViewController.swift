@@ -12,9 +12,8 @@ import UIKit
 class TasksViewController : UIViewController, UIPopoverControllerDelegate, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var tasksTableView: UITableView!
-    
-    // TODO: Replace with UIAlertController
-    private let alert = UIAlertView()
+    private var refreshControl: UIRefreshControl!
+    private var noDataLabel: UILabel!
     
     private var popOverNavController: UINavigationController!
     private var popoverContent: TaskPopoverViewController!
@@ -34,25 +33,45 @@ class TasksViewController : UIViewController, UIPopoverControllerDelegate, UITab
         tasksTableView.dataSource = self
         tasksTableView.delegate = self
         tasksTableView.allowsMultipleSelectionDuringEditing = false
+        
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl.backgroundColor = gmOrangeColor;
+        self.refreshControl.tintColor = UIColor.whiteColor();
+        self.refreshControl.addTarget(taskManager, action: Selector("getAllTasksRequest"), forControlEvents: UIControlEvents.ValueChanged)
+        self.tasksTableView.addSubview(refreshControl)
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        self.parentViewController?.title = "Tasks"
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedNetworkError:", name:"NetworkError", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name:"InternalServerError", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInvalidTaskResponse:", name:"InvalidTaskResponse", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name:"InvalidTaskResponse", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedTaskList:", name:"TaskListUpdated", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedTaskAdd:", name: "TaskAdded", object: nil)
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        taskManager.getAllTasksRequest()
+        
+        if(!Reachability.isConnectedToNetwork()) {
+            SCLAlertView().showNotice("No Network Connection",
+                subTitle: "You don't appear to be connected to the Internet. Please check your connection.",
+                duration: 6)
+        } else {
+            taskManager.getAllTasksRequest()
+        }
+        
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
         NSNotificationCenter.defaultCenter().removeObserver(self)
+        super.viewDidDisappear(animated)
     }
     
     override func didReceiveMemoryWarning() {
@@ -63,26 +82,19 @@ class TasksViewController : UIViewController, UIPopoverControllerDelegate, UITab
     // MARK: - Notification Handlers
     
     func receivedNetworkError(notification: NSNotification) {
-        //stopLoading()
-        alert.title = "Network Error"
-        alert.message = "Please check your network connection"
-        alert.addButtonWithTitle("Ok")
-        alert.show()
+        /*SCLAlertView().showError("Network Error",
+            subTitle: "Oops something went wrong",
+            closeButtonTitle: "Dismiss")*/
+        self.reloadTaskData()
     }
     
     func receivedInternalServerError(notification: NSNotification) {
         //stopLoading()
-        alert.title = getUserInfoValueForKey(notification.userInfo, "reason")
-        alert.message = getUserInfoValueForKey(notification.userInfo, "message")
-        alert.addButtonWithTitle("Dismiss")
-        alert.show()
-    }
-    
-    func receivedInvalidTaskResponse(notification: NSNotification) {
-        alert.title = getUserInfoValueForKey(notification.userInfo, "reason")
-        alert.message = getUserInfoValueForKey(notification.userInfo, "message")
-        alert.addButtonWithTitle("Dismiss")
-        alert.show()
+        let reason = getUserInfoValueForKey(notification.userInfo, "reason")
+        let message = getUserInfoValueForKey(notification.userInfo, "message")
+        SCLAlertView().showWarning("Internal Server Error",
+            subTitle:  reason + " - " + message, closeButtonTitle: "Dismiss")
+        self.reloadTaskData()
     }
     
     func receivedTaskList(notification: NSNotification) {
@@ -93,7 +105,33 @@ class TasksViewController : UIViewController, UIPopoverControllerDelegate, UITab
             self.taskList.append(task)
         }
         
+        self.reloadTaskData()
+    }
+    
+    func receivedTaskAdd(notification: NSNotification) {
+        let resultDic = notification.userInfo as Dictionary<String, Bool>
+        let result: Bool = resultDic["success"]!
+        
+        if result {
+            self.refreshControl.beginRefreshing()
+        } else {
+            SCLAlertView().showWarning("Task Create Failed", subTitle: "An unknown error occured", closeButtonTitle: "Dismiss")
+        }
+    }
+    
+    func reloadTaskData() {
         self.tasksTableView.reloadData()
+        
+        if(self.refreshControl != nil) {
+            var formatter = NSDateFormatter()
+            formatter.setLocalizedDateFormatFromTemplate("MMM d, h:mm a")
+            let title: String = String(format: "Last update: %@", formatter.stringFromDate(NSDate()))
+            var dictionary: Dictionary = [NSForegroundColorAttributeName:UIColor.whiteColor()]
+            var attributedString: NSAttributedString = NSAttributedString(string: title, attributes: dictionary)
+            self.refreshControl.attributedTitle = attributedString
+            
+            self.refreshControl.endRefreshing()
+        }
     }
     
     @IBAction func addNewTask(sender: UIBarButtonItem) {
@@ -142,6 +180,7 @@ class TasksViewController : UIViewController, UIPopoverControllerDelegate, UITab
         }
         
         if(self.newTaskObject != nil) {
+            taskManager.sendNewTaskRequest(self.newTaskObject)
             // TODO: Save task to server ?
         }
     }
@@ -177,7 +216,32 @@ class TasksViewController : UIViewController, UIPopoverControllerDelegate, UITab
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        
+        
+        
+        if (self.taskList.count > 0) {
+            tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine;
+            
+            if(noDataLabel != nil) {
+                tableView.backgroundView = nil
+                noDataLabel = nil
+            }
+            
+            return 1;
+        }
+        
+        noDataLabel = UILabel(frame: CGRectMake(0, 0, self.view.bounds.width, self.view.bounds.height))
+        noDataLabel.text = "No Tasks found. Pull down to refresh or press the + to create one."
+        noDataLabel.textColor = gmOrangeColor
+        noDataLabel.numberOfLines = 0
+        noDataLabel.textAlignment = NSTextAlignment.Center
+        noDataLabel.font = gmFontQuoteLarge
+        noDataLabel.sizeToFit()
+        
+        tableView.backgroundView = noDataLabel
+        tableView.separatorStyle = UITableViewCellSeparatorStyle.None
+        
+        return 0;
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

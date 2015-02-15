@@ -81,10 +81,6 @@ class JSONParser: NSObject {
         NSNotificationCenter.defaultCenter().postNotificationName("InstallComplete", object: self, userInfo: user.getTasksWithType(TaskType.ALARM))
     }
     
-    func parseBoolResult(result: JSON) {
-        
-    }
-    
     func parseAllTasks(taskData: JSON) {
         let taskList: Dictionary<String, Task>! = parseTaskList(taskData)
         NSNotificationCenter.defaultCenter().postNotificationName("TaskListUpdated", object: self, userInfo: taskList)

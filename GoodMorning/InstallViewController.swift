@@ -16,8 +16,6 @@ class InstallViewController : UIViewController, UITextFieldDelegate {
     private let errorColor : UIColor = UIColor( red: 176, green: 35, blue: 14, alpha: 1.0 )
     private let defualtColor : UIColor = UIColor( red: 0.5, green: 0.5, blue:0, alpha: 1.0 )
     
-    private let alert = UIAlertView()
-    
     private var blur: UIVisualEffectView!
     
     @IBOutlet weak var activityIndicator: DTIActivityIndicatorView!
@@ -38,6 +36,13 @@ class InstallViewController : UIViewController, UITextFieldDelegate {
         nameField.delegate = self
         emailField.delegate = self
         
+        blur = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.Light))
+        blur.frame = view.frame
+        blur.tag = 50
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedNetworkError:", name:"NetworkError", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name:"InternalServerError", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name:"InvalidInstallResponse", object: nil)
@@ -46,27 +51,24 @@ class InstallViewController : UIViewController, UITextFieldDelegate {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationAuthorizeProblem:", name:"LocationDisabled", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationUnknown:", name:"LocationUnknown", object: nil)
         
-        blur = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.Light))
-        blur.frame = view.frame
-        blur.tag = 50
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        
         resetErrorLabelsAndColorsForField(nameField)
         resetErrorLabelsAndColorsForField(emailField)
         
         if(!Reachability.isConnectedToNetwork()) {
-            alert.title = "Network Connection"
-            alert.message = "You don't appear to be connected to the Internet. Please check your connection."
-            alert.addButtonWithTitle("Ok")
-            alert.show()
+            SCLAlertView().showNotice("No Network Connection",
+                subTitle: "You don't appear to be connected to the Internet. Please check your connection.",
+                duration: 6)
         } else {
             LocationManager.sharedInstance.update()
         }
         
         // TODO: enable when done install
         //speaker.speakStringsWithPause(titleLabel.text!, words2: descriptionLabel.text!, pauseLength: 2)
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     override func didReceiveMemoryWarning() {
@@ -181,10 +183,9 @@ class InstallViewController : UIViewController, UITextFieldDelegate {
     func receivedNetworkError(notification: NSNotification) {
         stopLoading()
         
-        alert.title = "Network Error"
-        alert.message = "Please check your network connection"
-        alert.addButtonWithTitle("Ok")
-        alert.show()
+        SCLAlertView().showError("Network Error",
+            subTitle: "Oops something went wrong",
+            closeButtonTitle: "Dismiss")
         
         setUIElementsEnabled(true)
     }
@@ -192,20 +193,19 @@ class InstallViewController : UIViewController, UITextFieldDelegate {
     func receivedInternalServerError(notification: NSNotification) {
         stopLoading()
         
-        alert.title = getUserInfoValueForKey(notification.userInfo, "reason")
-        alert.message = getUserInfoValueForKey(notification.userInfo, "message")
-        alert.addButtonWithTitle("Dismiss")
-        alert.show()
+        let reason = getUserInfoValueForKey(notification.userInfo, "reason")
+        let message = getUserInfoValueForKey(notification.userInfo, "message")
+        SCLAlertView().showWarning("Internal Server Error",
+            subTitle:  reason + " - " + message, closeButtonTitle: "Dismiss")
         
         setUIElementsEnabled(true)
     }
     
     func receivedLocationAuthorizeProblem(notification: NSNotification) {
         stopLoading()
-        alert.title = "Location Services Disallowed"
-        alert.message = "Because you have disallowed location services you are required to enter your country and city in order to use GoodMorning"
-        alert.addButtonWithTitle("Ok")
-        alert.show()
+        
+        SCLAlertView().showWarning("Location Services Disallowed",
+            subTitle: "Because you have disallowed location services you are required to enter your country and city in order to use GoodMorning", closeButtonTitle: "Ok")
         
         // add a field to the install view to hard code location
         

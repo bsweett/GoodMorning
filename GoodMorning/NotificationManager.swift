@@ -29,12 +29,14 @@ class NotificationManager {
     func scheduleNotificationForTask(task: Task) {
         unreadNotifCount++
         
+        var notes: String = ""
+        task.notes.isEmpty ? (notes = "") : (notes = " - " + task.notes)
+        
         var notification = UILocalNotification()
         notification.fireDate = task.nextAlertDate
-        notification.alertBody = task.title
-        notification.soundName = UILocalNotificationDefaultSoundName
-        
+        notification.alertBody = task.title + " at " + task.alertTime + notes
         notification.applicationIconBadgeNumber = unreadNotifCount
+        notification.soundName = NSBundle.mainBundle().pathForResource("jungle", ofType: ".caf")
         
         UIApplication.sharedApplication().scheduleLocalNotification(notification)
     }

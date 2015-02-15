@@ -69,7 +69,7 @@ class WeatherViewController : UIViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         self.view.bringSubviewToFront(activityIndicator)
-        self.navigationController?.title = "Weather"
+        self.parentViewController?.title  = "Weather"
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedNetworkError:", name:"NetworkError", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name:"InternalServerError", object: nil)
@@ -82,6 +82,8 @@ class WeatherViewController : UIViewController {
             LocationManager.sharedInstance.update()
             firstAppear = true
         }
+        
+        super.viewDidAppear(animated)
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -90,6 +92,7 @@ class WeatherViewController : UIViewController {
     
     override func viewDidDisappear(animated: Bool) {
         NSNotificationCenter.defaultCenter().removeObserver(self)
+        super.viewDidDisappear(animated)
     }
     
     override func didReceiveMemoryWarning() {
@@ -248,47 +251,25 @@ class WeatherViewController : UIViewController {
 
     func receivedNetworkError(notification: NSNotification) {
         stopLoading()
-        
-        let alert = UIAlertController(title:  "Network Error", message: "Please check your network connection", preferredStyle: UIAlertControllerStyle.Alert)
-        let cancelAction = UIAlertAction(title: "Ok", style: .Cancel) { (action) in
-            
-        }
-        
-        alert.addAction(cancelAction)
-        
-        self.presentViewController(alert, animated: true) {
-            // ...
-        }
+        /*SCLAlertView().showError("Network Error",
+            subTitle: "Oops something went wrong",
+            closeButtonTitle: "Dismiss")*/
     }
     
     func receivedInternalServerError(notification: NSNotification) {
         stopLoading()
         
-        let alert = UIAlertController(title:  getUserInfoValueForKey(notification.userInfo, "reason"), message: getUserInfoValueForKey(notification.userInfo, "message"), preferredStyle: UIAlertControllerStyle.Alert)
-        let cancelAction = UIAlertAction(title: "Dismiss", style: .Cancel) { (action) in
-            
-        }
-        
-        alert.addAction(cancelAction)
-        
-        self.presentViewController(alert, animated: true) {
-            // ...
-        }
+        let reason = getUserInfoValueForKey(notification.userInfo, "reason")
+        let message = getUserInfoValueForKey(notification.userInfo, "message")
+        SCLAlertView().showWarning("Internal Server Error",
+            subTitle:  reason + " - " + message, closeButtonTitle: "Dismiss")
     }
     
     // TODO: Better message to user if they disable it after installing
     func receivedLocationAuthorizeProblem(notification: NSNotification) {
         stopLoading()
-        
-        let alert = UIAlertController(title:  "Location Services Disallowed", message: "Because you have disallowed location services you are required to enter your country and city in order to use GoodMorning", preferredStyle: UIAlertControllerStyle.Alert)
-        let cancelAction = UIAlertAction(title: "Ok", style: .Cancel) { (action) in
-            
-        }
-        
-        alert.addAction(cancelAction)
-        
-        //self.presentViewController(alert, animated: true) {
-        //}
+        SCLAlertView().showWarning("Location Services Disallowed",
+            subTitle: "Because you have disallowed location services you are required to enter your country and city in order to use GoodMorning", closeButtonTitle: "Ok")
     }
 
 }

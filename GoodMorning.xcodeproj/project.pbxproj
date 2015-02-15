@@ -30,6 +30,7 @@
 		5F472CF21A5F853B001E47CF /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F472CF11A5F853B001E47CF /* Networking.swift */; };
 		5F4A62A51A8C25D7003C6B18 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4A62A41A8C25D7003C6B18 /* SwiftyJSON.swift */; };
 		5F4A62AA1A8C2AC5003C6B18 /* BoolExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4A62A91A8C2AC5003C6B18 /* BoolExtensions.swift */; };
+		5F549D4F1A9024CF00BC727B /* SCLAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F549D4E1A9024CF00BC727B /* SCLAlertView.swift */; };
 		5F6110AB1A41F4DD00B83410 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F6110A51A41F48000B83410 /* CFNetwork.framework */; };
 		5F6110AC1A41F4E500B83410 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F6110A71A41F48800B83410 /* CoreGraphics.framework */; };
 		5F6110AD1A41F4EA00B83410 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F6110A31A41F47100B83410 /* AVFoundation.framework */; };
@@ -249,6 +250,8 @@
 		5F472CF11A5F853B001E47CF /* Networking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		5F4A62A41A8C25D7003C6B18 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		5F4A62A91A8C2AC5003C6B18 /* BoolExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoolExtensions.swift; sourceTree = "<group>"; };
+		5F549D451A901BAD00BC727B /* jungle.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = jungle.caf; sourceTree = "<group>"; };
+		5F549D4E1A9024CF00BC727B /* SCLAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCLAlertView.swift; sourceTree = "<group>"; };
 		5F6110A11A41F45A00B83410 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		5F6110A31A41F47100B83410 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		5F6110A51A41F48000B83410 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -407,6 +410,7 @@
 		5F412CEE1A815F60004F8DE0 /* sounds */ = {
 			isa = PBXGroup;
 			children = (
+				5F549D451A901BAD00BC727B /* jungle.caf */,
 				5F412CF21A8168CF004F8DE0 /* ambient.wav */,
 				5F412CF31A8168CF004F8DE0 /* jungle.wav */,
 				5F412CF41A8168CF004F8DE0 /* pop.wav */,
@@ -499,6 +503,7 @@
 		5F744B8D1A42225200F4C675 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				5F549D4E1A9024CF00BC727B /* SCLAlertView.swift */,
 				5F4A62A41A8C25D7003C6B18 /* SwiftyJSON.swift */,
 				5FC1FF1B1A646F8200253E6C /* Reachability.swift */,
 			);
@@ -796,6 +801,11 @@
 					5FE864071A41ECEA00BB8808 = {
 						CreatedOnToolsVersion = 6.1.1;
 						DevelopmentTeam = ENAB6SE373;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					5FE8641E1A41ECEA00BB8808 = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -993,6 +1003,7 @@
 				5F744B921A4223BF00F4C675 /* Weather.swift in Sources */,
 				5F93A36A1A7ED8190059829F /* TaskRepeatTypeViewController.swift in Sources */,
 				5F08AC691A6F38D100F1ED8F /* AlarmsManager.swift in Sources */,
+				5F549D4F1A9024CF00BC727B /* SCLAlertView.swift in Sources */,
 				5F744B3A1A420BA900F4C675 /* TaskType.swift in Sources */,
 				5FD1A3B21A86E83500842FB2 /* JSONParser.swift in Sources */,
 				5F7F372F1A42649A004B7439 /* AlarmDetailViewController.swift in Sources */,

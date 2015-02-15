@@ -69,11 +69,17 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         
         self.navigationItem.title = "Alarms"
         self.navigationItem.rightBarButtonItem = nil
+        self.navigationController?.navigationBar.backgroundColor = gmBlueColor
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"configuration12.png"), style: .Bordered, target: self, action: Selector("settingsTapped:"))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named:"circular194.png"), style: .Bordered, target: self.getAlarm(), action: Selector("refreshTapped:"))
         
         self.currentViewController = self.getAlarm()!
         
         self.setPageControl()
+    }
+    
+    func displayTasksView() {
+        self.setViewControllers([self.getTasks()!], direction: UIPageViewControllerNavigationDirection.Reverse, animated: true, completion: nil)
     }
     
     func setPageControl() {
@@ -159,28 +165,24 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
     func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [AnyObject], transitionCompleted completed: Bool) {
         
         if let current = pageViewController.viewControllers[0] as? UIViewController {
-                
+            
             if(current == self.getAlarm()) {
-                self.title = "Alarms"
                 var refreshButton = UIBarButtonItem(image: UIImage(named:"circular194.png"), style: .Bordered, target: self.getAlarm(), action: Selector("refreshTapped:"))
                 self.navigationItem.rightBarButtonItem = refreshButton
             }
             
             if(current == self.getWeather()) {
-                self.navigationItem.title = "Weather"
                 var refreshButton = UIBarButtonItem(image: UIImage(named:"circular194.png"), style: .Bordered, target: self.getWeather(), action: Selector("refreshTapped:"))
                 self.navigationItem.rightBarButtonItem = refreshButton
             }
             
             if(current == self.getNews()) {
                 var addButton = UIBarButtonItem(image: UIImage(named:"add121.png"), style: .Bordered, target: self.getNews(), action: Selector("addNewRSSFeed:"))
-                self.navigationItem.title = "News"
                 self.navigationItem.rightBarButtonItem = addButton
             }
             
             if(current == self.getTasks()) {
                 var addButton = UIBarButtonItem(image: UIImage(named:"add121.png"), style: .Bordered, target: self.getTasks(), action: Selector("addNewTask:"))
-                self.navigationItem.title = "Tasks"
                 self.navigationItem.rightBarButtonItem = addButton
             }
         }

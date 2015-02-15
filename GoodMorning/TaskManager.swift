@@ -12,16 +12,16 @@ class TaskManager: NSObject {
     
     let parser: JSONParser = JSONParser()
     
-    // TODO: better as a POST with a JSON body?
     func sendNewTaskRequest(task: Task) {
         let url = SERVER_ADDRESS + "/newtask"
         
         let token = UserDefaultsManager.sharedInstance.getToken()
         let params = ["token":token, "time":task.alertTime, "days":task.daysOfTheWeekToString(), "notes":task.notes, "type":task.type.rawValue, "name":task.title]
         
-        Networking.sharedInstance.openNewJSONRequest(.GET, url: url, parameters: params, {(data: JSON) in
+        //GET OR POST?
+        Networking.sharedInstance.openNewJSONRequest(.POST, url: url, parameters: params, {(data: JSON) in
             let json = data
-            var dictionary = Dictionary<String, String>()
+            var dictionary = Dictionary<String, AnyObject>()
             
             println(json)
             
@@ -33,12 +33,10 @@ class TaskManager: NSObject {
                 }
             }
             
-            if let result = json["success"].string {
-                self.parser.parseBoolResult(json)
-                return
+            if let result = json["success"].bool {
+                dictionary["success"] = result
+                NSNotificationCenter.defaultCenter().postNotificationName("TaskAdded", object: self, userInfo: dictionary)
             }
-            
-            println("Adding new task on server failed because response was invalid")
         })
     }
     

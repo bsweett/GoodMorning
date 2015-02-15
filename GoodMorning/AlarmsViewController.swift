@@ -16,10 +16,7 @@ class AlarmsViewController : UIViewController {
     private var timer: NSTimer! = NSTimer()
     private var firstAppear: Bool = false
     
-    // TODO: Depreacted replace with UIAlertController
-    private let alert = UIAlertView()
-    
-    private var tapGesture : UIGestureRecognizer!
+    private var tapGesture : UITapGestureRecognizer!
     
     @IBOutlet weak var activityIndicator: DTIActivityIndicatorView!
     @IBOutlet var loading : UILabel!
@@ -41,9 +38,9 @@ class AlarmsViewController : UIViewController {
     @IBOutlet var clockFourTime : UILabel!
     
     @IBOutlet var clockOneDates : UILabel!
-    @IBOutlet var clockTwoDates : UISegmentedControl!
-    @IBOutlet var clockThreeDates : UISegmentedControl!
-    @IBOutlet var clockFourDates : UISegmentedControl!
+    @IBOutlet var clockTwoDates : UILabel!
+    @IBOutlet var clockThreeDates : UILabel!
+    @IBOutlet var clockFourDates : UILabel!
     
     @IBOutlet var clockOneSound : UILabel!
     @IBOutlet var clockTwoSound : UILabel!
@@ -79,14 +76,6 @@ class AlarmsViewController : UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-    
-        tapGesture = UITapGestureRecognizer(target: self, action: Selector("clockTapped:"))
-        clockOneView.addGestureRecognizer(tapGesture)
-        clockTwoView.addGestureRecognizer(tapGesture)
-        clockThreeView.addGestureRecognizer(tapGesture)
-        clockFourView.addGestureRecognizer(tapGesture)
-        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedNetworkError:", name:"NetworkError", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name:"InternalServerError", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedWeatherUpdate:", name:"WeatherUpdated", object: nil)
@@ -97,19 +86,40 @@ class AlarmsViewController : UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationAuthorizeProblem:", name:"LocationDisabled", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationUnknown:", name:"LocationUnknown", object: nil)
         
+        tapGesture = UITapGestureRecognizer(target: self, action: Selector("clockTapped:"))
+        tapGesture.numberOfTapsRequired = 2
+        
+        self.parentViewController?.title = "Alarms"
+        
         updateBackground()
+        
+        super.viewWillAppear(animated)
     }
 
     override func viewDidAppear(animated: Bool) {
-        //var task: Task = Task()
-        //alarmDict[1] = Alarm(task)
+        super.viewDidDisappear(animated)
+        clockOneView.addGestureRecognizer(tapGesture)
+        clockTwoView.addGestureRecognizer(tapGesture)
+        clockThreeView.addGestureRecognizer(tapGesture)
+        clockFourView.addGestureRecognizer(tapGesture)
     }
     
     override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
         if(firstAppear == false) {
-            startLoading()
-            alarmManger.getAllAlarmsRequest()
             firstAppear = true
+            
+            if(!Reachability.isConnectedToNetwork()) {
+                startLoading()
+                stopLoading()
+                SCLAlertView().showNotice("No Network Connection",
+                    subTitle: "You don't appear to be connected to the Internet. Please check your connection.",
+                    duration: 6)
+            } else {
+                startLoading()
+                alarmManger.getAllAlarmsRequest()
+            }
         }
     }
     
@@ -193,7 +203,21 @@ class AlarmsViewController : UIViewController {
         self.clockOneDates.text = task1.daysOfWeekToDisplayString()
         self.clockOneSound.text = task1.displaySoundEnabledFlag()
         
+        self.clockTwoName.text = task2.title
+        self.clockTwoTime.text = task2.displayAlertTime()
+        self.clockTwoDates.text = task2.daysOfWeekToDisplayString()
+        self.clockTwoSound.text = task2.displaySoundEnabledFlag()
+        
         // TODO: Finish alarm configuration
+        self.clockThreeName.text = task3.title
+        self.clockThreeTime.text = task3.displayAlertTime()
+        self.clockThreeDates.text = task3.daysOfWeekToDisplayString()
+        self.clockThreeSound.text = task3.displaySoundEnabledFlag()
+        
+        self.clockFourName.text = task4.title
+        self.clockFourTime.text = task4.displayAlertTime()
+        self.clockFourDates.text = task4.daysOfWeekToDisplayString()
+        self.clockFourSound.text = task4.displaySoundEnabledFlag()
         
         stopLoading()
     }
@@ -204,18 +228,17 @@ class AlarmsViewController : UIViewController {
     
     func receivedNetworkError(notification: NSNotification) {
         stopLoading()
-        alert.title = "Network Error"
-        alert.message = "Please check your network connection"
-        alert.addButtonWithTitle("Ok")
-        alert.show()
+        /*SCLAlertView().showError("Network Error",
+            subTitle: "Oops something went wrong",
+            closeButtonTitle: "Dismiss")*/
     }
     
     func receivedInternalServerError(notification: NSNotification) {
         stopLoading()
-        alert.title = getUserInfoValueForKey(notification.userInfo, "reason")
-        alert.message = getUserInfoValueForKey(notification.userInfo, "message")
-        alert.addButtonWithTitle("Dismiss")
-        alert.show()
+        let reason = getUserInfoValueForKey(notification.userInfo, "reason")
+        let message = getUserInfoValueForKey(notification.userInfo, "message")
+        SCLAlertView().showWarning("Internal Server Error",
+            subTitle:  reason + " - " + message, closeButtonTitle: "Dismiss")
     }
     
     // TODO: Handle Unknown location
@@ -226,10 +249,8 @@ class AlarmsViewController : UIViewController {
     // TODO: Better message to user if they disable it after installing
     func receivedLocationAuthorizeProblem(notification: NSNotification) {
         stopLoading()
-        alert.title = "Location Services Disallowed"
-        alert.message = "Because you have disallowed location services you are required to enter your country and city in order to use GoodMorning"
-        alert.addButtonWithTitle("Ok")
-        alert.show()
+        SCLAlertView().showWarning("Location Services Disallowed",
+            subTitle: "Because you have disallowed location services you are required to enter your country and city in order to use GoodMorning", closeButtonTitle: "Ok")
     }
     
     // MARK: - Actions
@@ -301,11 +322,14 @@ class AlarmsViewController : UIViewController {
        
     }
     
-    func clockTapped(sender: UIGestureRecognizer) {
+    func clockTapped(sender: UITapGestureRecognizer) {
         let view: UIView = sender.view!
+        let parent: PageViewController = self.parentViewController as PageViewController
+        
+        println("double tap")
         
         if(view == clockOneView) {
-            println("tapped clock")
+            parent.displayTasksView()
         } else if (view == clockTwoView) {
             
         } else if (view == clockThreeView) {

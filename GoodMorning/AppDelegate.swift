@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import AVFoundation
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var navController : UINavigationController?
+    var sound: NSURL!
+    var audioPlayer: AVAudioPlayer!
 
     // Override point for customization after application launch.
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
@@ -25,6 +28,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if(UIApplication.instancesRespondToSelector(Selector("registerUserNotificationSettings:"))) {
             application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: UIUserNotificationType.Sound | UIUserNotificationType.Alert | UIUserNotificationType.Badge, categories: nil))
         }
+        
+        AVAudioSession.sharedInstance().setActive(true, error: nil)
+        AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, error: nil)
+        
+        self.sound = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("jungle", ofType: "wav")!)
+        self.audioPlayer = AVAudioPlayer(contentsOfURL: sound, error: nil)
         
         // app already installed
         if (UserDefaultsManager.sharedInstance.getToken() != "") {
@@ -56,14 +65,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillResignActive(application: UIApplication) {
         
         LocationManager.sharedInstance.stopUpdate()
+        /*
+        var timer = NSTimer(fireDate: NSDate(timeIntervalSinceNow: 20), interval: 60.0, target: self, selector: Selector("playAlarm"), userInfo: nil, repeats: false)
+        NSRunLoop.currentRunLoop().addTimer(timer, forMode: NSDefaultRunLoopMode)*/
         
     }
 
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     func applicationDidEnterBackground(application: UIApplication) {
-       
-        
         
     }
 
@@ -89,6 +99,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
         
+        
+    }
+    
+    func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forLocalNotification notification: UILocalNotification, completionHandler: () -> Void) {
+        println("fired")
+        
+        self.sound = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("jungle", ofType: "wav")!)
+        self.audioPlayer = AVAudioPlayer(contentsOfURL: sound, error: nil)
+        audioPlayer.play()
     }
 }
 

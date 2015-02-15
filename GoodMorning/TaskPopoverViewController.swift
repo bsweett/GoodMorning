@@ -41,7 +41,7 @@ class TaskPopoverViewController: UIViewController, UITableViewDataSource, UITabl
         super.viewDidLoad()
         
         var now: NSDate = NSDate()
-        displayTask = Task(id: "temp", title: "New Task", creation: now, nextAlert: now.addMinutesToDate(1), type: TaskType.CHORE, alertTime: now.toTimeString(), soundFileName: UNKNOWN, notes: "")
+        displayTask = Task(id: "temp", title: "New Task", creation: now, nextAlert: now.addMinutesToDate(1), type: TaskType.CHORE, alertTime: now.toTimeString(), soundFileName: "jungle", notes: "")
         displayTask.setDaysOfTheWeek(false, tue: false, wed: false, thu: false, fri: false, sat: false, sun: false)
         
         NotificationManager.sharedInstance.scheduleNotificationForTask(displayTask)
