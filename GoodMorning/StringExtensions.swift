@@ -14,6 +14,11 @@ extension String {
         return regex?.firstMatchInString(self, options: nil, range: NSMakeRange(0, countElements(self))) != nil
     }
     
+    func isUrl() -> Bool {
+        let regex = NSRegularExpression(pattern: "(http|https)://((\\w)*|([0-9]*)|([-|_])*)+([\\.|/]((\\w)*|([0-9]*)|([-|_])*))+", options: .CaseInsensitive, error: nil)
+        return regex?.firstMatchInString(self, options: nil, range: NSMakeRange(0, countElements(self))) != nil
+    }
+    
     func isName() -> Bool {
         let regex = NSRegularExpression(pattern: "^([a-zA-Z]){3,35}$", options: .CaseInsensitive, error: nil)
         return regex?.firstMatchInString(self, options: nil, range: NSMakeRange(0, countElements(self))) != nil

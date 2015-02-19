@@ -44,13 +44,14 @@ class Networking: NSObject {
         self.networkOperationCount -= 1;
     }
     
+    // NOTE: Not using Alamofire method
     func openNewJSONRequest(method: Alamofire.Method, url: String, parameters: [String: AnyObject], completion: ((data: JSON) -> Void)!) {
         
         self.didStartNetworkOperation()
         
         Alamofire.request(.GET, url, parameters: parameters).validate(statusCode: 200..<300).validate(contentType: ["application/json"]).responseJSON {
             (request, response, json, error) in
-
+            
             self.didStopNetworkOperation()
             
             if (error != nil) {
@@ -81,4 +82,48 @@ class Networking: NSObject {
         }
     }
     
+    // NOTE: Not using Alamofire method
+    func openNewXMLRequest(method: Alamofire.Method, url: String, completion: ((data: AEXMLDocument) -> Void)!) {
+        
+        self.didStartNetworkOperation()
+        
+        Alamofire.request(.GET, url).validate(statusCode: 200..<300).validate(contentType: ["text/xml"]).responseString {
+            (request, response, string, error) in
+            
+            self.didStopNetworkOperation()
+            
+            if (error != nil) {
+                println( error?.localizedDescription)
+                NSNotificationCenter.defaultCenter().postNotificationName("NetworkError", object: nil)
+                
+            } else {
+                let xmlData = string?.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
+                var err: NSError?
+                if let xml = AEXMLDocument(xmlData: xmlData!, error: &err) {
+                    
+                    var dictionary = Dictionary<String, String>()
+                    let message = xml.root["message"].value
+                    let reason = xml.root["reason"].value
+                    
+                    if(reason == "Exception" && message != "") {
+                        dictionary["message"] = message
+                        NSNotificationCenter.defaultCenter().postNotificationName("InternalServerError", object: nil, userInfo: dictionary)
+                        
+                    } else if(reason == "" && message != "") {
+                        // Generic message from server
+                        println("Server said: " , message)
+                        
+                    } else {
+                        completion(data: xml)
+                        
+                    }
+                    
+                } else {
+                    
+                    // TODO: RSS XML Parse error
+                    println("description: \(error?.localizedDescription)\ninfo: \(err?.userInfo)")
+                }
+            }
+        }
+    }
 }

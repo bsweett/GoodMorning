@@ -13,6 +13,18 @@
 		5F08AC691A6F38D100F1ED8F /* AlarmsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F08AC681A6F38D100F1ED8F /* AlarmsManager.swift */; };
 		5F08AC871A6F418000F1ED8F /* DTIActivityIndicator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F08AC841A6F412C00F1ED8F /* DTIActivityIndicator.framework */; };
 		5F08AC8E1A6F429700F1ED8F /* DTIActivityIndicator.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5F08AC841A6F412C00F1ED8F /* DTIActivityIndicator.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5F396BD81A956C3F009F6525 /* NewsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F396BD71A956C3F009F6525 /* NewsManager.swift */; };
+		5F396BE11A957129009F6525 /* AEXML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F396BE01A957129009F6525 /* AEXML.swift */; };
+		5F396BE31A9573EF009F6525 /* XMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F396BE21A9573EF009F6525 /* XMLParser.swift */; };
+		5F396BE51A9582BE009F6525 /* NSDate+InternetDateTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F396BE41A9582BE009F6525 /* NSDate+InternetDateTime.swift */; };
+		5F3D129F1A91079800EF52D8 /* NewsPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3D129D1A91079800EF52D8 /* NewsPopoverViewController.swift */; };
+		5F3D12A01A91079800EF52D8 /* NewsPopoverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F3D129E1A91079800EF52D8 /* NewsPopoverViewController.xib */; };
+		5F3D12A21A910A6100EF52D8 /* RSSFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3D12A11A910A6100EF52D8 /* RSSFeed.swift */; };
+		5F3D12A41A910D0300EF52D8 /* RSSType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3D12A31A910D0300EF52D8 /* RSSType.swift */; };
+		5F3D12A71A911C2200EF52D8 /* NewsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3D12A51A911C2200EF52D8 /* NewsViewCell.swift */; };
+		5F3D12A81A911C2200EF52D8 /* NewsViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F3D12A61A911C2200EF52D8 /* NewsViewCell.xib */; };
+		5F3D12B31A912BED00EF52D8 /* NewsPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3D12B11A912BED00EF52D8 /* NewsPreviewViewController.swift */; };
+		5F3D12B41A912BED00EF52D8 /* NewsPreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F3D12B21A912BED00EF52D8 /* NewsPreviewViewController.xib */; };
 		5F412CDE1A811C2E004F8DE0 /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F412CDD1A811C2E004F8DE0 /* TaskManager.swift */; };
 		5F412CE61A814988004F8DE0 /* TaskAlertTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F412CE41A814988004F8DE0 /* TaskAlertTypeViewController.swift */; };
 		5F412CE71A814988004F8DE0 /* TaskAlertTypeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F412CE51A814988004F8DE0 /* TaskAlertTypeViewController.xib */; };
@@ -233,6 +245,18 @@
 		5F01B2781A65E5DE00CBE01A /* buzzer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buzzer.png; sourceTree = "<group>"; };
 		5F08AC681A6F38D100F1ED8F /* AlarmsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmsManager.swift; sourceTree = "<group>"; };
 		5F08AC7E1A6F412C00F1ED8F /* DTIActivityIndicator.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DTIActivityIndicator.xcodeproj; path = "DTIActivityIndicatorView-Swift/DTIActivityIndicator.xcodeproj"; sourceTree = "<group>"; };
+		5F396BD71A956C3F009F6525 /* NewsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsManager.swift; sourceTree = "<group>"; };
+		5F396BE01A957129009F6525 /* AEXML.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AEXML.swift; sourceTree = "<group>"; };
+		5F396BE21A9573EF009F6525 /* XMLParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XMLParser.swift; sourceTree = "<group>"; };
+		5F396BE41A9582BE009F6525 /* NSDate+InternetDateTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+InternetDateTime.swift"; sourceTree = "<group>"; };
+		5F3D129D1A91079800EF52D8 /* NewsPopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsPopoverViewController.swift; sourceTree = "<group>"; };
+		5F3D129E1A91079800EF52D8 /* NewsPopoverViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewsPopoverViewController.xib; sourceTree = "<group>"; };
+		5F3D12A11A910A6100EF52D8 /* RSSFeed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSSFeed.swift; sourceTree = "<group>"; };
+		5F3D12A31A910D0300EF52D8 /* RSSType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSSType.swift; sourceTree = "<group>"; };
+		5F3D12A51A911C2200EF52D8 /* NewsViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsViewCell.swift; sourceTree = "<group>"; };
+		5F3D12A61A911C2200EF52D8 /* NewsViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewsViewCell.xib; sourceTree = "<group>"; };
+		5F3D12B11A912BED00EF52D8 /* NewsPreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsPreviewViewController.swift; sourceTree = "<group>"; };
+		5F3D12B21A912BED00EF52D8 /* NewsPreviewViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewsPreviewViewController.xib; sourceTree = "<group>"; };
 		5F412CDD1A811C2E004F8DE0 /* TaskManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskManager.swift; sourceTree = "<group>"; };
 		5F412CE41A814988004F8DE0 /* TaskAlertTypeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskAlertTypeViewController.swift; sourceTree = "<group>"; };
 		5F412CE51A814988004F8DE0 /* TaskAlertTypeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaskAlertTypeViewController.xib; sourceTree = "<group>"; };
@@ -407,6 +431,17 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		5F3D12991A91076F00EF52D8 /* NewFeed */ = {
+			isa = PBXGroup;
+			children = (
+				5F3D129D1A91079800EF52D8 /* NewsPopoverViewController.swift */,
+				5F3D129E1A91079800EF52D8 /* NewsPopoverViewController.xib */,
+				5F3D12B11A912BED00EF52D8 /* NewsPreviewViewController.swift */,
+				5F3D12B21A912BED00EF52D8 /* NewsPreviewViewController.xib */,
+			);
+			name = NewFeed;
+			sourceTree = "<group>";
+		};
 		5F412CEE1A815F60004F8DE0 /* sounds */ = {
 			isa = PBXGroup;
 			children = (
@@ -440,6 +475,7 @@
 				5FEEC25F1A79DB0800E2C452 /* DateExtensions.swift */,
 				5FD1A3B11A86E83500842FB2 /* JSONParser.swift */,
 				5F4A62A91A8C2AC5003C6B18 /* BoolExtensions.swift */,
+				5F396BE21A9573EF009F6525 /* XMLParser.swift */,
 			);
 			name = Utilites;
 			sourceTree = "<group>";
@@ -503,6 +539,8 @@
 		5F744B8D1A42225200F4C675 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				5F396BE41A9582BE009F6525 /* NSDate+InternetDateTime.swift */,
+				5F396BE01A957129009F6525 /* AEXML.swift */,
 				5F549D4E1A9024CF00BC727B /* SCLAlertView.swift */,
 				5F4A62A41A8C25D7003C6B18 /* SwiftyJSON.swift */,
 				5FC1FF1B1A646F8200253E6C /* Reachability.swift */,
@@ -519,6 +557,8 @@
 				5FC32F431A4257B200F9EB26 /* Alarm.swift */,
 				5F7F372B1A425956004B7439 /* Settings.swift */,
 				5F80FF161A43B3A400727E25 /* User.swift */,
+				5F3D12A11A910A6100EF52D8 /* RSSFeed.swift */,
+				5F3D12A31A910D0300EF52D8 /* RSSType.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -628,6 +668,7 @@
 				5F412CDD1A811C2E004F8DE0 /* TaskManager.swift */,
 				5F412CEC1A815C69004F8DE0 /* AudioManager.swift */,
 				5F412CEF1A8162B2004F8DE0 /* NotificationManager.swift */,
+				5F396BD71A956C3F009F6525 /* NewsManager.swift */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -649,6 +690,8 @@
 				5FDE45351A782C4F00608EC8 /* PopoverViewCell.xib */,
 				5FD1A3AD1A86A41B00842FB2 /* TaskViewCell.swift */,
 				5FD1A3AE1A86A41B00842FB2 /* TaskViewCell.xib */,
+				5F3D12A51A911C2200EF52D8 /* NewsViewCell.swift */,
+				5F3D12A61A911C2200EF52D8 /* NewsViewCell.xib */,
 			);
 			name = CustomCells;
 			sourceTree = "<group>";
@@ -656,6 +699,7 @@
 		5FDE45381A78397F00608EC8 /* Popovers */ = {
 			isa = PBXGroup;
 			children = (
+				5F3D12991A91076F00EF52D8 /* NewFeed */,
 				5FDE453B1A783F0F00608EC8 /* NewTask */,
 			);
 			name = Popovers;
@@ -902,6 +946,7 @@
 				5F7A9CEA1A5CC24F00C595B7 /* d_heat.png in Resources */,
 				5F7A9CF41A5CC24F00C595B7 /* d_windy.png in Resources */,
 				5F412CFE1A8168CF004F8DE0 /* ambient.wav in Resources */,
+				5F3D12A01A91079800EF52D8 /* NewsPopoverViewController.xib in Resources */,
 				5F7A9CFE1A5CC24F00C595B7 /* n_overcast.png in Resources */,
 				5F7A9CEC1A5CC24F00C595B7 /* d_overcast.png in Resources */,
 				5F7A9CFF1A5CC24F00C595B7 /* n_rain.png in Resources */,
@@ -912,6 +957,7 @@
 				5F7A9CE01A5CC24F00C595B7 /* mode.png in Resources */,
 				5F7A9CF61A5CC24F00C595B7 /* n_calm.png in Resources */,
 				5F412D051A8168CF004F8DE0 /* acid.wav in Resources */,
+				5F3D12B41A912BED00EF52D8 /* NewsPreviewViewController.xib in Resources */,
 				5F7A9CE61A5CC24F00C595B7 /* d_cold.png in Resources */,
 				5F7A9CE51A5CC24F00C595B7 /* d_clear.png in Resources */,
 				5F7A9CCF1A5CC24F00C595B7 /* alarmsday.png in Resources */,
@@ -962,6 +1008,7 @@
 				5F7A9CFA1A5CC24F00C595B7 /* n_extreme.png in Resources */,
 				5F7A9D071A5CC24F00C595B7 /* weatherday.png in Resources */,
 				5F7A9CCE1A5CC24F00C595B7 /* add121.png in Resources */,
+				5F3D12A81A911C2200EF52D8 /* NewsViewCell.xib in Resources */,
 				5F7A9CF21A5CC24F00C595B7 /* d_thunder.png in Resources */,
 				5F7A9D081A5CC24F00C595B7 /* weathernight.png in Resources */,
 				5F7A9CDB1A5CC24F00C595B7 /* favourite15.png in Resources */,
@@ -986,6 +1033,7 @@
 				5F6110C61A42014000B83410 /* TextToSpeech.swift in Sources */,
 				5F80FF121A4369EB00727E25 /* LocationManager.swift in Sources */,
 				5F4A62A51A8C25D7003C6B18 /* SwiftyJSON.swift in Sources */,
+				5F3D12A21A910A6100EF52D8 /* RSSFeed.swift in Sources */,
 				5F472CF21A5F853B001E47CF /* Networking.swift in Sources */,
 				5F472CEA1A5EFF2D001E47CF /* InstallManager.swift in Sources */,
 				5FEEC2601A79DB0800E2C452 /* DateExtensions.swift in Sources */,
@@ -994,6 +1042,7 @@
 				5F412CF01A8162B2004F8DE0 /* NotificationManager.swift in Sources */,
 				5FDE45361A782C4F00608EC8 /* PopoverViewCell.swift in Sources */,
 				5F412CE61A814988004F8DE0 /* TaskAlertTypeViewController.swift in Sources */,
+				5F3D12A71A911C2200EF52D8 /* NewsViewCell.swift in Sources */,
 				5FDE453F1A783F5B00608EC8 /* TaskNameViewController.swift in Sources */,
 				5F744B901A42229D00F4C675 /* WeatherManager.swift in Sources */,
 				5F744B751A421A5400F4C675 /* AlarmsViewController.swift in Sources */,
@@ -1001,8 +1050,12 @@
 				5F412CDE1A811C2E004F8DE0 /* TaskManager.swift in Sources */,
 				5FEEC25A1A79CDC800E2C452 /* TaskTypeViewController.swift in Sources */,
 				5F744B921A4223BF00F4C675 /* Weather.swift in Sources */,
+				5F396BD81A956C3F009F6525 /* NewsManager.swift in Sources */,
 				5F93A36A1A7ED8190059829F /* TaskRepeatTypeViewController.swift in Sources */,
+				5F3D129F1A91079800EF52D8 /* NewsPopoverViewController.swift in Sources */,
 				5F08AC691A6F38D100F1ED8F /* AlarmsManager.swift in Sources */,
+				5F396BE51A9582BE009F6525 /* NSDate+InternetDateTime.swift in Sources */,
+				5F396BE31A9573EF009F6525 /* XMLParser.swift in Sources */,
 				5F549D4F1A9024CF00BC727B /* SCLAlertView.swift in Sources */,
 				5F744B3A1A420BA900F4C675 /* TaskType.swift in Sources */,
 				5FD1A3B21A86E83500842FB2 /* JSONParser.swift in Sources */,
@@ -1013,14 +1066,17 @@
 				5F472CEE1A5F45E4001E47CF /* Util.swift in Sources */,
 				5F4A62AA1A8C2AC5003C6B18 /* BoolExtensions.swift in Sources */,
 				5F744B381A420B2400F4C675 /* Task.swift in Sources */,
+				5F396BE11A957129009F6525 /* AEXML.swift in Sources */,
 				5F7F372C1A425956004B7439 /* Settings.swift in Sources */,
 				5FC1FF201A6473BC00253E6C /* UserDefaultsManager.swift in Sources */,
 				5F744B771A421C3A00F4C675 /* TasksViewController.swift in Sources */,
 				5FDE45441A784BC300608EC8 /* StringExtensions.swift in Sources */,
 				5F80FF151A43B30B00727E25 /* InstallViewController.swift in Sources */,
 				5FE8640E1A41ECEA00BB8808 /* AppDelegate.swift in Sources */,
+				5F3D12A41A910D0300EF52D8 /* RSSType.swift in Sources */,
 				5F93A36E1A7EEFA20059829F /* TaskNotesViewController.swift in Sources */,
 				5F744B791A421C7E00F4C675 /* WeatherViewController.swift in Sources */,
+				5F3D12B31A912BED00EF52D8 /* NewsPreviewViewController.swift in Sources */,
 				5FC1FF1C1A646F8200253E6C /* Reachability.swift in Sources */,
 				5FDE45421A784B6C00608EC8 /* ViewExtensions.swift in Sources */,
 				5F80FF171A43B3A400727E25 /* User.swift in Sources */,
