@@ -9,7 +9,7 @@
 import Foundation
 
 class XMLParser: NSObject {
-   
+    
     func checkValidRSSChannel(xml: AEXMLDocument, type: RSSType, url: String) -> RSSFeed? {
         
         var title = xml.root["channel"]["title"].stringValue
@@ -65,9 +65,9 @@ class XMLParser: NSObject {
                 
                 if let catergories = article["category"].all {
                     for category in catergories {
-                        if let name = category.value {
-                            rssArticle.addCategory(name)
-                        }
+                        
+                        rssArticle.addCategory(category.value!)
+                        
                     }
                 }
                 
@@ -76,7 +76,7 @@ class XMLParser: NSObject {
                 
                 var thumbNail = (article["media:thumbnail"].attributes["url"] as String)
                 
-                // TODO: check null on elements and add to article 
+                // TODO: check null on elements and add to article
                 // add article to map
             }
         }
