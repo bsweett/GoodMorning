@@ -9,9 +9,14 @@
 import Foundation
 import UIKit
 
-class NewsViewController : UIViewController, UIPopoverControllerDelegate, UITableViewDataSource, UITableViewDelegate {
+protocol rssPopoverNavDelegate {
+    func saveFeed(fedd: RSSFeed)
+}
+
+class NewsViewController : UIViewController, UIPopoverControllerDelegate, UITableViewDataSource, UITableViewDelegate, rssPopoverNavDelegate {
     
     @IBOutlet weak var newsTableView: UITableView!
+    private var refreshControl: UIRefreshControl!
     private var noDataLabel: UILabel!
     
     private var popOverNavController: UINavigationController!
@@ -19,13 +24,13 @@ class NewsViewController : UIViewController, UIPopoverControllerDelegate, UITabl
     private var popOverVC: UIPopoverController!
     
     private var newNewsObject: RSSFeed!
-    //private var taskManager: TaskManager!
+    private var newsManager: NewsManager!
     private var newsList: [RSSFeed]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         newNewsObject = nil
-        //taskManager = TaskManager()
+        newsManager = NewsManager()
         newsList = []
         
         newsTableView.registerNib(UINib(nibName: "NewsViewCell", bundle: nil), forCellReuseIdentifier: "newsCell")
@@ -33,15 +38,34 @@ class NewsViewController : UIViewController, UIPopoverControllerDelegate, UITabl
         newsTableView.delegate = self
         newsTableView.allowsMultipleSelectionDuringEditing = false
         
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl.backgroundColor = gmOrangeColor;
+        self.refreshControl.tintColor = UIColor.whiteColor();
+        self.refreshControl.addTarget(newsManager, action: Selector("getAllFeedsRequest"), forControlEvents: UIControlEvents.ValueChanged)
+        self.newsTableView.addSubview(refreshControl)
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         self.parentViewController?.title = "News"
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedNetworkError:", name:"NetworkError", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name:"InternalServerError", object: nil)
-        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name:"InvalidFeedResponse", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedFeedAdded:", name:"NewsAdded", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedListUpdate:", name:"FeedListUpdated", object: nil)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        
+        if(!Reachability.isConnectedToNetwork()) {
+            SCLAlertView().showNotice("No Network Connection",
+                subTitle: "You don't appear to be connected to the Internet. Please check your connection.",
+                duration: 6)
+        } else {
+            newsManager.getAllFeedsRequest()
+        }
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -55,6 +79,23 @@ class NewsViewController : UIViewController, UIPopoverControllerDelegate, UITabl
         // Dispose of any resources that can be recreated.
     }
     
+    func reloadNewsData() {
+        self.newsTableView.reloadData()
+        
+        if(self.refreshControl != nil) {
+            var formatter = NSDateFormatter()
+            formatter.setLocalizedDateFormatFromTemplate("MMM d, h:mm a")
+            let title: String = String(format: "Last update: %@", formatter.stringFromDate(NSDate()))
+            var dictionary: Dictionary = [NSForegroundColorAttributeName:UIColor.whiteColor()]
+            var attributedString: NSAttributedString = NSAttributedString(string: title, attributes: dictionary)
+            self.refreshControl.attributedTitle = attributedString
+            
+            self.refreshControl.endRefreshing()
+        }
+    }
+    
+    // MARK: - Notifications
+    
     func receivedNetworkError(notification: NSNotification) {
         /*SCLAlertView().showError("Network Error",
             subTitle: "Oops something went wrong",
@@ -67,14 +108,40 @@ class NewsViewController : UIViewController, UIPopoverControllerDelegate, UITabl
         let message = getUserInfoValueForKey(notification.userInfo, "message")
         SCLAlertView().showWarning("Internal Server Error",
             subTitle:  reason + " - " + message, closeButtonTitle: "Dismiss")
+        self.reloadNewsData()
     }
     
+    func receivedFeedAdded(notification: NSNotification) {
+        let resultDic = notification.userInfo as Dictionary<String, Bool>
+        let result: Bool = resultDic["success"]!
+        
+        if result {
+            self.refreshControl.beginRefreshing()
+        } else {
+            SCLAlertView().showWarning("Feed Create Failed", subTitle: "An unknown error occured", closeButtonTitle: "Dismiss")
+        }
+    }
+    
+    func receivedListUpdate(notification: NSNotification) {
+        let feedDictionary = notification.userInfo as Dictionary<String,RSSFeed>
+        self.newsList = []
+        
+        for feed in feedDictionary.values {
+            self.newsList.append(feed)
+        }
+        
+        self.reloadNewsData()
+    }
+    
+    //MARK: - Actions
     
     @IBAction func addNewRSSFeed(sender: UIBarButtonItem) {
         if(self.popoverContent == nil) {
             let sb: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             self.popoverContent = NewsPopoverViewController(nibName: "NewsPopoverViewController", bundle: nil)
         }
+        
+        popoverContent.rootViewController = self;
         
         if(self.popOverNavController == nil) {
             self.popOverNavController = UINavigationController(rootViewController: popoverContent)
@@ -138,8 +205,6 @@ class NewsViewController : UIViewController, UIPopoverControllerDelegate, UITabl
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         
-        
-        
         if (self.newsList.count > 0) {
             tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine;
             
@@ -188,6 +253,13 @@ class NewsViewController : UIViewController, UIPopoverControllerDelegate, UITabl
         
         // TODO: Prompt action sheet for edit or delete
         
+    }
+    
+    //MARK: - Custom Delegate
+    
+    func saveFeed(feed: RSSFeed) {
+        self.popOverVC.dismissPopoverAnimated(true)
+        newsManager.saveValidFeedToServer(feed)
     }
 
 }

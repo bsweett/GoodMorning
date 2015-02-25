@@ -11,6 +11,7 @@ import UIKit
 class NewsManager: NSObject {
    
     let xmlParser = XMLParser()
+    let jsonParser = JSONParser()
     
     func testNewRSSUrl(url: String, type: RSSType) {
         
@@ -22,7 +23,7 @@ class NewsManager: NSObject {
             if newRSSFeed == nil {
                 NSNotificationCenter.defaultCenter().postNotificationName("InvalidRSSURL", object: self)
             } else {
-                var dictionary = Dictionary<String, AnyObject>()
+                var dictionary = Dictionary<String, RSSFeed>()
                 dictionary["feed"] = newRSSFeed
                 
                 println(newRSSFeed?.toString())
@@ -34,4 +35,61 @@ class NewsManager: NSObject {
         
     }
     
+    func saveValidFeedToServer(feed: RSSFeed) {
+        let url = SERVER_ADDRESS + "/newfeed"
+        
+        let token = UserDefaultsManager.sharedInstance.getToken()
+        let params = ["token":token, "title":feed.title, "type":feed.type.rawValue, "updated":feed.lastActiveDate.toRFC822String(), "link":feed.link, "description":feed.contentDescription, "source":feed.rssLink, "lang": feed.language]
+        
+        Networking.sharedInstance.openNewJSONRequest(.GET, url: url, parameters: params, completion: {(data: JSON) in
+            let json = data
+            var dictionary = Dictionary<String, AnyObject>()
+            
+            println(json)
+            
+            if let reason = json["reason"].string {
+                if let message = json["message"].string {
+                    dictionary["message"] = message
+                    dictionary["reason"] = reason
+                    NSNotificationCenter.defaultCenter().postNotificationName("InvalidFeedResponse", object: self, userInfo: dictionary)
+                }
+            }
+            
+            if let result = json["success"].bool {
+                dictionary["success"] = result
+                NSNotificationCenter.defaultCenter().postNotificationName("NewsAdded", object: self, userInfo: dictionary)
+            }
+        })
+
+    }
+    
+    func getAllFeedsRequest() {
+        let url = SERVER_ADDRESS + "/feedlist"
+        
+        let token = UserDefaultsManager.sharedInstance.getToken()
+        println(token)
+        let params = ["token": token, "type": ""]
+        
+        Networking.sharedInstance.openNewJSONRequest(.GET, url: url, parameters: params, completion: {(data: JSON) in
+            let json = data
+            var dictionary = Dictionary<String, String>()
+            
+            println(json)
+            
+            if let reason = json["reason"].string {
+                if let message = json["message"].string {
+                    dictionary["message"] = message
+                    dictionary["reason"] = reason
+                    NSNotificationCenter.defaultCenter().postNotificationName("InvalidFeedResponse", object: self, userInfo: dictionary)
+                }
+            }
+            
+            if let array = json.array {
+                self.jsonParser.parseAllFeeds(json)
+                return
+            }
+            
+            println("Getting feeds on server failed because response was invalid")
+        })
+    }
 }

@@ -126,6 +126,11 @@
 		5F80FF151A43B30B00727E25 /* InstallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F80FF141A43B30B00727E25 /* InstallViewController.swift */; };
 		5F80FF171A43B3A400727E25 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F80FF161A43B3A400727E25 /* User.swift */; };
 		5F83E29B1A4A35B100E9E7E3 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F83E29A1A4A35B100E9E7E3 /* PageViewController.swift */; };
+		5F8C67931A9D79710082D994 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8C67911A9D79710082D994 /* FeedViewController.swift */; };
+		5F8C67941A9D79710082D994 /* FeedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F8C67921A9D79710082D994 /* FeedViewController.xib */; };
+		5F8C679B1A9D7A860082D994 /* ArticleViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8C67991A9D7A860082D994 /* ArticleViewCell.swift */; };
+		5F8C679C1A9D7A860082D994 /* ArticleViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F8C679A1A9D7A860082D994 /* ArticleViewCell.xib */; };
+		5F8C679E1A9D7DE40082D994 /* RSSArticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8C679D1A9D7DE40082D994 /* RSSArticle.swift */; };
 		5F93A36A1A7ED8190059829F /* TaskRepeatTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F93A3681A7ED8190059829F /* TaskRepeatTypeViewController.swift */; };
 		5F93A36B1A7ED8190059829F /* TaskRepeatTypeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F93A3691A7ED8190059829F /* TaskRepeatTypeViewController.xib */; };
 		5F93A36E1A7EEFA20059829F /* TaskNotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F93A36C1A7EEFA20059829F /* TaskNotesViewController.swift */; };
@@ -360,6 +365,11 @@
 		5F80FF141A43B30B00727E25 /* InstallViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstallViewController.swift; sourceTree = "<group>"; };
 		5F80FF161A43B3A400727E25 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		5F83E29A1A4A35B100E9E7E3 /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
+		5F8C67911A9D79710082D994 /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
+		5F8C67921A9D79710082D994 /* FeedViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedViewController.xib; sourceTree = "<group>"; };
+		5F8C67991A9D7A860082D994 /* ArticleViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleViewCell.swift; sourceTree = "<group>"; };
+		5F8C679A1A9D7A860082D994 /* ArticleViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArticleViewCell.xib; sourceTree = "<group>"; };
+		5F8C679D1A9D7DE40082D994 /* RSSArticle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSSArticle.swift; sourceTree = "<group>"; };
 		5F93A3681A7ED8190059829F /* TaskRepeatTypeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskRepeatTypeViewController.swift; sourceTree = "<group>"; };
 		5F93A3691A7ED8190059829F /* TaskRepeatTypeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaskRepeatTypeViewController.xib; sourceTree = "<group>"; };
 		5F93A36C1A7EEFA20059829F /* TaskNotesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskNotesViewController.swift; sourceTree = "<group>"; };
@@ -527,6 +537,7 @@
 		5F744B8B1A42223600F4C675 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				5F8C67981A9D79820082D994 /* Details */,
 				5FDE453C1A783F1C00608EC8 /* Pages */,
 				5FDE45381A78397F00608EC8 /* Popovers */,
 				5F7F372E1A42649A004B7439 /* AlarmDetailViewController.swift */,
@@ -559,6 +570,7 @@
 				5F80FF161A43B3A400727E25 /* User.swift */,
 				5F3D12A11A910A6100EF52D8 /* RSSFeed.swift */,
 				5F3D12A31A910D0300EF52D8 /* RSSType.swift */,
+				5F8C679D1A9D7DE40082D994 /* RSSArticle.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -657,6 +669,15 @@
 			path = night;
 			sourceTree = "<group>";
 		};
+		5F8C67981A9D79820082D994 /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				5F8C67911A9D79710082D994 /* FeedViewController.swift */,
+				5F8C67921A9D79710082D994 /* FeedViewController.xib */,
+			);
+			name = Details;
+			sourceTree = "<group>";
+		};
 		5FC1FF1E1A64734400253E6C /* Managers */ = {
 			isa = PBXGroup;
 			children = (
@@ -692,6 +713,8 @@
 				5FD1A3AE1A86A41B00842FB2 /* TaskViewCell.xib */,
 				5F3D12A51A911C2200EF52D8 /* NewsViewCell.swift */,
 				5F3D12A61A911C2200EF52D8 /* NewsViewCell.xib */,
+				5F8C67991A9D7A860082D994 /* ArticleViewCell.swift */,
+				5F8C679A1A9D7A860082D994 /* ArticleViewCell.xib */,
 			);
 			name = CustomCells;
 			sourceTree = "<group>";
@@ -930,6 +953,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5F7A9CE31A5CC24F00C595B7 /* search67.png in Resources */,
+				5F8C67941A9D79710082D994 /* FeedViewController.xib in Resources */,
 				5FE864151A41ECEA00BB8808 /* Main.storyboard in Resources */,
 				5F7A9D051A5CC24F00C595B7 /* n_tornado.png in Resources */,
 				5F412D031A8168CF004F8DE0 /* electronic.wav in Resources */,
@@ -997,6 +1021,7 @@
 				5F7A9CDF1A5CC24F00C595B7 /* minus65.png in Resources */,
 				5F7A9CD01A5CC24F00C595B7 /* alarmsnight.png in Resources */,
 				5F7A9CDC1A5CC24F00C595B7 /* internet28.png in Resources */,
+				5F8C679C1A9D7A860082D994 /* ArticleViewCell.xib in Resources */,
 				5F412D001A8168CF004F8DE0 /* pop.wav in Resources */,
 				5F7A9CD11A5CC24F00C595B7 /* approve9.png in Resources */,
 				5F7A9CF51A5CC24F00C595B7 /* unknown.png in Resources */,
@@ -1049,6 +1074,7 @@
 				5FC32F441A4257B200F9EB26 /* Alarm.swift in Sources */,
 				5F412CDE1A811C2E004F8DE0 /* TaskManager.swift in Sources */,
 				5FEEC25A1A79CDC800E2C452 /* TaskTypeViewController.swift in Sources */,
+				5F8C679B1A9D7A860082D994 /* ArticleViewCell.swift in Sources */,
 				5F744B921A4223BF00F4C675 /* Weather.swift in Sources */,
 				5F396BD81A956C3F009F6525 /* NewsManager.swift in Sources */,
 				5F93A36A1A7ED8190059829F /* TaskRepeatTypeViewController.swift in Sources */,
@@ -1073,12 +1099,14 @@
 				5FDE45441A784BC300608EC8 /* StringExtensions.swift in Sources */,
 				5F80FF151A43B30B00727E25 /* InstallViewController.swift in Sources */,
 				5FE8640E1A41ECEA00BB8808 /* AppDelegate.swift in Sources */,
+				5F8C67931A9D79710082D994 /* FeedViewController.swift in Sources */,
 				5F3D12A41A910D0300EF52D8 /* RSSType.swift in Sources */,
 				5F93A36E1A7EEFA20059829F /* TaskNotesViewController.swift in Sources */,
 				5F744B791A421C7E00F4C675 /* WeatherViewController.swift in Sources */,
 				5F3D12B31A912BED00EF52D8 /* NewsPreviewViewController.swift in Sources */,
 				5FC1FF1C1A646F8200253E6C /* Reachability.swift in Sources */,
 				5FDE45421A784B6C00608EC8 /* ViewExtensions.swift in Sources */,
+				5F8C679E1A9D7DE40082D994 /* RSSArticle.swift in Sources */,
 				5F80FF171A43B3A400727E25 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -34,13 +34,14 @@ class NewsViewCell: UITableViewCell {
         self.setTitleLabel(feed.title)
         self.setDescriptionLabel(feed.contentDescription)
         self.setTypeLabel(feed.type)
+        self.setDateLabel(feed.lastActiveDate.toFullDateString())
         
         if feed.logoURL != nil {
             self.setLogoImageFromURL(feed.logoURL)
         } else {
             
             // TODO: Question mark image if it cannot find the logo
-            self.logoImageView.image = UIImage(named: "gm_add")
+            self.logoImageView.image = UIImage(named: "gm_unknown")
         }
     }
     
@@ -65,6 +66,10 @@ class NewsViewCell: UITableViewCell {
         if let data = NSData(contentsOfURL: url!) {
             self.logoImageView.image = UIImage(data: data)
         }
+    }
+    
+    func setDateLabel(value: String) {
+        self.dateLabel.text = value
     }
     
 }

@@ -341,7 +341,7 @@
                         <outlet property="nameField" destination="gJi-S3-HKz" id="dEf-X1-r9M"/>
                         <outlet property="submitButton" destination="bYx-Q6-gcL" id="2CH-WV-iXC"/>
                         <outlet property="titleLabel" destination="yJS-2C-uvZ" id="Hf4-y4-f85"/>
-                        <segue destination="val-ET-P02" kind="presentation" identifier="InstallationComplete" modalTransitionStyle="flipHorizontal" id="NRn-Vd-sZF"/>
+                        <segue destination="val-ET-P02" kind="show" identifier="InstallationComplete" id="NRn-Vd-sZF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q7r-tf-ulk" userLabel="First Responder" sceneMemberID="firstResponder"/>

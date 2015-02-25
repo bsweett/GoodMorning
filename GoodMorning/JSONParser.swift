@@ -21,6 +21,8 @@ class JSONParser: NSObject {
         dateFormatter.timeStyle = NSDateFormatterStyle.MediumStyle
     }
     
+    //MARK: - User JSON
+    
     func parseInstallUserData(userData: JSON) {
 
         let tempDate: NSDate = NSDate()
@@ -81,6 +83,8 @@ class JSONParser: NSObject {
         NSNotificationCenter.defaultCenter().postNotificationName("InstallComplete", object: self, userInfo: user.getTasksWithType(TaskType.ALARM))
     }
     
+    //MARK: - Task JSON
+    
     func parseAllTasks(taskData: JSON) {
         let taskList: Dictionary<String, Task>! = parseTaskList(taskData)
         NSNotificationCenter.defaultCenter().postNotificationName("TaskListUpdated", object: self, userInfo: taskList)
@@ -128,6 +132,45 @@ class JSONParser: NSObject {
         }
         
         return taskList
+    }
+    
+    //MARK: - Feed JSON
+    
+    func parseAllFeeds(feedData: JSON) {
+        let feedList: Dictionary<String, RSSFeed>! = parseFeedList(feedData)
+        NSNotificationCenter.defaultCenter().postNotificationName("FeedListUpdated", object: self, userInfo: feedList)
+    }
+    
+    private func parseFeedList(feedData: JSON) -> Dictionary<String, RSSFeed> {
+        var feedList: Dictionary<String, RSSFeed>! = [:]
+        
+        if let list: Array<JSON> = feedData.array {
+            
+            for feed in list {
+                
+                let feedId = feed["feedId"].string!
+                let title = feed["title"].string!
+                let link = feed["link"].string!
+                let description = feed["description"].string!
+                let language = feed["language"].string!
+                let rssLink = feed["source"].string!
+                let feedCreateString = feed["creationTimestamp"].string!
+                let feedUpdatedString = feed["pubDate"].string!
+                let feedTypeString = feed["type"].string!
+                
+                let fType = RSSType.typeFromString(feedTypeString)
+                
+                let feedCreateDate: NSDate = dateFormatter.dateFromString(feedCreateString)!
+                let feedUpdatedDate: NSDate = dateFormatter.dateFromString(feedUpdatedString)!
+                
+                var feed: RSSFeed = RSSFeed(id: feedId, title: title, creation: feedCreateDate, lastActiveDate: feedUpdatedDate, type: fType, description: description, language: language, link: link, rssLink: rssLink)
+                
+                feedList[feed.title] = feed
+            }
+            
+        }
+        
+        return feedList
     }
     
 }

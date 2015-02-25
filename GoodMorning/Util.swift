@@ -14,9 +14,10 @@ let ipHome4 = "http://192.168.1.104:8080"
 let ipHome5 = "http://192.168.1.105:8080"
 let ipHome7 = "http://192.168.1.107:8080"
 let ipOak = "http://192.168.1.14:8080"
+let ipHome237 = "http://192.168.1.237:8080"
 
 // TODO: Setup router to forward traffic through TCP port 8080 to use static IP
-let SERVER_ADDRESS = ipOak + "/GoodMorning-Server"
+let SERVER_ADDRESS = ipHome237 + "/GoodMorning-Server"
 
 // UserDefault Keys
 let udEmailID: String = "EMAILUD"

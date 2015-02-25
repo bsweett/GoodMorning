@@ -36,4 +36,17 @@ extension NSDate {
         timeformat.dateFormat = "HH:mm:ss"
         return timeformat.stringFromDate(self)
     }
+    
+    func toFullDateString() -> String {
+        var dateformat: NSDateFormatter = NSDateFormatter()
+        dateformat.dateStyle = NSDateFormatterStyle.MediumStyle
+        dateformat.timeStyle = NSDateFormatterStyle.MediumStyle
+        return dateformat.stringFromDate(self)
+    }
+    
+    func toRFC822String() -> String {
+        var dateformat: NSDateFormatter = NSDateFormatter()
+        dateformat.dateFormat = "EEE, d MMM yyyy HH:mm:ss Z"
+        return dateformat.stringFromDate(self)
+    }
 }

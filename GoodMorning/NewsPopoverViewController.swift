@@ -19,6 +19,7 @@ class NewsPopoverViewController: UIViewController, UITextFieldDelegate, UIPicker
     
     var displayFeed: RSSFeed!
     var newsManager: NewsManager!
+    var rootViewController: NewsViewController!
     var previewVC: NewsPreviewViewController!
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
@@ -40,6 +41,9 @@ class NewsPopoverViewController: UIViewController, UITextFieldDelegate, UIPicker
         self.typePicker.delegate = self
         self.urlFeild.delegate = self
         self.navigationItem.rightBarButtonItem?.enabled = false
+        
+        var backButton = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.Bordered, target: nil, action: nil)
+        self.navigationItem.backBarButtonItem = backButton
 
     }
     
@@ -48,7 +52,7 @@ class NewsPopoverViewController: UIViewController, UITextFieldDelegate, UIPicker
         self.typePicker.selectRow(0, inComponent: 0, animated: true)
         
         //Note: This is just for testing
-        self.urlFeild.text = "http://feeds.feedburner.com/TechCrunch/"
+        self.urlFeild.text = "http://feeds.gawker.com/kotaku/vip"
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedNetworkError:", name:"NetworkError", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name:"InternalServerError", object: nil)
@@ -86,10 +90,23 @@ class NewsPopoverViewController: UIViewController, UITextFieldDelegate, UIPicker
     // or preview of the channel info
     func receivedInvalidRSS(notification: NSNotification) {
         
+        if(self.previewVC == nil) {
+            self.previewVC = NewsPreviewViewController(nibName: "NewsPreviewViewController", bundle: nil)
+        }
+        
+        self.previewVC.setRSSFeed(nil)
+        self.navigationController?.pushViewController(previewVC, animated: true)
     }
     
     func receivedValidRSS(notification: NSNotification) {
+        let userInfo: Dictionary<String, RSSFeed> = notification.userInfo as Dictionary<String, RSSFeed>
         
+        if(self.previewVC == nil) {
+            self.previewVC = NewsPreviewViewController(nibName: "NewsPreviewViewController", bundle: nil)
+        }
+        self.previewVC.delegate = self.rootViewController
+        self.previewVC.setRSSFeed(userInfo["feed"])
+        self.navigationController?.pushViewController(previewVC, animated: true)
     }
     // TODO
     
@@ -177,5 +194,4 @@ class NewsPopoverViewController: UIViewController, UITextFieldDelegate, UIPicker
         // close this popover 
         // update list
     }
-    
 }

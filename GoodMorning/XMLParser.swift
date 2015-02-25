@@ -32,11 +32,11 @@ class XMLParser: NSObject {
         }
         
         if description.rangeOfString("not found") != nil {
-            description = ""
+            description = "unknown"
         }
         
         if language.rangeOfString("not found") != nil {
-            language = ""
+            language = "en"
         }
         
         var rss = RSSFeed(title: title, creation: NSDate(), lastActiveDate: activeDate, type: type, description: description, language: language, link: link, rssLink: url)
@@ -48,5 +48,39 @@ class XMLParser: NSObject {
         }
         
         return rss
+    }
+    
+    func parseArticles(xml: AEXMLDocument) -> Dictionary<String, RSSArticle> {
+        
+        var articles: Dictionary<String, RSSArticle> = Dictionary<String, RSSArticle>()
+        
+        if let items = xml.root["channel"]["item"].all {
+            
+            for article in items {
+                var rssArticle: RSSArticle = RSSArticle()
+                
+                var title = article["title"].stringValue
+                var link = article["link"].stringValue
+                var descriptionRaw = article["description"].stringValue
+                
+                if let catergories = article["category"].all {
+                    for category in catergories {
+                        if let name = category.value {
+                            rssArticle.addCategory(name)
+                        }
+                    }
+                }
+                
+                var pubString = article["pubdate"].stringValue
+                var creator = article["dc:creator"].stringValue
+                
+                var thumbNail = (article["media:thumbnail"].attributes["url"] as String)
+                
+                // TODO: check null on elements and add to article 
+                // add article to map
+            }
+        }
+        
+        return articles
     }
 }

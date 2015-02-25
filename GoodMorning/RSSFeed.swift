@@ -23,7 +23,6 @@ class RSSFeed: NSObject {
     var logoURL: String!
     var rssLink: String!
 
-    // From existing JSON
     init(id: String, title: String, creation: NSDate, lastActiveDate: NSDate, type: RSSType, description: String, language: String, link: String, rssLink: String) {
         
         self.id = id
@@ -58,6 +57,10 @@ class RSSFeed: NSObject {
     
     func setLogoUrl(url: String) {
         self.logoURL = url
+    }
+    
+    func logoAsUrl() -> NSURL? {
+       return NSURL(string: self.logoURL)?
     }
     
     func toString() -> String {
