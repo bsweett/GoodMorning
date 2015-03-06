@@ -19,9 +19,12 @@ class TasksViewController : UIViewController, UIPopoverControllerDelegate, UITab
     private var popoverContent: TaskPopoverViewController!
     private var popOverVC: UIPopoverController!
     
+    private var taskDetailVC: TaskEditViewController!
+    
     private var newTaskObject: Task!
     private var taskManager: TaskManager!
     private var taskList: [Task]!
+    private var indexPendingDelete: NSIndexPath!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -203,10 +206,10 @@ class TasksViewController : UIViewController, UIPopoverControllerDelegate, UITab
         
         cell.setTaskObject(taskList[indexPath.row])
         
-        /*
-        var longpress: UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: Selector("taskCellLongPress:"))
-        longpress.minimumPressDuration = 2
-        cell.contentView.addGestureRecognizer(longpress)*/
+        
+        var doubleTap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("doubleTappedTaskCell:"))
+        doubleTap.numberOfTapsRequired = 2
+        cell.contentView.addGestureRecognizer(doubleTap)
         
         return cell
     }
@@ -266,19 +269,44 @@ class TasksViewController : UIViewController, UIPopoverControllerDelegate, UITab
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
         // TODO: Prompt action sheet for edit or delete
+        if(self.taskDetailVC == nil) {
+            self.taskDetailVC = TaskEditViewController(nibName: "TaskEditViewController", bundle: nil)
+        }
+        
+        self.taskDetailVC.setTask(cell.getTaskObject())
+        self.taskDetailVC.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
+        self.taskDetailVC.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
+        self.navigationController?.presentViewController(taskDetailVC, animated: true)
 
     }
     
-
-    /*
-    func taskCellLongPress(sender: UILongPressGestureRecognizer) {
+    func doubleTappedTaskCell(sender: UITapGestureRecognizer) {
+        
         if(sender.state == UIGestureRecognizerState.Ended) {
             let point: CGPoint = sender.locationInView(self.tasksTableView)
             let indexPath: NSIndexPath = self.tasksTableView.indexPathForRowAtPoint(point)!
-            var tableViewCell: TaskViewCell = self.tasksTableView.cellForRowAtIndexPath(indexPath) as TaskViewCell!
+            //var tableViewCell: TaskViewCell = self.tasksTableView.cellForRowAtIndexPath(indexPath) as TaskViewCell!
             
-            
+            self.indexPendingDelete = indexPath
         }
-    }*/
+        
+        let actionSheet = UIActionSheet(title: "Are you sure you want to delete this Task?", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: "Delete Task")
+        actionSheet.actionSheetStyle = .Default
+        actionSheet.showInView(self.view)
+    }
+    
+    // MARK: UIActionSheetDelegate
+    
+    func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
+        
+        // TODO: If button is delete then remove cell from tableview with indexPendingDelete and send a delete to the server
+        // with that cell task
+        
+        // if indexPendingDelete is nil then close the action sheet
+        
+        // default to closing the action sheet and setting indexPendingDelete to nil
+        
+        actionSheet.dismissWithClickedButtonIndex(buttonIndex, animated: true)
+    }
 }
     

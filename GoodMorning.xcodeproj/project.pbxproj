@@ -121,7 +121,6 @@
 		5F7A9D081A5CC24F00C595B7 /* weathernight.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F7A9CCC1A5CC24F00C595B7 /* weathernight.png */; };
 		5F7A9D091A5CC24F00C595B7 /* white.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F7A9CCD1A5CC24F00C595B7 /* white.png */; };
 		5F7F372C1A425956004B7439 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7F372B1A425956004B7439 /* Settings.swift */; };
-		5F7F372F1A42649A004B7439 /* AlarmDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7F372E1A42649A004B7439 /* AlarmDetailViewController.swift */; };
 		5F80FF121A4369EB00727E25 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F80FF111A4369EB00727E25 /* LocationManager.swift */; };
 		5F80FF151A43B30B00727E25 /* InstallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F80FF141A43B30B00727E25 /* InstallViewController.swift */; };
 		5F80FF171A43B3A400727E25 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F80FF161A43B3A400727E25 /* User.swift */; };
@@ -136,6 +135,8 @@
 		5F93A36E1A7EEFA20059829F /* TaskNotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F93A36C1A7EEFA20059829F /* TaskNotesViewController.swift */; };
 		5F93A36F1A7EEFA20059829F /* TaskNotesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F93A36D1A7EEFA20059829F /* TaskNotesViewController.xib */; };
 		5FA383EC1A4208AE0013B102 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FA383EA1A4208A30013B102 /* CoreLocation.framework */; };
+		5FB804161AA9428B007DC2DC /* TaskEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB804141AA9428B007DC2DC /* TaskEditViewController.swift */; };
+		5FB804171AA9428B007DC2DC /* TaskEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FB804151AA9428B007DC2DC /* TaskEditViewController.xib */; };
 		5FC1FF1C1A646F8200253E6C /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC1FF1B1A646F8200253E6C /* Reachability.swift */; };
 		5FC1FF201A6473BC00253E6C /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC1FF1F1A6473BC00253E6C /* UserDefaultsManager.swift */; };
 		5FC32F421A423B0600F9EB26 /* Alamofire.framework in Copy Files (1 item) */ = {isa = PBXBuildFile; fileRef = 5FC32F3C1A4239FA00F9EB26 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -360,7 +361,6 @@
 		5F7A9CCC1A5CC24F00C595B7 /* weathernight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weathernight.png; sourceTree = "<group>"; };
 		5F7A9CCD1A5CC24F00C595B7 /* white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = white.png; sourceTree = "<group>"; };
 		5F7F372B1A425956004B7439 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
-		5F7F372E1A42649A004B7439 /* AlarmDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmDetailViewController.swift; sourceTree = "<group>"; };
 		5F80FF111A4369EB00727E25 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		5F80FF141A43B30B00727E25 /* InstallViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstallViewController.swift; sourceTree = "<group>"; };
 		5F80FF161A43B3A400727E25 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -375,6 +375,8 @@
 		5F93A36C1A7EEFA20059829F /* TaskNotesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskNotesViewController.swift; sourceTree = "<group>"; };
 		5F93A36D1A7EEFA20059829F /* TaskNotesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaskNotesViewController.xib; sourceTree = "<group>"; };
 		5FA383EA1A4208A30013B102 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		5FB804141AA9428B007DC2DC /* TaskEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskEditViewController.swift; sourceTree = "<group>"; };
+		5FB804151AA9428B007DC2DC /* TaskEditViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaskEditViewController.xib; sourceTree = "<group>"; };
 		5FC1FF1B1A646F8200253E6C /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		5FC1FF1F1A6473BC00253E6C /* UserDefaultsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		5FC32F361A4239FA00F9EB26 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
@@ -540,7 +542,6 @@
 				5F8C67981A9D79820082D994 /* Details */,
 				5FDE453C1A783F1C00608EC8 /* Pages */,
 				5FDE45381A78397F00608EC8 /* Popovers */,
-				5F7F372E1A42649A004B7439 /* AlarmDetailViewController.swift */,
 				5F80FF141A43B30B00727E25 /* InstallViewController.swift */,
 				5F83E29A1A4A35B100E9E7E3 /* PageViewController.swift */,
 			);
@@ -674,6 +675,8 @@
 			children = (
 				5F8C67911A9D79710082D994 /* FeedViewController.swift */,
 				5F8C67921A9D79710082D994 /* FeedViewController.xib */,
+				5FB804141AA9428B007DC2DC /* TaskEditViewController.swift */,
+				5FB804151AA9428B007DC2DC /* TaskEditViewController.xib */,
 			);
 			name = Details;
 			sourceTree = "<group>";
@@ -1013,6 +1016,7 @@
 				5F93A36F1A7EEFA20059829F /* TaskNotesViewController.xib in Resources */,
 				5F7A9CEF1A5CC24F00C595B7 /* d_snow.png in Resources */,
 				5F7A9CE11A5CC24F00C595B7 /* placeholder14.png in Resources */,
+				5FB804171AA9428B007DC2DC /* TaskEditViewController.xib in Resources */,
 				5F7A9CDD1A5CC24F00C595B7 /* like47.png in Resources */,
 				5F01B2741A65E05800CBE01A /* audio.png in Resources */,
 				5F7A9D091A5CC24F00C595B7 /* white.png in Resources */,
@@ -1085,7 +1089,6 @@
 				5F549D4F1A9024CF00BC727B /* SCLAlertView.swift in Sources */,
 				5F744B3A1A420BA900F4C675 /* TaskType.swift in Sources */,
 				5FD1A3B21A86E83500842FB2 /* JSONParser.swift in Sources */,
-				5F7F372F1A42649A004B7439 /* AlarmDetailViewController.swift in Sources */,
 				5FDE45311A781E2100608EC8 /* TaskPopoverViewController.swift in Sources */,
 				5FD1A3AF1A86A41B00842FB2 /* TaskViewCell.swift in Sources */,
 				5F83E29B1A4A35B100E9E7E3 /* PageViewController.swift in Sources */,
@@ -1093,6 +1096,7 @@
 				5F4A62AA1A8C2AC5003C6B18 /* BoolExtensions.swift in Sources */,
 				5F744B381A420B2400F4C675 /* Task.swift in Sources */,
 				5F396BE11A957129009F6525 /* AEXML.swift in Sources */,
+				5FB804161AA9428B007DC2DC /* TaskEditViewController.swift in Sources */,
 				5F7F372C1A425956004B7439 /* Settings.swift in Sources */,
 				5FC1FF201A6473BC00253E6C /* UserDefaultsManager.swift in Sources */,
 				5F744B771A421C3A00F4C675 /* TasksViewController.swift in Sources */,

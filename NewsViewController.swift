@@ -23,9 +23,12 @@ class NewsViewController : UIViewController, UIPopoverControllerDelegate, UITabl
     private var popoverContent: NewsPopoverViewController!
     private var popOverVC: UIPopoverController!
     
+    private var feedDetailVC: FeedViewController!
+    
     private var newNewsObject: RSSFeed!
     private var newsManager: NewsManager!
     private var newsList: [RSSFeed]!
+    private var indexPendingDelete: NSIndexPath!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -191,10 +194,9 @@ class NewsViewController : UIViewController, UIPopoverControllerDelegate, UITabl
         
         cell.setNewsFeed(newsList[indexPath.row])
         
-        /*
-        var longpress: UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: Selector("taskCellLongPress:"))
-        longpress.minimumPressDuration = 2
-        cell.contentView.addGestureRecognizer(longpress)*/
+        var doubleTap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("doubleTappedNewsCell:"))
+        doubleTap.numberOfTapsRequired = 2
+        cell.contentView.addGestureRecognizer(doubleTap)
         
         return cell
     }
@@ -252,6 +254,12 @@ class NewsViewController : UIViewController, UIPopoverControllerDelegate, UITabl
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
         // TODO: Prompt action sheet for edit or delete
+        if(self.feedDetailVC == nil) {
+            self.feedDetailVC = FeedViewController(nibName: "FeedViewController", bundle: nil)
+        }
+        
+        self.feedDetailVC.setFeed(cell.getNewsFeedObject())
+        self.navigationController?.pushViewController(feedDetailVC, animated: true)
         
     }
     
@@ -260,6 +268,37 @@ class NewsViewController : UIViewController, UIPopoverControllerDelegate, UITabl
     func saveFeed(feed: RSSFeed) {
         self.popOverVC.dismissPopoverAnimated(true)
         newsManager.saveValidFeedToServer(feed)
+    }
+    
+    //MARK: - UITapGestureRecognizer
+    
+    func doubleTappedNewsCell(sender: UITapGestureRecognizer) {
+        
+        if(sender.state == UIGestureRecognizerState.Ended) {
+            let point: CGPoint = sender.locationInView(self.tasksTableView)
+            let indexPath: NSIndexPath = self.tasksTableView.indexPathForRowAtPoint(point)!
+            //var tableViewCell: NewsViewCell = self.tasksTableView.cellForRowAtIndexPath(indexPath) as NewsViewCell!
+            
+            self.indexPendingDelete = indexPath
+        }
+        
+        let actionSheet = UIActionSheet(title: "Are you sure you want to delete this News Feed?", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: "Delete Feed")
+        actionSheet.actionSheetStyle = .Default
+        actionSheet.showInView(self.view)
+    }
+    
+    // MARK: UIActionSheetDelegate
+    
+    func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
+  
+        // TODO: If button is delete then remove cell from tableview with indexPendingDelete and send a delete to the server
+        // with that cell's feed
+        
+        // if indexPendingDelete is nil then close the action sheet
+        
+        // default to closing the action sheet and setting indexPendingDelete to nil
+        
+        actionSheet.dismissWithClickedButtonIndex(buttonIndex, animated: true)
     }
 
 }
