@@ -9,11 +9,12 @@
 import Foundation
 import UIKit
 
-class TasksViewController : UIViewController, UIPopoverControllerDelegate, UITableViewDataSource, UITableViewDelegate {
+class TasksViewController : UIViewController, UIPopoverControllerDelegate, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate {
     
     @IBOutlet weak var tasksTableView: UITableView!
     private var refreshControl: UIRefreshControl!
     private var noDataLabel: UILabel!
+    private var didRemoveLast: Bool!
     
     private var popOverNavController: UINavigationController!
     private var popoverContent: TaskPopoverViewController!
@@ -31,6 +32,7 @@ class TasksViewController : UIViewController, UIPopoverControllerDelegate, UITab
         newTaskObject = nil
         taskManager = TaskManager()
         taskList = []
+        didRemoveLast = false
         
         tasksTableView.registerNib(UINib(nibName: "TaskViewCell", bundle: nil), forCellReuseIdentifier: "taskCell")
         tasksTableView.dataSource = self
@@ -86,8 +88,8 @@ class TasksViewController : UIViewController, UIPopoverControllerDelegate, UITab
     
     func receivedNetworkError(notification: NSNotification) {
         /*SCLAlertView().showError("Network Error",
-            subTitle: "Oops something went wrong",
-            closeButtonTitle: "Dismiss")*/
+        subTitle: "Oops something went wrong",
+        closeButtonTitle: "Dismiss")*/
         self.reloadTaskData()
     }
     
@@ -207,9 +209,9 @@ class TasksViewController : UIViewController, UIPopoverControllerDelegate, UITab
         cell.setTaskObject(taskList[indexPath.row])
         
         
-        var doubleTap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("doubleTappedTaskCell:"))
-        doubleTap.numberOfTapsRequired = 2
-        cell.contentView.addGestureRecognizer(doubleTap)
+        var longPress: UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: Selector("longPressTaskCell:"))
+        longPress.minimumPressDuration = 2.0
+        cell.contentView.addGestureRecognizer(longPress)
         
         return cell
     }
@@ -220,9 +222,7 @@ class TasksViewController : UIViewController, UIPopoverControllerDelegate, UITab
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         
-        
-        
-        if (self.taskList.count > 0) {
+        if (self.taskList.count > 0 || didRemoveLast == true) {
             tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine;
             
             if(noDataLabel != nil) {
@@ -274,39 +274,55 @@ class TasksViewController : UIViewController, UIPopoverControllerDelegate, UITab
         }
         
         self.taskDetailVC.setTask(cell.getTaskObject())
-        self.taskDetailVC.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
-        self.taskDetailVC.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
-        self.navigationController?.presentViewController(taskDetailVC, animated: true)
+        self.navigationController?.pushViewController(taskDetailVC, animated: true)
 
     }
     
-    func doubleTappedTaskCell(sender: UITapGestureRecognizer) {
+    func longPressTaskCell(sender: UILongPressGestureRecognizer) {
         
         if(sender.state == UIGestureRecognizerState.Ended) {
             let point: CGPoint = sender.locationInView(self.tasksTableView)
             let indexPath: NSIndexPath = self.tasksTableView.indexPathForRowAtPoint(point)!
             //var tableViewCell: TaskViewCell = self.tasksTableView.cellForRowAtIndexPath(indexPath) as TaskViewCell!
             
-            self.indexPendingDelete = indexPath
+            indexPendingDelete = indexPath
+            
+            let actionSheet = UIActionSheet(title: "Are you sure you want to delete this Task?", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: "Delete Task")
+            actionSheet.addButtonWithTitle("Cancel")
+            actionSheet.actionSheetStyle = .BlackOpaque
+            actionSheet.showInView(self.view)
         }
-        
-        let actionSheet = UIActionSheet(title: "Are you sure you want to delete this Task?", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: "Delete Task")
-        actionSheet.actionSheetStyle = .Default
-        actionSheet.showInView(self.view)
     }
     
     // MARK: UIActionSheetDelegate
     
     func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
         
-        // TODO: If button is delete then remove cell from tableview with indexPendingDelete and send a delete to the server
-        // with that cell task
+        if(buttonIndex == 0 && indexPendingDelete != nil) {
+            var index: Int = indexPendingDelete.row
+            taskManager.deleteTaskRequest(taskList[index])
+            
+            if(index == 0) {
+                didRemoveLast = true
+            } else {
+                didRemoveLast = false
+            }
+            
+            self.tasksTableView.beginUpdates()
+            taskList.removeAtIndex(index)
+            self.tasksTableView.deleteRowsAtIndexPaths([indexPendingDelete], withRowAnimation: UITableViewRowAnimation.Automatic)
+            self.tasksTableView.endUpdates()
+        }
         
-        // if indexPendingDelete is nil then close the action sheet
-        
-        // default to closing the action sheet and setting indexPendingDelete to nil
-        
+        indexPendingDelete = nil
         actionSheet.dismissWithClickedButtonIndex(buttonIndex, animated: true)
+    }
+    
+    func actionSheet(actionSheet: UIActionSheet, didDismissWithButtonIndex buttonIndex: Int) {
+        if(buttonIndex == 0 && didRemoveLast == true) {
+            didRemoveLast = false
+            self.tasksTableView.reloadData()
+        }
     }
 }
     

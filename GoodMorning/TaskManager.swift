@@ -65,16 +65,44 @@ class TaskManager: NSObject {
                 self.parser.parseAllTasks(json)
                 return
             }
-            
-            println("Getting tasks on server failed because response was invalid")
         })
     }
     
-    func deleteTaskRequest() {
+    func deleteTaskRequest(task: Task) {
+        let url = SERVER_ADDRESS + "/deletetask"
+        
+        let token = UserDefaultsManager.sharedInstance.getToken()
+        println(token)
+        let params = ["token": token, "id": task.id]
+        
+        Networking.sharedInstance.openNewJSONRequest(.GET, url: url, parameters: params, {(data: JSON) in
+            let json = data
+            var dictionary = Dictionary<String, String>()
+            
+            println(json)
+            
+            if let reason = json["reason"].string {
+                if let message = json["message"].string {
+                    dictionary["message"] = message
+                    dictionary["reason"] = reason
+                    NSNotificationCenter.defaultCenter().postNotificationName("InvalidTaskResponse", object: self, userInfo: dictionary)
+                }
+            }
+            
+            if let result = json["success"].bool {
+                if !result {
+                    NSLog("Failed to delete task from server")
+                } else {
+                    NSLog("Task was deleted from server")
+                }
+            }
+        })
         
     }
     
-    func updateTaskRequest() {
+    func updateTaskRequest(task: Task) {
+        let url = SERVER_ADDRESS + "/updatetask"
         
+        NSLog("TODO")
     }
 }

@@ -52,7 +52,7 @@ class NewsPopoverViewController: UIViewController, UITextFieldDelegate, UIPicker
         self.typePicker.selectRow(0, inComponent: 0, animated: true)
         
         //Note: This is just for testing
-        self.urlFeild.text = "http://feeds.gawker.com/kotaku/vip"
+        self.urlFeild.text = "http://feeds.feedburner.com/businessinsider"
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedNetworkError:", name:"NetworkError", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name:"InternalServerError", object: nil)

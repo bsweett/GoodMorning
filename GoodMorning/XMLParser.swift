@@ -20,7 +20,7 @@ class XMLParser: NSObject {
         
         var activeDate: NSDate!
         if(lastBuild.rangeOfString("not found") == nil) {
-            activeDate = NSDate().dateFromInternetDateTimeString(lastBuild, formatHint: DateFormatHint.RFC822)
+            activeDate = NSDate().dateFromInternetDateTimeString(lastBuild, formatHint: .RFC822)
         } else {
             activeDate = NSDate()
         }
@@ -71,16 +71,56 @@ class XMLParser: NSObject {
                     }
                 }
                 
-                var pubString = article["pubdate"].stringValue
+                var pubString = article["pubDate"].stringValue
                 var creator = article["dc:creator"].stringValue
                 
-                var thumbNail = (article["media:thumbnail"].attributes["url"] as String)
+                rssArticle.title = title
+                rssArticle.link = link
+                rssArticle.rawDescription = descriptionRaw
+                rssArticle.pubdate = NSDate().dateFromInternetDateTimeString(pubString, formatHint: .RFC822)
+                rssArticle.creator = creator
+                rssArticle.textDescription = String().fromHtmlEncodedString(descriptionRaw) //getDescriptionTextFromHTML(descriptionRaw)
+                rssArticle.thumbnailURL = getThumbNailUrlFromRaw(descriptionRaw)
                 
                 // TODO: check null on elements and add to article
                 // add article to map
+                
+                articles[rssArticle.title] = rssArticle
             }
         }
         
         return articles
     }
+
+    func getDescriptionTextFromHTML(html: String) -> String {
+        let str = html.stringByReplacingOccurrencesOfString("<[^>]+>", withString: "", options: .RegularExpressionSearch, range: nil)
+        return str
+    }
+    
+
+    func getThumbNailUrlFromRaw(html: String) -> String {
+        
+        // Note: using an HTML parser that doesn't support XHTML tags
+        let removedInset = html.stringByReplacingOccurrencesOfString("<inset[^>]*>.*?</inset>", withString: "", options: .RegularExpressionSearch, range: nil)
+        let strippedHtml = removedInset.stringByReplacingOccurrencesOfString("</img>", withString: "", range: nil)
+        
+        let newHtml = "<html><head></head><body>" + strippedHtml + "</body>"
+        
+        var err : NSError?
+        var parser = HTMLParser(html: newHtml, error: &err)
+        if err != nil {
+            println(err)
+            return ""
+        }
+        
+        var bodyNode = parser.body
+        
+        if let inputNodes = bodyNode?.findChildTags("img") {
+            var src = inputNodes[0].getAttributeNamed("src")
+            return src
+        }
+        
+        return ""
+    }
+
 }

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 extension String {
     func isEmail() -> Bool {
@@ -31,7 +32,14 @@ extension String {
         
         return false
     }
-    
+
+    func fromHtmlEncodedString(htmlEncodedString: String) -> String {
+        let encodedData = htmlEncodedString.dataUsingEncoding(NSUTF8StringEncoding)!
+        let attributedOptions = [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType]
+        let attributedString = NSAttributedString(data: encodedData, options: attributedOptions, documentAttributes: nil, error: nil)
+        return attributedString!.string
+    }
+
     func removeCharsFromEnd(count:Int) -> String{
         let stringLength = countElements(self)
         

@@ -135,6 +135,11 @@
 		5F93A36E1A7EEFA20059829F /* TaskNotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F93A36C1A7EEFA20059829F /* TaskNotesViewController.swift */; };
 		5F93A36F1A7EEFA20059829F /* TaskNotesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F93A36D1A7EEFA20059829F /* TaskNotesViewController.xib */; };
 		5FA383EC1A4208AE0013B102 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FA383EA1A4208A30013B102 /* CoreLocation.framework */; };
+		5FB5ED041AABA08600266410 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FB5ED021AAB9ABB00266410 /* libxml2.dylib */; };
+		5FB7FCF31AABBCEC0041B10A /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB7FCF11AABBCEC0041B10A /* ArticleViewController.swift */; };
+		5FB7FCF41AABBCEC0041B10A /* ArticleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FB7FCF21AABBCEC0041B10A /* ArticleViewController.xib */; };
+		5FB7FCFA1AABEBF40041B10A /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB7FCF81AABEBF40041B10A /* WebViewController.swift */; };
+		5FB7FCFB1AABEBF40041B10A /* WebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FB7FCF91AABEBF40041B10A /* WebViewController.xib */; };
 		5FB804161AA9428B007DC2DC /* TaskEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB804141AA9428B007DC2DC /* TaskEditViewController.swift */; };
 		5FB804171AA9428B007DC2DC /* TaskEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FB804151AA9428B007DC2DC /* TaskEditViewController.xib */; };
 		5FC1FF1C1A646F8200253E6C /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC1FF1B1A646F8200253E6C /* Reachability.swift */; };
@@ -157,6 +162,8 @@
 		5FE864171A41ECEA00BB8808 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5FE864161A41ECEA00BB8808 /* Images.xcassets */; };
 		5FE8641A1A41ECEA00BB8808 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FE864181A41ECEA00BB8808 /* LaunchScreen.xib */; };
 		5FE864261A41ECEA00BB8808 /* GoodMorningTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE864251A41ECEA00BB8808 /* GoodMorningTests.swift */; };
+		5FEDC4341AAB948C00E2565C /* HTMLNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FEDC4321AAB948C00E2565C /* HTMLNode.swift */; };
+		5FEDC4351AAB948C00E2565C /* HTMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FEDC4331AAB948C00E2565C /* HTMLParser.swift */; };
 		5FEEC25A1A79CDC800E2C452 /* TaskTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FEEC2581A79CDC800E2C452 /* TaskTypeViewController.swift */; };
 		5FEEC25B1A79CDC800E2C452 /* TaskTypeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FEEC2591A79CDC800E2C452 /* TaskTypeViewController.xib */; };
 		5FEEC2601A79DB0800E2C452 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FEEC25F1A79DB0800E2C452 /* DateExtensions.swift */; };
@@ -375,6 +382,11 @@
 		5F93A36C1A7EEFA20059829F /* TaskNotesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskNotesViewController.swift; sourceTree = "<group>"; };
 		5F93A36D1A7EEFA20059829F /* TaskNotesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaskNotesViewController.xib; sourceTree = "<group>"; };
 		5FA383EA1A4208A30013B102 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		5FB5ED021AAB9ABB00266410 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = System/Library/Frameworks/libxml2.dylib; sourceTree = SDKROOT; };
+		5FB7FCF11AABBCEC0041B10A /* ArticleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleViewController.swift; sourceTree = "<group>"; };
+		5FB7FCF21AABBCEC0041B10A /* ArticleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArticleViewController.xib; sourceTree = "<group>"; };
+		5FB7FCF81AABEBF40041B10A /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		5FB7FCF91AABEBF40041B10A /* WebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebViewController.xib; sourceTree = "<group>"; };
 		5FB804141AA9428B007DC2DC /* TaskEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskEditViewController.swift; sourceTree = "<group>"; };
 		5FB804151AA9428B007DC2DC /* TaskEditViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaskEditViewController.xib; sourceTree = "<group>"; };
 		5FC1FF1B1A646F8200253E6C /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
@@ -401,6 +413,9 @@
 		5FE8641F1A41ECEA00BB8808 /* GoodMorningTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoodMorningTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5FE864241A41ECEA00BB8808 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5FE864251A41ECEA00BB8808 /* GoodMorningTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodMorningTests.swift; sourceTree = "<group>"; };
+		5FEDC4321AAB948C00E2565C /* HTMLNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTMLNode.swift; sourceTree = "<group>"; };
+		5FEDC4331AAB948C00E2565C /* HTMLParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTMLParser.swift; sourceTree = "<group>"; };
+		5FEDC4361AAB994900E2565C /* GoodMorning.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = GoodMorning.xcodeproj; sourceTree = "<group>"; };
 		5FEEC2581A79CDC800E2C452 /* TaskTypeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskTypeViewController.swift; sourceTree = "<group>"; };
 		5FEEC2591A79CDC800E2C452 /* TaskTypeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaskTypeViewController.xib; sourceTree = "<group>"; };
 		5FEEC25F1A79DB0800E2C452 /* DateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
@@ -411,6 +426,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5FB5ED041AABA08600266410 /* libxml2.dylib in Frameworks */,
 				5F6110B81A41F57400B83410 /* SystemConfiguration.framework in Frameworks */,
 				5FA383EC1A4208AE0013B102 /* CoreLocation.framework in Frameworks */,
 				5F6110BB1A41F58700B83410 /* UIKit.framework in Frameworks */,
@@ -551,6 +567,8 @@
 		5F744B8D1A42225200F4C675 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				5FEDC4321AAB948C00E2565C /* HTMLNode.swift */,
+				5FEDC4331AAB948C00E2565C /* HTMLParser.swift */,
 				5F396BE41A9582BE009F6525 /* NSDate+InternetDateTime.swift */,
 				5F396BE01A957129009F6525 /* AEXML.swift */,
 				5F549D4E1A9024CF00BC727B /* SCLAlertView.swift */,
@@ -677,6 +695,10 @@
 				5F8C67921A9D79710082D994 /* FeedViewController.xib */,
 				5FB804141AA9428B007DC2DC /* TaskEditViewController.swift */,
 				5FB804151AA9428B007DC2DC /* TaskEditViewController.xib */,
+				5FB7FCF11AABBCEC0041B10A /* ArticleViewController.swift */,
+				5FB7FCF21AABBCEC0041B10A /* ArticleViewController.xib */,
+				5FB7FCF81AABEBF40041B10A /* WebViewController.swift */,
+				5FB7FCF91AABEBF40041B10A /* WebViewController.xib */,
 			);
 			name = Details;
 			sourceTree = "<group>";
@@ -764,6 +786,8 @@
 		5FE863FF1A41ECEA00BB8808 = {
 			isa = PBXGroup;
 			children = (
+				5FB5ED021AAB9ABB00266410 /* libxml2.dylib */,
+				5FEDC4361AAB994900E2565C /* GoodMorning.xcodeproj */,
 				5FE8640A1A41ECEA00BB8808 /* GoodMorning */,
 				5FE864221A41ECEA00BB8808 /* GoodMorningTests */,
 				5FE864091A41ECEA00BB8808 /* Products */,
@@ -815,6 +839,11 @@
 				5FE864241A41ECEA00BB8808 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		5FEDC4371AAB994900E2565C /* Products */ = {
+			isa = PBXGroup;
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -902,6 +931,10 @@
 				{
 					ProductGroup = 5F08AC7F1A6F412C00F1ED8F /* Products */;
 					ProjectRef = 5F08AC7E1A6F412C00F1ED8F /* DTIActivityIndicator.xcodeproj */;
+				},
+				{
+					ProductGroup = 5FEDC4371AAB994900E2565C /* Products */;
+					ProjectRef = 5FEDC4361AAB994900E2565C /* GoodMorning.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -1032,11 +1065,13 @@
 				5F93A36B1A7ED8190059829F /* TaskRepeatTypeViewController.xib in Resources */,
 				5F01B2771A65E1B300CBE01A /* grey_wall.png in Resources */,
 				5F7A9CD31A5CC24F00C595B7 /* chat44.png in Resources */,
+				5FB7FCF41AABBCEC0041B10A /* ArticleViewController.xib in Resources */,
 				5F7A9CF91A5CC24F00C595B7 /* n_drizzle.png in Resources */,
 				5F7A9CE71A5CC24F00C595B7 /* d_drizzle.png in Resources */,
 				5F7A9CFA1A5CC24F00C595B7 /* n_extreme.png in Resources */,
 				5F7A9D071A5CC24F00C595B7 /* weatherday.png in Resources */,
 				5F7A9CCE1A5CC24F00C595B7 /* add121.png in Resources */,
+				5FB7FCFB1AABEBF40041B10A /* WebViewController.xib in Resources */,
 				5F3D12A81A911C2200EF52D8 /* NewsViewCell.xib in Resources */,
 				5F7A9CF21A5CC24F00C595B7 /* d_thunder.png in Resources */,
 				5F7A9D081A5CC24F00C595B7 /* weathernight.png in Resources */,
@@ -1068,6 +1103,7 @@
 				5FEEC2601A79DB0800E2C452 /* DateExtensions.swift in Sources */,
 				5F412CED1A815C69004F8DE0 /* AudioManager.swift in Sources */,
 				5F744B7B1A421C8E00F4C675 /* NewsViewController.swift in Sources */,
+				5FB7FCF31AABBCEC0041B10A /* ArticleViewController.swift in Sources */,
 				5F412CF01A8162B2004F8DE0 /* NotificationManager.swift in Sources */,
 				5FDE45361A782C4F00608EC8 /* PopoverViewCell.swift in Sources */,
 				5F412CE61A814988004F8DE0 /* TaskAlertTypeViewController.swift in Sources */,
@@ -1077,6 +1113,7 @@
 				5F744B751A421A5400F4C675 /* AlarmsViewController.swift in Sources */,
 				5FC32F441A4257B200F9EB26 /* Alarm.swift in Sources */,
 				5F412CDE1A811C2E004F8DE0 /* TaskManager.swift in Sources */,
+				5FB7FCFA1AABEBF40041B10A /* WebViewController.swift in Sources */,
 				5FEEC25A1A79CDC800E2C452 /* TaskTypeViewController.swift in Sources */,
 				5F8C679B1A9D7A860082D994 /* ArticleViewCell.swift in Sources */,
 				5F744B921A4223BF00F4C675 /* Weather.swift in Sources */,
@@ -1097,11 +1134,13 @@
 				5F744B381A420B2400F4C675 /* Task.swift in Sources */,
 				5F396BE11A957129009F6525 /* AEXML.swift in Sources */,
 				5FB804161AA9428B007DC2DC /* TaskEditViewController.swift in Sources */,
+				5FEDC4341AAB948C00E2565C /* HTMLNode.swift in Sources */,
 				5F7F372C1A425956004B7439 /* Settings.swift in Sources */,
 				5FC1FF201A6473BC00253E6C /* UserDefaultsManager.swift in Sources */,
 				5F744B771A421C3A00F4C675 /* TasksViewController.swift in Sources */,
 				5FDE45441A784BC300608EC8 /* StringExtensions.swift in Sources */,
 				5F80FF151A43B30B00727E25 /* InstallViewController.swift in Sources */,
+				5FEDC4351AAB948C00E2565C /* HTMLParser.swift in Sources */,
 				5FE8640E1A41ECEA00BB8808 /* AppDelegate.swift in Sources */,
 				5F8C67931A9D79710082D994 /* FeedViewController.swift in Sources */,
 				5F3D12A41A910D0300EF52D8 /* RSSType.swift in Sources */,
@@ -1166,7 +1205,7 @@
 		5FE864271A41ECEA00BB8808 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1204,13 +1243,14 @@
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				"USER_HEADER_SEARCH_PATHS[arch=*]" = "$(SDKROOT)/usr/include/libxml2";
 			};
 			name = Debug;
 		};
 		5FE864281A41ECEA00BB8808 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1240,6 +1280,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				"USER_HEADER_SEARCH_PATHS[arch=*]" = "$(SDKROOT)/usr/include/libxml2";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -1247,6 +1288,7 @@
 		5FE8642A1A41ECEA00BB8808 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1258,16 +1300,22 @@
 				);
 				INFOPLIST_FILE = GoodMorning/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/Frameworks",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "GoodMorning/GoodMorning-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 2;
+				"USER_HEADER_SEARCH_PATHS[arch=*]" = $SDKROOT/usr/include/libxml2;
 			};
 			name = Debug;
 		};
 		5FE8642B1A41ECEA00BB8808 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1279,9 +1327,14 @@
 				);
 				INFOPLIST_FILE = GoodMorning/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/Frameworks",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "GoodMorning/GoodMorning-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 2;
+				"USER_HEADER_SEARCH_PATHS[arch=*]" = $SDKROOT/usr/include/libxml2;
 			};
 			name = Release;
 		};

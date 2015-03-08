@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FeedViewController" customModule="GoodMorning" customModuleProvider="target">
             <connections>
+                <outlet property="articleTableView" destination="xVG-j7-sZO" id="t4E-Hi-UsD"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -14,12 +15,18 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="xVG-j7-sZO">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="xVG-j7-sZO">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </tableView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="xVG-j7-sZO" secondAttribute="bottom" id="Pvg-tz-Ug5"/>
+                <constraint firstItem="xVG-j7-sZO" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="bC9-oN-bmK"/>
+                <constraint firstItem="xVG-j7-sZO" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="fMG-n7-zrv"/>
+                <constraint firstAttribute="trailing" secondItem="xVG-j7-sZO" secondAttribute="trailing" id="ns9-AF-tgx"/>
+            </constraints>
         </view>
     </objects>
 </document>

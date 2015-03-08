@@ -92,4 +92,47 @@ class NewsManager: NSObject {
             println("Getting feeds on server failed because response was invalid")
         })
     }
+    
+    func deleteFeedRequest(rssfeed: RSSFeed) {
+        let url = SERVER_ADDRESS + "/deletefeed"
+        
+        let token = UserDefaultsManager.sharedInstance.getToken()
+        let params = ["token": token, "id": rssfeed.id]
+        
+        Networking.sharedInstance.openNewJSONRequest(.GET, url: url, parameters: params, {(data: JSON) in
+            let json = data
+            var dictionary = Dictionary<String, String>()
+            
+            println(json)
+            
+            if let reason = json["reason"].string {
+                if let message = json["message"].string {
+                    dictionary["message"] = message
+                    dictionary["reason"] = reason
+                    NSNotificationCenter.defaultCenter().postNotificationName("InvalidFeedResponse", object: self, userInfo: dictionary)
+                }
+            }
+            
+            if let result = json["success"].bool {
+                if !result {
+                    NSLog("Failed to delete feed from server")
+                } else {
+                    NSLog("Feed was deleted from server")
+                }
+            }
+        })
+    }
+    
+    func getArticlesForFeed(rssfeed: RSSFeed) {
+        let url = rssfeed.rssLink
+        
+        Networking.sharedInstance.openNewXMLRequest(.GET, url: url, {(data: AEXMLDocument) in
+            
+            println("XML:", data.xmlString)
+            let articles: Dictionary<String, RSSArticle> = self.xmlParser.parseArticles(data)
+            
+            NSNotificationCenter.defaultCenter().postNotificationName("ArticleListUpdated", object: self, userInfo: articles)
+ 
+        })
+    }
 }

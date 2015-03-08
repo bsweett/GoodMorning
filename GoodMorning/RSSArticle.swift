@@ -17,6 +17,8 @@ class RSSArticle: NSObject {
     var categories: [String]!
     var thumbnailURL: String
     var rawDescription: String!
+    var textDescription: String!
+    var image: UIImage!
     
     override init() {
         self.title = ""
@@ -26,6 +28,8 @@ class RSSArticle: NSObject {
         self.categories = []
         self.thumbnailURL = ""
         self.rawDescription = ""
+        self.textDescription = ""
+        self.image = nil
         super.init()
     }
     

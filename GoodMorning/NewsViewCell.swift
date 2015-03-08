@@ -39,8 +39,6 @@ class NewsViewCell: UITableViewCell {
         if feed.logoURL != nil {
             self.setLogoImageFromURL(feed.logoURL)
         } else {
-            
-            // TODO: Question mark image if it cannot find the logo
             self.logoImageView.image = UIImage(named: "gm_unknown")
         }
     }
