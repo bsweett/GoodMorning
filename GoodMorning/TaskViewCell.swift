@@ -62,7 +62,7 @@ class TaskViewCell: UITableViewCell {
         
         switch(type) {
         case TaskType.CHORE:
-            //self.typeImageView.image = UIImage(named: "") //TODO: Find chore image
+            self.typeImageView.image = UIImage(named: "gm_chore")
             break
         case TaskType.ENTERTAINMENT:
             self.typeImageView.image = UIImage(named: "gm_entertainment")

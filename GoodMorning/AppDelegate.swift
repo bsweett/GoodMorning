@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.sharedApplication().keyWindow?.tintColor = gmOrangeColor
         
         if(UIApplication.instancesRespondToSelector(Selector("registerUserNotificationSettings:"))) {
-            application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: UIUserNotificationType.Sound | UIUserNotificationType.Alert | UIUserNotificationType.Badge, categories: nil))
+            UIApplication.sharedApplication().registerUserNotificationSettings(UIUserNotificationSettings(forTypes: UIUserNotificationType.Sound | UIUserNotificationType.Alert | UIUserNotificationType.Badge, categories: nil))
         }
         
         AVAudioSession.sharedInstance().setActive(true, error: nil)
@@ -51,8 +51,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navController?.setNavigationBarHidden(true, animated: false)
         navController?.interactivePopGestureRecognizer.enabled = false;
         
-        UIBarButtonItem.appearance().tintColor = gmOrangeColor
-        UINavigationBar.appearance().tintColor = gmOrangeColor
+        UIBarButtonItem.appearance().tintColor = UIColor.whiteColor()
+        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+        UINavigationBar.appearance().barTintColor = gmOrangeColor
+        UINavigationBar.appearance().translucent = false
+        
+        let textAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor(), NSFontAttributeName: gmFontBold]
+        
+        UINavigationBar.appearance().titleTextAttributes = textAttributes
+        
+        UIToolbar.appearance().barTintColor = gmOrangeColor
+        UIToolbar.appearance().backgroundColor = gmOrangeColor
+        UIToolbar.appearance().translucent = false
         
         window!.rootViewController = navController
         window!.makeKeyAndVisible()

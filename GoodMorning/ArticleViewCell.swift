@@ -36,28 +36,6 @@ class ArticleViewCell: UITableViewCell {
         setDetailLabel(article.creator, date: article.pubdate.toFullDateString())   //TODO: Compare this to our current date (1 hour ago etc..)
         
         self.link = article.link
-        
-        if article.thumbnailURL != "" {
-            var q: dispatch_queue_t = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
-            dispatch_async(q, {
-                /* Fetch the image from the server... */
-                var image = (UIImage(named: "gm_unknown")!)
-                
-                let url = NSURL(string: self.article.thumbnailURL)
-                if let data = NSData(contentsOfURL: url!) {
-                    image = (UIImage(data: data)!)
-                }
-                
-                dispatch_async(dispatch_get_main_queue(), {
-                    /* This is the main thread again, where we set the tableView's image to
-                    be what we just fetched. */
-                    self.setThumbNailImage(image)
-                });
-            });
-        } else {
-            self.setThumbNailImage((UIImage(named: "gm_unknown")!))
-        }
-        
     }
     
     func getArticle() -> RSSArticle {
@@ -80,7 +58,7 @@ class ArticleViewCell: UITableViewCell {
         self.detailLabel.text = "by " + author + " / " + date
     }
     
-    func setThumbNailImage(image: UIImage) {
+    func setThumbNailImage(image: UIImage?) {
         self.thumbNailImageView.image = image
         self.article.image = image
     }

@@ -33,9 +33,14 @@ class TaskManager: NSObject {
                 }
             }
             
-            if let result = json["success"].bool {
-                dictionary["success"] = result
+            if let result = json["success"].string {
+                let bool = result.boolValue()
+                dictionary["success"] = bool
                 NSNotificationCenter.defaultCenter().postNotificationName("TaskAdded", object: self, userInfo: dictionary)
+                
+                if bool {
+                    NotificationManager.sharedInstance.scheduleNotificationForTask(task)
+                }
             }
         })
     }
@@ -89,11 +94,13 @@ class TaskManager: NSObject {
                 }
             }
             
-            if let result = json["success"].bool {
-                if !result {
+            if let result = json["success"].string {
+                if !result.boolValue() {
                     NSLog("Failed to delete task from server")
                 } else {
                     NSLog("Task was deleted from server")
+                    
+                    NotificationManager.sharedInstance.cancelNotificationsForTask(task)
                 }
             }
         })
@@ -103,6 +110,29 @@ class TaskManager: NSObject {
     func updateTaskRequest(task: Task) {
         let url = SERVER_ADDRESS + "/updatetask"
         
-        NSLog("TODO")
+        let token = UserDefaultsManager.sharedInstance.getToken()
+        let params = ["token":token, "id": task.id, "time":task.alertTime, "days":task.daysOfTheWeekToString(), "notes":task.notes, "type":task.type.rawValue, "name":task.title]
+        
+        //GET OR POST?
+        Networking.sharedInstance.openNewJSONRequest(.POST, url: url, parameters: params, {(data: JSON) in
+            let json = data
+            var dictionary = Dictionary<String, AnyObject>()
+            
+            println(json)
+            
+            if let reason = json["reason"].string {
+                if let message = json["message"].string {
+                    dictionary["message"] = message
+                    dictionary["reason"] = reason
+                    NSNotificationCenter.defaultCenter().postNotificationName("InvalidTaskResponse", object: self, userInfo: dictionary)
+                }
+            }
+            
+            if let result = json["success"].string {
+                dictionary["success"] = result.boolValue()
+                NSNotificationCenter.defaultCenter().postNotificationName("TaskUpdated", object: self, userInfo: dictionary)
+                
+            }
+        })
     }
 }

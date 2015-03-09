@@ -54,7 +54,12 @@ class WeatherViewController : UIViewController {
         
         roundBlockCorners()
         
-        blur = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.Light))
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Light)
+        let lightBlur = UIVisualEffectView(effect: blurEffect)
+        lightBlur.frame = self.view.bounds //view is self.view in a UIViewController
+        self.background.addSubview(lightBlur)
+    
+        blur = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.Dark))
         blur.frame = view.frame
         blur.tag = 50
     }

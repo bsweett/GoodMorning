@@ -76,6 +76,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         self.currentViewController = self.getAlarm()!
         
         self.setPageControl()
+        
     }
     
     func displayTasksView() {
@@ -84,10 +85,10 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
     
     func setPageControl() {
         let appearance = UIPageControl.appearance()
-        appearance.pageIndicatorTintColor = UIColor.grayColor()
-        appearance.currentPageIndicatorTintColor = UIColor.orangeColor()
+        appearance.pageIndicatorTintColor = UIColor.whiteColor()
+        appearance.currentPageIndicatorTintColor = UIColor.blackColor()
         appearance.numberOfPages = 4
-        appearance.backgroundColor = UIColor(red: (247/255.0), green: (247/255.0), blue: (247/255.0), alpha: 1)
+        appearance.backgroundColor = gmOrangeColor //UIColor(red: (247/255.0), green: (247/255.0), blue: (247/255.0), alpha: 1)
     }
     
     override func didReceiveMemoryWarning() {

@@ -32,14 +32,18 @@ extension String {
         
         return false
     }
-
+    
     func fromHtmlEncodedString(htmlEncodedString: String) -> String {
         let encodedData = htmlEncodedString.dataUsingEncoding(NSUTF8StringEncoding)!
         let attributedOptions = [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType]
         let attributedString = NSAttributedString(data: encodedData, options: attributedOptions, documentAttributes: nil, error: nil)
-        return attributedString!.string
+        
+        if attributedString != nil {
+            return attributedString!.string
+        }
+        return ""
     }
-
+    
     func removeCharsFromEnd(count:Int) -> String{
         let stringLength = countElements(self)
         

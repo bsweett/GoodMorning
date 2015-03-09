@@ -11,6 +11,7 @@ import UIKit
 class ArticleViewController: UIViewController {
 
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var contentView: UIView!
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var detailLabel: UILabel!
@@ -46,34 +47,39 @@ class ArticleViewController: UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name:"InvalidFeedResponse", object: nil)
         
         titleLabel.text = article.title
-        //titleLabel.sizeToFit()
-        let titleHeight = titleLabel.frame.size.height
         
         detailLabel.text = rssfeed.title + " / by " + article.creator + " / " + article.pubdate.toFullDateString()
-        //detailLabel.sizeToFit()
-        let detailHeight = titleLabel.frame.size.height
+        
         
         if(article.image != nil) {
             mainImageView.image = article.image
         }
         
-        let imageViewHeight = mainImageView.frame.size.height
-        
         if(article.link == nil) {
             websiteButton.enabled = false
         }
         
-        contentLabel.text = article.textDescription
-        //contentLabel.sizeToFit()
-        let contentHeight = titleLabel.frame.size.height
+        var range = article.textDescription.rangeOfString("^\\s*", options: NSStringCompareOptions.RegularExpressionSearch)
+        var trimmedContent = article.textDescription.stringByReplacingCharactersInRange(range!, withString: "")
         
-        self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, titleHeight + detailHeight + imageViewHeight + contentHeight)
+        //let trimmedContent = article.textDescription.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+        let spacedContent = trimmedContent.stringByReplacingOccurrencesOfString("  ", withString: "\n\n")
+        contentLabel.text = spacedContent
+
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        self.view.layoutSubviews()
+        let contentHeight = contentLabel.frame.size.height
+        let titleHeight = titleLabel.frame.size.height
+        let imageViewHeight = mainImageView.frame.size.height
+        let detailHeight = detailLabel.frame.size.height
+        let buttonHeight = websiteButton.frame.size.height
+        let spacing = self.contentView.frame.size.height - titleHeight - detailHeight - imageViewHeight - contentHeight - buttonHeight
+        
+        self.scrollView.contentSize = CGSizeMake(self.contentView.frame.size.width, self.contentView.frame.size.height + contentHeight - (buttonHeight*6))
+        //self.view.layoutSubviews()
     }
 
     override func didReceiveMemoryWarning() {

@@ -139,15 +139,41 @@ class Task: NSObject {
         sat ? (output = output + "Sat ") : (output = output + "")
         sun ? (output = output + "Sun ") : (output = output + "")
         
-        if mon && tue && wed && thu && fri && sat && sun {
+        if isEveryDayRepeated() {
             output = "Every Day"
         }
         
-        if !mon && !tue && !wed && !thu && !fri && !sat && !sun {
+        if isNeverRepeated() {
             output = "Never"
         }
         
         return output
+    }
+    
+    func isEveryDayRepeated() -> Bool {
+        if mon && tue && wed && thu && fri && sat && sun {
+            return true
+        }
+        
+        return false
+    }
+    
+    func isNeverRepeated() -> Bool {
+        if !mon && !tue && !wed && !thu && !fri && !sat && !sun {
+            return true
+        }
+        
+        return false
+    }
+    
+    func getSoundFileNameForPlayback() -> String? {
+        if soundFileName == "" {
+            return nil
+        } else if soundFileName == SoundType.DEFAULT.rawValue {
+            return UILocalNotificationDefaultSoundName
+        } else {
+            return soundFileName.lowercaseString + ".wav"
+        }
     }
 
     /**
@@ -180,10 +206,14 @@ class Task: NSObject {
     }
     
     func displaySoundEnabledFlag() -> String {
-        if (soundFileName == "" || soundFileName == UNKNOWN) {
-            return "Sound & Notification"
-        } else {
+        if (soundFileName == "" || soundFileName == SoundType.NONE.rawValue) {
             return "Notification"
+        } else {
+            return "Sound & Notification"
         }
+    }
+    
+    func getNotifBody() -> String {
+        return self.title + " (" + self.type.rawValue + ")" + " at " + self.alertTime + " " + self.notes
     }
 }

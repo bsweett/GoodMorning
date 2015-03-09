@@ -4,3 +4,6 @@
 
 #import <libxml/HTMLtree.h>
 #import <libxml/xpath.h>
+
+#import <NSString+HTML.h>
+#import <GTMNSString+HTML.h>

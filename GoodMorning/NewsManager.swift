@@ -55,8 +55,8 @@ class NewsManager: NSObject {
                 }
             }
             
-            if let result = json["success"].bool {
-                dictionary["success"] = result
+            if let result = json["success"].string {
+                dictionary["success"] = result.boolValue()
                 NSNotificationCenter.defaultCenter().postNotificationName("NewsAdded", object: self, userInfo: dictionary)
             }
         })
@@ -67,7 +67,6 @@ class NewsManager: NSObject {
         let url = SERVER_ADDRESS + "/feedlist"
         
         let token = UserDefaultsManager.sharedInstance.getToken()
-        println(token)
         let params = ["token": token, "type": ""]
         
         Networking.sharedInstance.openNewJSONRequest(.GET, url: url, parameters: params, completion: {(data: JSON) in
@@ -113,8 +112,8 @@ class NewsManager: NSObject {
                 }
             }
             
-            if let result = json["success"].bool {
-                if !result {
+            if let result = json["success"].string {
+                if !result.boolValue() {
                     NSLog("Failed to delete feed from server")
                 } else {
                     NSLog("Feed was deleted from server")

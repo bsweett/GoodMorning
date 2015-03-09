@@ -20,8 +20,6 @@ class TasksViewController : UIViewController, UIPopoverControllerDelegate, UITab
     private var popoverContent: TaskPopoverViewController!
     private var popOverVC: UIPopoverController!
     
-    private var taskDetailVC: TaskEditViewController!
-    
     private var newTaskObject: Task!
     private var taskManager: TaskManager!
     private var taskList: [Task]!
@@ -54,7 +52,8 @@ class TasksViewController : UIViewController, UIPopoverControllerDelegate, UITab
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name:"InternalServerError", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name:"InvalidTaskResponse", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedTaskList:", name:"TaskListUpdated", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedTaskAdd:", name: "TaskAdded", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedTaskUpdate:", name: "TaskAdded", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedTaskUpdate:", name: "TaskUpdated", object: nil)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -113,14 +112,16 @@ class TasksViewController : UIViewController, UIPopoverControllerDelegate, UITab
         self.reloadTaskData()
     }
     
-    func receivedTaskAdd(notification: NSNotification) {
+    func receivedTaskUpdate(notification: NSNotification) {
         let resultDic = notification.userInfo as Dictionary<String, Bool>
         let result: Bool = resultDic["success"]!
-        
-        if result {
+
+        if result == true {
+            taskManager.getAllTasksRequest()
             self.refreshControl.beginRefreshing()
+            self.tasksTableView.setContentOffset(CGPointMake(0, -self.refreshControl.frame.size.height), animated:true)
         } else {
-            SCLAlertView().showWarning("Task Create Failed", subTitle: "An unknown error occured", closeButtonTitle: "Dismiss")
+            SCLAlertView().showWarning("Task Add/Update Failed", subTitle: "An unknown error occured", closeButtonTitle: "Dismiss")
         }
     }
     
@@ -147,24 +148,27 @@ class TasksViewController : UIViewController, UIPopoverControllerDelegate, UITab
         
         if(self.popOverNavController == nil) {
             self.popOverNavController = UINavigationController(rootViewController: popoverContent)
-            
-            var saveButton = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.Bordered, target: self, action: Selector("saveTaskTapped:"))
-            
-            var cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Bordered, target: self, action: Selector("cancelTaskTapped:"))
-            
-            self.popoverContent.navigationItem.title = "New Task"
-            self.popoverContent.navigationItem.rightBarButtonItem = saveButton
-            self.popoverContent.navigationItem.leftBarButtonItem = cancelButton
         }
+        
+        self.popoverContent.setDisplayTaskForEditing(nil)
+        
+        var saveButton = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.Bordered, target: self, action: Selector("saveTaskTapped:"))
+        
+        var cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Bordered, target: self, action: Selector("cancelTaskTapped:"))
+        
+        self.popoverContent.navigationItem.title = "New Task"
+        self.popoverContent.navigationItem.rightBarButtonItem = saveButton
+        self.popoverContent.navigationItem.leftBarButtonItem = cancelButton
         
         if(self.popOverVC == nil) {
             self.popOverVC = UIPopoverController(contentViewController: popOverNavController)
         }
         
-        self.popOverVC.popoverContentSize = CGSize(width: 400, height: 550)
+        let rect = CGRectMake(self.view.frame.size.width/2, self.view.frame.size.height/2, 1, 1)
         
+        self.popOverVC.popoverContentSize = CGSize(width: 400, height: 550)
         self.popOverVC.delegate = self
-        self.popOverVC.presentPopoverFromBarButtonItem(sender, permittedArrowDirections: UIPopoverArrowDirection.Any, animated: true)
+        self.popOverVC.presentPopoverFromRect(rect, inView: self.view, permittedArrowDirections: UIPopoverArrowDirection.allZeros, animated: true)
     }
     
     @IBAction func cancelTaskTapped(sender: UIBarButtonItem) {
@@ -172,6 +176,7 @@ class TasksViewController : UIViewController, UIPopoverControllerDelegate, UITab
             // Clear all fields here?
             // Or overwrite defualt values on viewDidLoad?
             self.popOverVC.dismissPopoverAnimated(true)
+            
         }
     }
     
@@ -193,7 +198,7 @@ class TasksViewController : UIViewController, UIPopoverControllerDelegate, UITab
     // MARK: - UIPopOverController Delegate
     
     func popoverControllerDidDismissPopover(popoverController: UIPopoverController) {
-        
+        self.popoverContent.setDisplayTaskForEditing(nil)
     }
     
     // MARK: - UITableView DataSource
@@ -265,17 +270,54 @@ class TasksViewController : UIViewController, UIPopoverControllerDelegate, UITab
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let cell = tableView.cellForRowAtIndexPath(indexPath) as TaskViewCell!
-        
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
-        // TODO: Prompt action sheet for edit or delete
-        if(self.taskDetailVC == nil) {
-            self.taskDetailVC = TaskEditViewController(nibName: "TaskEditViewController", bundle: nil)
+        var task = cell.getTaskObject()
+        
+        if(self.popoverContent == nil) {
+            let sb: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            self.popoverContent = TaskPopoverViewController(nibName: "TaskPopoverViewController", bundle: nil)
         }
         
-        self.taskDetailVC.setTask(cell.getTaskObject())
-        self.navigationController?.pushViewController(taskDetailVC, animated: true)
+        self.popoverContent.setDisplayTaskForEditing(task)
+        
+        if(self.popOverNavController == nil) {
+            self.popOverNavController = UINavigationController(rootViewController: popoverContent)
+        }
+        
+        var saveButton = UIBarButtonItem(title: "Update", style: UIBarButtonItemStyle.Bordered, target: self, action: Selector("updateTaskTapped:"))
+        
+        var cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Bordered, target: self, action: Selector("cancelTaskTapped:"))
+        
+        self.popoverContent.navigationItem.title = task.title
+        self.popoverContent.navigationItem.rightBarButtonItem = saveButton
+        self.popoverContent.navigationItem.leftBarButtonItem = cancelButton
+        
+        if(self.popOverVC == nil) {
+            self.popOverVC = UIPopoverController(contentViewController: popOverNavController)
+        }
+        
+        let rect = CGRectMake(self.view.frame.size.width/2, self.view.frame.size.height/2, 1, 1)
+        
+        self.popOverVC.popoverContentSize = CGSize(width: 400, height: 550)
+        self.popOverVC.delegate = self
+        self.popOverVC.presentPopoverFromRect(rect, inView: self.view, permittedArrowDirections: UIPopoverArrowDirection.allZeros, animated: true)
 
+    }
+    
+    @IBAction func updateTaskTapped(sender: UIBarButtonItem) {
+        if(self.popoverContent != nil) {
+            self.newTaskObject = self.popoverContent.getDisplayTask()
+        }
+        
+        if(self.popOverVC != nil) {
+            self.popOverVC.dismissPopoverAnimated(true)
+        }
+        
+        if(self.newTaskObject != nil) {
+            taskManager.updateTaskRequest(self.newTaskObject)
+            // TODO: Save task to server ?
+        }
     }
     
     func longPressTaskCell(sender: UILongPressGestureRecognizer) {

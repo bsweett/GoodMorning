@@ -12,6 +12,8 @@ class TaskAlertTypeViewController: UIViewController, UITableViewDataSource, UITa
     
     @IBOutlet weak var alertTable: UITableView!
     
+    var selectedSound: String = "mute"
+    
     var delegate: popOverNavDelegate?
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
@@ -24,7 +26,7 @@ class TaskAlertTypeViewController: UIViewController, UITableViewDataSource, UITa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = "Alert"
+        self.navigationItem.title = "Alert Sound"
         
         self.alertTable.dataSource = self
         self.alertTable.delegate = self
@@ -41,9 +43,12 @@ class TaskAlertTypeViewController: UIViewController, UITableViewDataSource, UITa
     
     override func viewWillDisappear(animated: Bool) {
         
-        // TODO: Save Sound file 
-        // If mute is selected save as UNKNOWN
-        
+        if(self.selectedSound == "") {
+            delegate?.saveAlert("mute")
+        } else {
+            delegate?.saveAlert(self.selectedSound)
+        }
+
         super.viewWillDisappear(animated)
     }
     
@@ -56,7 +61,7 @@ class TaskAlertTypeViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     func setSelectedItem(sound: String) {
-        
+        self.selectedSound = sound
     }
     
     // MARK: - UITableView Datasource
@@ -73,41 +78,25 @@ class TaskAlertTypeViewController: UIViewController, UITableViewDataSource, UITa
         cell.textLabel?.textColor = UIColor.blackColor()
         cell.textLabel?.font = gmFontNormal
         
-        switch(indexPath.row) {
-        case 0:
-            cell.textLabel?.text = "Mute"
-            break
-        default:
-            break
+        var soundType = SoundType.displayValues[indexPath.row]
+        
+        cell.textLabel?.text = soundType.capitalizedString
+        
+        if(self.selectedSound.lowercaseString == soundType) {
+            cell.accessoryType = UITableViewCellAccessoryType.Checkmark
+        } else {
+            cell.accessoryType = UITableViewCellAccessoryType.None
         }
         
         return cell
     }
     
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch(section) {
-        case 0:
-            return "Mute Sound"
-        case 1:
-            return "Default Tones"
-        default:
-            return ""
-        }
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return SoundType.displayValues.count
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 2
-    }
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch(section) {
-        case 0:
-            return 1
-        case 1:
-            return 8 // TODO: Map to standard ringtones
-        default:
-            return 0
-        }
+        return 1
     }
     
     // MARK : - UITableView Delegate
@@ -116,7 +105,15 @@ class TaskAlertTypeViewController: UIViewController, UITableViewDataSource, UITa
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
-        // TODO: Sound and no sound select
+        let select = SoundType.displayValues[indexPath.row]
+        
+        if(self.selectedSound.lowercaseString == select) {
+            self.selectedSound = ""
+        } else {
+             self.selectedSound = select
+        }
+        
+        self.alertTable.reloadData()
     }
     
 }

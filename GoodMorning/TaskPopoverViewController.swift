@@ -40,26 +40,40 @@ class TaskPopoverViewController: UIViewController, UITableViewDataSource, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var now: NSDate = NSDate()
-        displayTask = Task(id: "temp", title: "New Task", creation: now, nextAlert: now.addMinutesToDate(1), type: TaskType.CHORE, alertTime: now.toTimeString(), soundFileName: "jungle", notes: "")
-        displayTask.setDaysOfTheWeek(false, tue: false, wed: false, thu: false, fri: false, sat: false, sun: false)
-        
-        NotificationManager.sharedInstance.scheduleNotificationForTask(displayTask)
+        //NotificationManager.sharedInstance.scheduleNotificationForTask(displayTask)
         
         taskFieldsTableView.registerNib(UINib(nibName: "PopoverViewCell", bundle: nil), forCellReuseIdentifier: "taskPopoverCell")
         taskFieldsTableView.dataSource = self
         taskFieldsTableView.delegate = self
         taskFieldsTableView.scrollEnabled = false
-        timePicker.minimumDate = NSDate()
+        //timePicker.minimumDate = NSDate()
         timePicker.maximumDate = NSDate().addMonthsToDate(12)
         
         var backButton = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.Bordered, target: nil, action: nil)
         self.navigationItem.backBarButtonItem = backButton
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        taskFieldsTableView.reloadData()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func setDisplayTaskForEditing(existingTask: Task?) {
+        var now: NSDate = NSDate()
+        var soon = now.addMinutesToDate(2)
+        
+        
+        if(existingTask == nil) {
+            displayTask = Task(id: "temp", title: "New Task", creation: now, nextAlert: soon, type: TaskType.CHORE, alertTime: soon.toTimeString(), soundFileName: "jungle", notes: "")
+            displayTask.setDaysOfTheWeek(false, tue: false, wed: false, thu: false, fri: false, sat: false, sun: false)
+        } else {
+            self.displayTask = existingTask
+        }
     }
     
     func getDisplayTask() -> Task {

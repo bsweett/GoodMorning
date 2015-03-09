@@ -18,6 +18,9 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     private var newsManager: NewsManager! = nil
     private var articleList: [RSSArticle] = []
     
+    private var firstTimeAppear: Bool = true
+    private var imageCache: NSCache!
+    
     private var articleViewController: ArticleViewController!
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
@@ -36,6 +39,8 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         articleTableView.dataSource = self
         articleTableView.delegate = self
 
+        imageCache = NSCache()
+        
         self.refreshControl = UIRefreshControl()
         
         var formatter = NSDateFormatter()
@@ -64,6 +69,13 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        
+        if(firstTimeAppear == true) {
+            newsManager.getArticlesForFeed(self.rssfeed)
+            self.refreshControl.beginRefreshing()
+            self.articleTableView.setContentOffset(CGPointMake(0, -self.refreshControl.frame.size.height), animated:true)
+            firstTimeAppear = false
+        }
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -139,7 +151,46 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         selectedBackgroundView.backgroundColor = UIColor.grayColor().colorWithAlphaComponent(0.2)
         cell.selectedBackgroundView = selectedBackgroundView
         
-        cell.setArticle(articleList[indexPath.row])
+        let article = articleList[indexPath.row]
+        
+        cell.setArticle(article)
+        
+        var image: UIImage? = self.imageCache.objectForKey(article.title) as? UIImage
+        
+        if(image != nil) {
+            cell.setThumbNailImage(image)
+            
+        } else {
+            
+            cell.setThumbNailImage(nil)
+            
+            if article.thumbnailURL != "" {
+                var q: dispatch_queue_t = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+                dispatch_async(q, {
+                    /* Fetch the image from the server... */
+                    var image = (UIImage(named: "gm_unknown")!)
+                    
+                    let url = NSURL(string: article.thumbnailURL)
+                    if url != nil {
+                        if let data = NSData(contentsOfURL: url!) {
+                            image = (UIImage(data: data)!)
+                        }
+                    }
+                    
+                    self.imageCache.setObject(image, forKey: article.title)
+                    
+                    dispatch_async(dispatch_get_main_queue(), {
+                        /* This is the main thread again, where we set the tableView's image to
+                        be what we just fetched. */
+                        cell.setThumbNailImage(image)
+                    });
+                });
+            } else {
+                cell.setThumbNailImage((UIImage(named: "gm_unknown")!))
+            }
+            
+        }
+
         
         return cell
     }

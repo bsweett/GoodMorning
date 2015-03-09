@@ -7,6 +7,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ArticleViewController" customModule="GoodMorning" customModuleProvider="target">
             <connections>
                 <outlet property="contentLabel" destination="TBc-lD-8VR" id="FiV-Jx-eHc"/>
+                <outlet property="contentView" destination="Q4D-E0-fIt" id="KLN-SL-F3h"/>
                 <outlet property="detailLabel" destination="ruY-rm-w9t" id="gUD-yj-6ab"/>
                 <outlet property="mainImageView" destination="L4P-Xb-rx6" id="wxt-Ob-Xn5"/>
                 <outlet property="scrollView" destination="d0Q-04-iyl" id="B8X-x1-8rB"/>
@@ -26,12 +27,6 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q4D-E0-fIt">
                             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TBc-lD-8VR">
-                                    <rect key="frame" x="36" y="458" width="528" height="25"/>
-                                    <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="18"/>
-                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="L4P-Xb-rx6">
                                     <rect key="frame" x="36" y="142" width="528" height="300"/>
                                     <constraints>
@@ -65,6 +60,12 @@
                                         <action selector="websiteButtonTapped:" destination="-1" eventType="touchUpInside" id="B3k-vc-cac"/>
                                     </connections>
                                 </button>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TBc-lD-8VR">
+                                    <rect key="frame" x="36" y="458" width="528" height="25"/>
+                                    <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="18"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
@@ -103,6 +104,11 @@
                         <constraint firstAttribute="centerY" secondItem="Q4D-E0-fIt" secondAttribute="centerY" id="gJk-ZU-O4N"/>
                         <constraint firstAttribute="bottom" secondItem="Q4D-E0-fIt" secondAttribute="bottom" id="rIH-cP-kP6"/>
                     </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="rIH-cP-kP6"/>
+                        </mask>
+                    </variation>
                 </scrollView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>

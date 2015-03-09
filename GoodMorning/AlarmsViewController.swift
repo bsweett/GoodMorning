@@ -55,6 +55,7 @@ class AlarmsViewController : UIViewController {
     private var alarmDict: Dictionary<String, Task> = [:]
 
     private var blur: UIVisualEffectView!
+    private var darkBlur: UIVisualEffectView!
     
     private var alarmManger: AlarmsManager!
     
@@ -70,7 +71,12 @@ class AlarmsViewController : UIViewController {
         self.roundClockBackgrounds()
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         
-        blur = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.Light))
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Light)
+        darkBlur = UIVisualEffectView(effect: blurEffect)
+        self.darkBlur.frame = self.view.bounds //view is self.view in a UIViewController
+        self.background.addSubview(self.darkBlur)
+        
+        blur = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.Dark))
         blur.frame = view.frame
         blur.tag = 51
     }
@@ -90,6 +96,8 @@ class AlarmsViewController : UIViewController {
         tapGesture.numberOfTapsRequired = 2
         
         self.parentViewController?.title = "Alarms"
+        
+
         
         updateBackground()
         
@@ -187,12 +195,12 @@ class AlarmsViewController : UIViewController {
         let name1 : String = Array(taskDictionary.keys)[0]
         let name2 : String = Array(taskDictionary.keys)[1]
         let name3 : String = Array(taskDictionary.keys)[2]
-        let name4 : String = Array(taskDictionary.keys)[3]
+        //let name4 : String = Array(taskDictionary.keys)[3]
         
         let task1 : Task = taskDictionary[name1]!
         let task2 : Task = taskDictionary[name2]!
         let task3 : Task = taskDictionary[name3]!
-        let task4 : Task = taskDictionary[name4]!
+        let task4 : Task = taskDictionary[name3]!
         
         updateAlarmDisplay(task1, task2: task2, task3: task3, task4: task4)
     }
@@ -214,10 +222,11 @@ class AlarmsViewController : UIViewController {
         self.clockThreeDates.text = task3.daysOfWeekToDisplayString()
         self.clockThreeSound.text = task3.displaySoundEnabledFlag()
         
+        /*
         self.clockFourName.text = task4.title
         self.clockFourTime.text = task4.displayAlertTime()
         self.clockFourDates.text = task4.daysOfWeekToDisplayString()
-        self.clockFourSound.text = task4.displaySoundEnabledFlag()
+        self.clockFourSound.text = task4.displaySoundEnabledFlag()*/
         
         stopLoading()
     }

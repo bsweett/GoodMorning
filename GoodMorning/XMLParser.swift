@@ -54,40 +54,45 @@ class XMLParser: NSObject {
         
         var articles: Dictionary<String, RSSArticle> = Dictionary<String, RSSArticle>()
         
-        if let items = xml.root["channel"]["item"].all {
-            
-            for article in items {
-                var rssArticle: RSSArticle = RSSArticle()
+            // do something in the background
+            if let items = xml.root["channel"]["item"].all {
                 
-                var title = article["title"].stringValue
-                var link = article["link"].stringValue
-                var descriptionRaw = article["description"].stringValue
-                
-                if let catergories = article["category"].all {
-                    for category in catergories {
-                        
-                        rssArticle.addCategory(category.value!)
-                        
+                for article in items {
+                    var rssArticle: RSSArticle = RSSArticle()
+                    
+                    var title = article["title"].stringValue
+                    var link = article["link"].stringValue
+                    var descriptionRaw = article["description"].stringValue
+                    var nsRawDes: NSString = descriptionRaw
+                    
+                    if let catergories = article["category"].all {
+                        for category in catergories {
+                            
+                            rssArticle.addCategory(category.value!)
+                            
+                        }
                     }
+                    
+                    var pubString = article["pubDate"].stringValue
+                    var creator = article["dc:creator"].stringValue
+                    
+                    rssArticle.title = title
+                    rssArticle.link = link
+                    rssArticle.rawDescription = descriptionRaw
+                    rssArticle.pubdate = NSDate().dateFromInternetDateTimeString(pubString, formatHint: .RFC822)
+                    rssArticle.creator = creator
+                    rssArticle.textDescription = nsRawDes.stringByConvertingHTMLToPlainText()
+                        
+                        //String().fromHtmlEncodedString(descriptionRaw) //getDescriptionTextFromHTML(descriptionRaw)
+                    rssArticle.thumbnailURL = self.getThumbNailUrlFromRaw(descriptionRaw)
+                    
+                    // TODO: check null on elements and add to article
+                    // add article to map
+                    
+                    articles[rssArticle.title] = rssArticle
                 }
-                
-                var pubString = article["pubDate"].stringValue
-                var creator = article["dc:creator"].stringValue
-                
-                rssArticle.title = title
-                rssArticle.link = link
-                rssArticle.rawDescription = descriptionRaw
-                rssArticle.pubdate = NSDate().dateFromInternetDateTimeString(pubString, formatHint: .RFC822)
-                rssArticle.creator = creator
-                rssArticle.textDescription = String().fromHtmlEncodedString(descriptionRaw) //getDescriptionTextFromHTML(descriptionRaw)
-                rssArticle.thumbnailURL = getThumbNailUrlFromRaw(descriptionRaw)
-                
-                // TODO: check null on elements and add to article
-                // add article to map
-                
-                articles[rssArticle.title] = rssArticle
             }
-        }
+
         
         return articles
     }
@@ -101,11 +106,38 @@ class XMLParser: NSObject {
     func getThumbNailUrlFromRaw(html: String) -> String {
         
         // Note: using an HTML parser that doesn't support XHTML tags
-        let removedInset = html.stringByReplacingOccurrencesOfString("<inset[^>]*>.*?</inset>", withString: "", options: .RegularExpressionSearch, range: nil)
-        let strippedHtml = removedInset.stringByReplacingOccurrencesOfString("</img>", withString: "", range: nil)
+        //let removedInset = html.stringByReplacingOccurrencesOfString("<inset[^>]*>.*?</inset>", withString: "", options: .RegularExpressionSearch, range: nil)
+        //let strippedHtml = removedInset.stringByReplacingOccurrencesOfString("</img>", withString: "", range: nil)
         
-        let newHtml = "<html><head></head><body>" + strippedHtml + "</body>"
+        //let newHtml = "<html><head></head><body>" + strippedHtml + "</body>"
         
+        //let str = matchesForRegexInText("<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>", text: html)
+        /*
+        if(str.count > 0) {
+            return str[0]
+        }*/
+        
+        var url: NSString? = ""
+        var theScanner = NSScanner(string: html)
+        // find start of IMG tag
+        theScanner.scanUpToString("<img", intoString:nil)
+        
+        if (!theScanner.atEnd) {
+            
+            theScanner.scanUpToString("src", intoString: nil)
+            var charset = NSCharacterSet(charactersInString: "\"'")
+            theScanner.scanUpToCharactersFromSet(charset, intoString: nil)
+            theScanner.scanCharactersFromSet(charset, intoString: nil)
+            theScanner.scanUpToCharactersFromSet(charset, intoString: &url)
+            // "url" now contains the URL of the img
+            if (url != nil) {
+                return url!
+            } else {
+                return ""
+            }
+        }
+        
+        /*
         var err : NSError?
         var parser = HTMLParser(html: newHtml, error: &err)
         if err != nil {
@@ -118,9 +150,21 @@ class XMLParser: NSObject {
         if let inputNodes = bodyNode?.findChildTags("img") {
             var src = inputNodes[0].getAttributeNamed("src")
             return src
-        }
+        }*/
         
         return ""
     }
+    
+    /*
+    func matchesForRegexInText(regex: String!, text: String!) -> [String] {
+        
+        let regex = NSRegularExpression(pattern: regex,
+            options: nil, error: nil)!
+        let nsString = text as NSString
+        let results = regex.matchesInString(nsString,
+            options: nil, range: NSMakeRange(0, nsString.length))
+            as [NSTextCheckingResult]
+        return map(results) { nsString.substringWithRange($0.range)}
+    }*/
 
 }
