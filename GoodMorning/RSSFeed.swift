@@ -69,8 +69,8 @@ class RSSFeed: NSObject {
             " Description: " + self.contentDescription +
             " Language: " + self.language +
             " Type: " + self.type.rawValue +
-            " created: " + self.creationDate.toTimeString() +
-            " active: " + self.lastActiveDate.toTimeString() +
+            " created: " + self.creationDate.toFullDateString() +
+            " active: " + self.lastActiveDate.toFullDateString() +
             " logoURL: " + self.logoURL +
             " rssLink: " + self.rssLink
     }

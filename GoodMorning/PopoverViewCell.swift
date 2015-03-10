@@ -11,7 +11,7 @@ import UIKit
 class PopoverViewCell: UITableViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var valueLabel: UILabel!
+    @IBOutlet weak var valueLabel: UITextView!
     @IBOutlet weak var arrowImageView: UIImageView!
 
     override func awakeFromNib() {

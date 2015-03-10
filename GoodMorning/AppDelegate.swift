@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import Alamofire
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -99,6 +100,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
        
         LocationManager.sharedInstance.update()
         UIApplication.sharedApplication().applicationIconBadgeNumber = 0
+        
+        /*
+        Alamofire.request(.GET, "http://feeds.wired.com/wired/index").validate(statusCode: 200..<300).responseString {
+            (request, response, string, error) in
+            
+            println(response)
+        }*/
         
     }
 

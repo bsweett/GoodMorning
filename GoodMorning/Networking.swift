@@ -85,9 +85,10 @@ class Networking: NSObject {
     // NOTE: Not using Alamofire method
     func openNewXMLRequest(method: Alamofire.Method, url: String, completion: ((data: AEXMLDocument) -> Void)!) {
         
+        //.validate(contentType: ["text/xml;charset=UTF-8"]).   // Some feeds are UTF-8 others are not
         self.didStartNetworkOperation()
         
-        Alamofire.request(.GET, url).validate(statusCode: 200..<300).validate(contentType: ["text/xml"]).responseString {
+        Alamofire.request(.GET, url).validate(statusCode: 200..<300).responseString {
             (request, response, string, error) in
             
             self.didStopNetworkOperation()

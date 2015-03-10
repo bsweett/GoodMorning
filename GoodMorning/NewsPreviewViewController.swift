@@ -16,6 +16,7 @@ class NewsPreviewViewController: UIViewController, UITableViewDataSource, UITabl
     @IBOutlet weak var descriptionLabel: UILabel!
     
     private var rssChannel: RSSFeed?
+    private var rssLogo: UIImage?
     var delegate: rssPopoverNavDelegate?
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
@@ -55,13 +56,7 @@ class NewsPreviewViewController: UIViewController, UITableViewDataSource, UITabl
             titleLabel.text = rssChannel?.title
             descriptionLabel.text = rssChannel?.contentDescription
             channelTableView.reloadData()
-            
-            let logoUrl = rssChannel?.logoAsUrl()
-            if(logoUrl != nil) {
-                channelLogoView.image = loadLogoImage(logoUrl!)
-            } else {
-                channelLogoView.image = UIImage(named: "gm_unknown")!
-            }
+            channelLogoView.image = self.rssLogo
         }
     }
     
@@ -75,16 +70,9 @@ class NewsPreviewViewController: UIViewController, UITableViewDataSource, UITabl
         // Dispose of any resources that can be recreated.
     }
     
-    func setRSSFeed(feed: RSSFeed?) {
+    func setRSSFeed(feed: RSSFeed?, rssLogo: UIImage?) {
         self.rssChannel = feed
-    }
-    
-    func loadLogoImage(url: NSURL) -> UIImage {
-        var data = NSData(contentsOfURL : url)
-        if(data != nil) {
-             return UIImage(data : data!)!
-        }
-        return UIImage(named: "gm_unknown")!
+        self.rssLogo = rssLogo
     }
     
     @IBAction func saveFeed(sender: UIBarButtonItem) {

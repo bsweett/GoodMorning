@@ -10,9 +10,7 @@ import UIKit
 
 class NewsPopoverViewController: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
 
-    @IBOutlet weak var urlFeild: UITextField!
-    @IBOutlet weak var urlCheckLabel: UILabel!
-    @IBOutlet weak var urlCheckImageView: UIImageView!
+    @IBOutlet weak var searchField: UITextField!
     @IBOutlet weak var typePicker: UIPickerView!
     
     var pickerData: [String]!
@@ -20,7 +18,8 @@ class NewsPopoverViewController: UIViewController, UITextFieldDelegate, UIPicker
     var displayFeed: RSSFeed!
     var newsManager: NewsManager!
     var rootViewController: NewsViewController!
-    var previewVC: NewsPreviewViewController!
+    
+    var resultViewController: NewsResultsViewController!
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -39,8 +38,8 @@ class NewsPopoverViewController: UIViewController, UITextFieldDelegate, UIPicker
         self.pickerData = RSSType.displayValues
         self.typePicker.dataSource = self
         self.typePicker.delegate = self
-        self.urlFeild.delegate = self
-        self.navigationItem.rightBarButtonItem?.enabled = false
+        self.searchField.delegate = self
+        self.navigationItem.rightBarButtonItem?.enabled = true
         
         var backButton = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.Bordered, target: nil, action: nil)
         self.navigationItem.backBarButtonItem = backButton
@@ -51,13 +50,9 @@ class NewsPopoverViewController: UIViewController, UITextFieldDelegate, UIPicker
         super.viewDidAppear(animated)
         self.typePicker.selectRow(0, inComponent: 0, animated: true)
         
-        //Note: This is just for testing
-        self.urlFeild.text = "http://feeds.feedburner.com/businessinsider"
-        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedNetworkError:", name:"NetworkError", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name:"InternalServerError", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInvalidRSS:", name:"InvalidRSSURL", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedValidRSS:", name:"ShowRSSPreview", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedSearchResults:", name:"FeedlyResultsFound", object: nil)
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -85,41 +80,30 @@ class NewsPopoverViewController: UIViewController, UITextFieldDelegate, UIPicker
             subTitle:  reason + " - " + message, closeButtonTitle: "Dismiss")
     }
     
-    // TODO: Both of these should show the preview only change what is shown
-    // ie error something was wrong with the feed you entered
-    // or preview of the channel info
-    func receivedInvalidRSS(notification: NSNotification) {
+    func receivedSearchResults(notification: NSNotification) {
+        let feedDictionary = notification.userInfo as Dictionary<String,RSSFeed>
         
-        if(self.previewVC == nil) {
-            self.previewVC = NewsPreviewViewController(nibName: "NewsPreviewViewController", bundle: nil)
+        var feedList: [RSSFeed]! = []
+        
+        for feed in feedDictionary.values {
+            feedList.append(feed)
         }
         
-        self.previewVC.setRSSFeed(nil)
-        self.navigationController?.pushViewController(previewVC, animated: true)
-    }
-    
-    func receivedValidRSS(notification: NSNotification) {
-        let userInfo: Dictionary<String, RSSFeed> = notification.userInfo as Dictionary<String, RSSFeed>
-        
-        if(self.previewVC == nil) {
-            self.previewVC = NewsPreviewViewController(nibName: "NewsPreviewViewController", bundle: nil)
+        if(self.resultViewController == nil) {
+            self.resultViewController = NewsResultsViewController(nibName: "NewsResultsViewController", bundle: nil)
         }
-        self.previewVC.delegate = self.rootViewController
-        self.previewVC.setRSSFeed(userInfo["feed"])
-        self.navigationController?.pushViewController(previewVC, animated: true)
+        
+        self.resultViewController.setResultList(feedList)
+        self.resultViewController.setRoot(self.rootViewController)
+        self.navigationController?.pushViewController(resultViewController, animated: true)
     }
-    // TODO
     
-    
-    //TODO: Get check and uncheck image asset
-    func setValidLabelAndImage(valid: Bool) {
+    //TODO: Error Label this
+    func enabledButtonIfValid(valid: Bool) {
+
         if valid {
-            self.urlCheckLabel.text = "Valid"
-            //self.urlCheckImageView.image = UIImage(named: "")
             self.navigationItem.rightBarButtonItem?.enabled = true
         } else {
-            self.urlCheckLabel.text = "Invalid"
-            //self.urlCheckImageView.image = UIImage(named: "")
             self.navigationItem.rightBarButtonItem?.enabled = false
         }
     }
@@ -129,12 +113,15 @@ class NewsPopoverViewController: UIViewController, UITextFieldDelegate, UIPicker
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         
         let text = textField.text + string
-        if(text.isEmpty || !text.isUrl()) {
-            setValidLabelAndImage(false)
+        
+        if (text.isEmpty) {
+            enabledButtonIfValid(true)
             
+        } else if(!text.isUrl() && !text.isAlphaNumeric()) {
+            enabledButtonIfValid(false)
         } else {
-            setValidLabelAndImage(true)
-            // allow them to hit add -> then go to preview where we will have errors if it is not well formed
+            enabledButtonIfValid(true)
+            
         }
         
         return true
@@ -143,14 +130,16 @@ class NewsPopoverViewController: UIViewController, UITextFieldDelegate, UIPicker
     func textFieldDidEndEditing(textField: UITextField) {
         
         let text = textField.text
-        if(text.isEmpty || !text.isUrl()) {
-            setValidLabelAndImage(false)
-                
-        } else {
-            setValidLabelAndImage(true)
-            // allow them to hit add -> then go to preview where we will have errors if it is not well formed
+        if(text.isEmpty) {
+            enabledButtonIfValid(true)
         }
-
+        else if(!text.isUrl() && !text.isAlphaNumeric()) {
+            enabledButtonIfValid(false)
+            
+        } else {
+            enabledButtonIfValid(true)
+            
+        }
     }
     
     func textFieldShouldReturn(textField: UITextField!) -> Bool {        
@@ -185,13 +174,11 @@ class NewsPopoverViewController: UIViewController, UITextFieldDelegate, UIPicker
     
     @IBAction func nextTapped(sender: UIBarButtonItem) {
         
-        let inputUrl: String = self.urlFeild.text
-        self.newsManager.testNewRSSUrl(inputUrl, type: displayFeed.type)
-        
-
-        // display the preview if it is
-        // and then send it to our server for storage
-        // close this popover 
-        // update list
+        let inputSearch: String = self.searchField.text
+        if(inputSearch.isEmpty) {
+            self.newsManager.getFeedsForQuery(displayFeed.type.rawValue)
+        } else {
+            self.newsManager.getFeedsForQuery(inputSearch)
+        }
     }
 }

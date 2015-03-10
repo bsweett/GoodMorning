@@ -35,6 +35,24 @@ class NewsManager: NSObject {
         
     }
     
+    func getFeedsForQuery(query: String) {
+        
+        let url = FEEDLY_ADDRESS + "search/feeds"
+        let params = ["query": query]
+        
+        Networking.sharedInstance.openNewJSONRequest(.GET, url: url, parameters: params, completion: {(data: JSON) in
+            let json = data
+            var dictionary = Dictionary<String, AnyObject>()
+            
+            println(json)
+            
+            if let array = json["results"].array {
+                self.jsonParser.parseFeedlyFeeds(array, query: query)
+            }
+        })
+        
+    }
+    
     func saveValidFeedToServer(feed: RSSFeed) {
         let url = SERVER_ADDRESS + "/newfeed"
         

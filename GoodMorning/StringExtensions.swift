@@ -25,6 +25,11 @@ extension String {
         return regex?.firstMatchInString(self, options: nil, range: NSMakeRange(0, countElements(self))) != nil
     }
     
+    func isAlphaNumeric() -> Bool {
+        let regex = NSRegularExpression(pattern: "^([a-zA-Z0-9]){1,255}$", options: .CaseInsensitive, error: nil)
+        return regex?.firstMatchInString(self, options: nil, range: NSMakeRange(0, countElements(self))) != nil
+    }
+    
     func isTaskName() -> Bool {
         if((self as NSString).length > 1 && (self as NSString).length < 255) {
             return true

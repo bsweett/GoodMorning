@@ -18,6 +18,7 @@ let ipHome237 = "http://192.168.1.237:8080"
 
 // TODO: Setup router to forward traffic through TCP port 8080 to use static IP
 let SERVER_ADDRESS = ipHome237 + "/GoodMorning-Server"
+let FEEDLY_ADDRESS = "https://cloud.feedly.com/v3/"
 
 // UserDefault Keys
 let udEmailID: String = "EMAILUD"

@@ -54,7 +54,7 @@ class XMLParser: NSObject {
         
         var articles: Dictionary<String, RSSArticle> = Dictionary<String, RSSArticle>()
         
-            // do something in the background
+            // Standard RSS 1.0/2.0
             if let items = xml.root["channel"]["item"].all {
                 
                 for article in items {
@@ -90,7 +90,39 @@ class XMLParser: NSObject {
                     // add article to map
                     
                     articles[rssArticle.title] = rssArticle
+                    
+                    println(rssArticle.toString())
+                    println("")
                 }
+                
+            // RSS 0.91/RDF
+            } else if let items = xml.root["item"].all {
+                
+                for article in items {
+                    var rssArticle: RSSArticle = RSSArticle()
+                    
+                    var title = article["title"].stringValue
+                    var link = article["link"].stringValue
+                    var pubString = article["dc:date"].stringValue
+                    var creator = article["dc:creator"].stringValue
+                    var description = article["description"].stringValue
+                    var subject = article["dc:subject"].stringValue
+                    
+                    rssArticle.title = title
+                    rssArticle.link = link
+                    rssArticle.rawDescription = description
+                    
+                    var formatter = NSDateFormatter()
+                    formatter.dateFormat = "yyyy-mm-dd"
+                    
+                    rssArticle.addCategory(subject)
+                    rssArticle.pubdate = formatter.dateFromString(pubString)
+                    rssArticle.creator = creator
+                    rssArticle.textDescription = description
+                    
+                    articles[rssArticle.title] = rssArticle
+                }
+                
             }
 
         
@@ -131,7 +163,12 @@ class XMLParser: NSObject {
             theScanner.scanUpToCharactersFromSet(charset, intoString: &url)
             // "url" now contains the URL of the img
             if (url != nil) {
-                return url!
+                var result = String(url!)
+                if(result.rangeOfString("http:", options: NSStringCompareOptions.allZeros) != nil || result.rangeOfString("https:", options: NSStringCompareOptions.allZeros) != nil ) {
+                    return result
+                } else {
+                    return "http:" + result
+                }
             } else {
                 return ""
             }

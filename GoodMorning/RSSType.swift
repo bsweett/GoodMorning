@@ -13,7 +13,7 @@ enum RSSType: String {
     SPORTS = "Sports", LIFESTYLE = "Lifestyle", ENTERTAINMENT = "Entertainment", OTHER = ""
     
     static let allValues = [NEWS, BUSINESS, SCIENCE, TECHNOLOGY, SPORTS, LIFESTYLE, ENTERTAINMENT, OTHER]
-    static let displayValues = [NEWS.rawValue, BUSINESS.rawValue, SCIENCE.rawValue, TECHNOLOGY.rawValue, SPORTS.rawValue, LIFESTYLE.rawValue, ENTERTAINMENT.rawValue, OTHER.rawValue]
+    static let displayValues = [NEWS.rawValue, BUSINESS.rawValue, SCIENCE.rawValue, TECHNOLOGY.rawValue, SPORTS.rawValue, LIFESTYLE.rawValue, ENTERTAINMENT.rawValue]
     
     static func typeFromString(string: String) -> RSSType {
         switch(string.lowercaseString) {

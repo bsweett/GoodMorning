@@ -164,7 +164,7 @@ class NewsViewController : UIViewController, UIPopoverControllerDelegate, UITabl
             self.popOverVC = UIPopoverController(contentViewController: popOverNavController)
         }
         
-        self.popOverVC.popoverContentSize = CGSize(width: 400, height: 450)
+        self.popOverVC.popoverContentSize = CGSize(width: 400, height: 500)
         
         self.popOverVC.delegate = self
         self.popOverVC.presentPopoverFromBarButtonItem(sender, permittedArrowDirections: UIPopoverArrowDirection.Any, animated: true)

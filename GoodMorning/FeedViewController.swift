@@ -63,8 +63,6 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name:"InternalServerError", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name:"InvalidFeedResponse", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedListUpdate:", name:"ArticleListUpdated", object: nil)
-        
-        //self.articleTableView.contentOffset = CGPointMake(0, -self.refreshControl.frame.size.height);
     }
     
     override func viewDidAppear(animated: Bool) {

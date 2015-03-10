@@ -44,4 +44,13 @@ class RSSArticle: NSObject {
     func addCategory(category: String) {
         self.categories.append(category)
     }
+    
+    func toString() -> String {
+        return "Title: " + self.title +
+            " Link: " + self.link +
+            " Description: " + self.textDescription +
+            " Image Url: " + self.thumbnailURL +
+            " Creator: " + self.creator +
+            " pub date: " + self.pubdate.toFullDateString()
+    }
 }

@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import Foundation
 
 class JSONParser: NSObject {
-   
+    
     var dateFormatter: NSDateFormatter!
     
     override init() {
@@ -24,7 +25,7 @@ class JSONParser: NSObject {
     //MARK: - User JSON
     
     func parseInstallUserData(userData: JSON) {
-
+        
         let tempDate: NSDate = NSDate()
         
         let userId: String = userData["userId"].string!
@@ -135,6 +136,50 @@ class JSONParser: NSObject {
     }
     
     //MARK: - Feed JSON
+    
+    func parseFeedlyFeeds(feedData: [JSON], query: String) {
+        var resultList: Dictionary<String, RSSFeed>! = [:]
+        
+        for feed in feedData {
+            
+            var iconUrl = ""
+            var description = ""
+            
+            let feedUrl = feed["feedId"].string!
+            let language = feed["language"].string!
+            let title = feed["title"].string!
+            let lastUpdateFloatingNumber = feed["lastUpdated"].number!
+            let website = feed["website"].string!
+            if let descr = feed["description"].string {
+                description = descr
+            }
+            
+            if let icon = feed["visualUrl"].string {        //iconUrl is very small use visual
+                iconUrl = icon
+            } else if let small = feed["iconUrl"].string {
+                iconUrl = small
+            }
+            
+            let type = RSSType.typeFromString(query)
+            let now = NSDate()
+
+            //NOTE: thier unix epoch time returns a correct date with online tools but the swift
+            // time interval since 1970 doesn't seem to like the extra 0s. Simply and very dirty solution 
+            // is to remove the last 3 zeros
+            
+            let strProper = lastUpdateFloatingNumber.stringValue.removeCharsFromEnd(3)
+            var lastUpdated = NSDate(timeIntervalSince1970: (strProper as NSString).doubleValue)
+            
+            let rssLink = feedUrl.stringByReplacingOccurrencesOfString("feed/", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+            
+            var rss: RSSFeed = RSSFeed(title: title, creation: now, lastActiveDate: lastUpdated, type: type, description: description, language: language, link: website, rssLink: rssLink)
+            rss.logoURL = iconUrl
+            
+            resultList[rss.title] = rss
+        }
+        
+        NSNotificationCenter.defaultCenter().postNotificationName("FeedlyResultsFound", object: self, userInfo: resultList)
+    }
     
     func parseAllFeeds(feedData: JSON) {
         let feedList: Dictionary<String, RSSFeed>! = parseFeedList(feedData)
