@@ -49,6 +49,7 @@ class NewsPopoverViewController: UIViewController, UITextFieldDelegate, UIPicker
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         self.typePicker.selectRow(0, inComponent: 0, animated: true)
+        self.searchField.text = ""
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedNetworkError:", name:"NetworkError", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name:"InternalServerError", object: nil)
@@ -142,7 +143,8 @@ class NewsPopoverViewController: UIViewController, UITextFieldDelegate, UIPicker
         }
     }
     
-    func textFieldShouldReturn(textField: UITextField!) -> Bool {        
+    func textFieldShouldReturn(textField: UITextField!) -> Bool {
+        textField.resignFirstResponder()
         return true
     }
 

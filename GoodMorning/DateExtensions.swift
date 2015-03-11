@@ -26,6 +26,28 @@ extension NSDate {
         return newDate!
     }
     
+    /**
+    Compares the current date to a date in the past to get how long ago it
+    was in the given unit
+    
+    :param: date A NSDate that happened in the past
+    
+    :returns: components
+    */
+    func differenceToNow(unit: NSCalendarUnit) -> NSDateComponents {
+        
+        var now = NSDate()
+        var calendar: NSCalendar = NSCalendar.currentCalendar()
+        
+        let date1 = calendar.startOfDayForDate(self)
+        let date2 = calendar.startOfDayForDate(now)
+        
+        let components = calendar.components(unit, fromDate: date1, toDate: date2, options: nil)
+        
+        return components
+    }
+
+    
     /*
         Returns a Time String in the HH:mm:ss from for a date
     

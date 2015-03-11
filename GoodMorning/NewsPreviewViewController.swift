@@ -43,6 +43,11 @@ class NewsPreviewViewController: UIViewController, UITableViewDataSource, UITabl
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedNetworkError:", name:"NetworkError", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name:"InternalServerError", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name:"InvalidFeedResponse", object: nil)
+        
         if rssChannel == nil {
             channelTableView.hidden = true
             channelLogoView.hidden = true
@@ -78,6 +83,7 @@ class NewsPreviewViewController: UIViewController, UITableViewDataSource, UITabl
     @IBAction func saveFeed(sender: UIBarButtonItem) {
         println("Save tapped")
         delegate?.saveFeed(self.rssChannel!)
+        self.navigationController?.popToRootViewControllerAnimated(true)
     }
  
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -123,5 +129,21 @@ class NewsPreviewViewController: UIViewController, UITableViewDataSource, UITabl
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3
+    }
+    
+    
+    
+    func receivedNetworkError(notification: NSNotification) {
+        /*SCLAlertView().showError("Network Error",
+        subTitle: "Oops something went wrong",
+        closeButtonTitle: "Dismiss")*/
+    }
+    
+    func receivedInternalServerError(notification: NSNotification) {
+        //stopLoading()
+        let reason = getUserInfoValueForKey(notification.userInfo, "reason")
+        let message = getUserInfoValueForKey(notification.userInfo, "message")
+        SCLAlertView().showWarning("Internal Server Error",
+            subTitle:  reason + " - " + message, closeButtonTitle: "Dismiss")
     }
 }

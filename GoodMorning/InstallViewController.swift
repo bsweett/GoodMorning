@@ -13,8 +13,15 @@ import DTIActivityIndicator
 
 class InstallViewController : UIViewController, UITextFieldDelegate {
     
+    // MARK: - Constants
+    
     private let errorColor : UIColor = UIColor( red: 176, green: 35, blue: 14, alpha: 1.0 )
     private let defualtColor : UIColor = UIColor( red: 0.5, green: 0.5, blue:0, alpha: 1.0 )
+    
+    private let manager: InstallManager = InstallManager()
+    private let speaker: TextToSpeech = TextToSpeech(enabled: true)
+    
+    // MARK: - Variables
     
     private var blur: UIVisualEffectView!
     
@@ -25,10 +32,26 @@ class InstallViewController : UIViewController, UITextFieldDelegate {
     @IBOutlet var emailErrorLabel : UILabel!
     @IBOutlet var nameField : UITextField!
     @IBOutlet var emailField : UITextField!
+    
+    @IBOutlet weak var newsButton: UIButton!
+    @IBOutlet weak var businessButton: UIButton!
+    @IBOutlet weak var scienceButton: UIButton!
+    @IBOutlet weak var techButton: UIButton!
+    @IBOutlet weak var sports: UIButton!
+    @IBOutlet weak var lifeStyleButton: UIButton!
+    @IBOutlet weak var entertainmentButton: UIButton!
+    
+    private var newsSelected: Bool! = false
+    private var busSelected: Bool! = false
+    private var sciSelected: Bool! = false
+    private var techSelected: Bool! = false
+    private var sportsSelected: Bool! = false
+    private var lifeSelected: Bool! = false
+    private var entertainSelected: Bool! = false
+    
     @IBOutlet var submitButton: UIButton!
     
-    private let manager: InstallManager = InstallManager()
-    private let speaker: TextToSpeech = TextToSpeech(enabled: true)
+    // MARK: - Lifecycle
     
     override func viewDidLoad() {
         
@@ -36,7 +59,9 @@ class InstallViewController : UIViewController, UITextFieldDelegate {
         nameField.delegate = self
         emailField.delegate = self
         
-        blur = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.Light))
+        initCheckButtons()
+        
+        blur = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.Dark))
         blur.frame = view.frame
         blur.tag = 50
     }
@@ -51,6 +76,9 @@ class InstallViewController : UIViewController, UITextFieldDelegate {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationAuthorizeProblem:", name:"LocationDisabled", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationUnknown:", name:"LocationUnknown", object: nil)
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedExistingUserData:", name:"ExistingAccountFound", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedCleanInstall:", name:"SafeToInstall", object: nil)
+        
         resetErrorLabelsAndColorsForField(nameField)
         resetErrorLabelsAndColorsForField(emailField)
         
@@ -59,7 +87,9 @@ class InstallViewController : UIViewController, UITextFieldDelegate {
                 subTitle: "You don't appear to be connected to the Internet. Please check your connection.",
                 duration: 6)
         } else {
+            startLoading()
             LocationManager.sharedInstance.update()
+            manager.sendNewAppConnectionRequest()
         }
         
         // TODO: enable when done install
@@ -75,6 +105,95 @@ class InstallViewController : UIViewController, UITextFieldDelegate {
         
         super.didReceiveMemoryWarning()
         
+    }
+    
+    private func initCheckButtons() {
+        let selectedCheckImage = UIImage(named: "gm_check")
+        let cornerRadius: CGFloat = 5
+        let borderWidth: CGFloat = 1
+        let black = UIColor.lightGrayColor().CGColor
+        
+        newsButton.layer.cornerRadius = cornerRadius
+        newsButton.layer.borderWidth = borderWidth
+        newsButton.layer.borderColor = black
+        
+        businessButton.layer.cornerRadius = cornerRadius
+        businessButton.layer.borderWidth = borderWidth
+        businessButton.layer.borderColor = black
+        
+        scienceButton.layer.cornerRadius = cornerRadius
+        scienceButton.layer.borderWidth = borderWidth
+        scienceButton.layer.borderColor = black
+        
+        techButton.layer.cornerRadius = cornerRadius
+        techButton.layer.borderWidth = borderWidth
+        techButton.layer.borderColor = black
+        
+        sports.layer.cornerRadius = cornerRadius
+        sports.layer.borderWidth = borderWidth
+        sports.layer.borderColor = black
+        
+        lifeStyleButton.layer.cornerRadius = cornerRadius
+        lifeStyleButton.layer.borderWidth = borderWidth
+        lifeStyleButton.layer.borderColor = black
+        
+        entertainmentButton.layer.cornerRadius = cornerRadius
+        entertainmentButton.layer.borderWidth = borderWidth
+        entertainmentButton.layer.borderColor = black
+
+        newsButton.setBackgroundImage(selectedCheckImage, forState: UIControlState.Selected)
+        businessButton.setBackgroundImage(selectedCheckImage, forState: UIControlState.Selected)
+        scienceButton.setBackgroundImage(selectedCheckImage, forState: UIControlState.Selected)
+        techButton.setBackgroundImage(selectedCheckImage, forState: UIControlState.Selected)
+        sports.setBackgroundImage(selectedCheckImage, forState: UIControlState.Selected)
+        lifeStyleButton.setBackgroundImage(selectedCheckImage, forState: UIControlState.Selected)
+        entertainmentButton.setBackgroundImage(selectedCheckImage, forState: UIControlState.Selected)
+
+        newsButton.setBackgroundImage(selectedCheckImage, forState: UIControlState.Highlighted)
+        businessButton.setBackgroundImage(selectedCheckImage, forState: UIControlState.Highlighted)
+        scienceButton.setBackgroundImage(selectedCheckImage, forState: UIControlState.Highlighted)
+        techButton.setBackgroundImage(selectedCheckImage, forState: UIControlState.Highlighted)
+        sports.setBackgroundImage(selectedCheckImage, forState: UIControlState.Highlighted)
+        lifeStyleButton.setBackgroundImage(selectedCheckImage, forState: UIControlState.Highlighted)
+        entertainmentButton.setBackgroundImage(selectedCheckImage, forState: UIControlState.Highlighted)
+        
+        newsButton.adjustsImageWhenHighlighted = true
+        businessButton.adjustsImageWhenHighlighted = true
+        scienceButton.adjustsImageWhenHighlighted = true
+        techButton.adjustsImageWhenHighlighted = true
+        sports.adjustsImageWhenHighlighted = true
+        lifeStyleButton.adjustsImageWhenHighlighted = true
+        entertainmentButton.adjustsImageWhenHighlighted = true
+    }
+    
+    // MARK: - Actions
+    
+    @IBAction func checkBoxTapped(sender: UIButton) {
+        switch(sender.tag) {
+        case 1:
+            newsSelected = !newsSelected
+            sender.selected = newsSelected
+        case 2:
+            busSelected = !busSelected
+            sender.selected = busSelected
+        case 3:
+            sciSelected = !sciSelected
+            sender.selected = sciSelected
+        case 4:
+            techSelected = !techSelected
+            sender.selected = techSelected
+        case 5:
+            sportsSelected = !sportsSelected
+            sender.selected = sportsSelected
+        case 6:
+            lifeSelected = !lifeSelected
+            sender.selected = lifeSelected
+        case 7:
+            entertainSelected = !entertainSelected
+            sender.selected = entertainSelected
+        default:
+            break
+        }
     }
     
     @IBAction func submitButtonAction(sender:UIButton!) {
@@ -107,6 +226,8 @@ class InstallViewController : UIViewController, UITextFieldDelegate {
         }
     }
     
+    // MARK: - UI State Control
+    
     private func setUIElementsEnabled(enabled: Bool) {
         submitButton.enabled = enabled
         nameField.enabled = enabled
@@ -138,8 +259,21 @@ class InstallViewController : UIViewController, UITextFieldDelegate {
             emailErrorLabel.text = ""
             
         }
-        
     }
+    
+    
+    func startLoading() {
+        self.view.addSubview(blur)
+        activityIndicator.startActivity()
+        self.view.bringSubviewToFront(activityIndicator)
+    }
+    
+    func stopLoading() {
+        blur.removeFromSuperview()
+        activityIndicator.stopActivity()
+    }
+    
+    // MARK: - TextField Delegate
     
     func textFieldDidEndEditing(textField: UITextField) {
         
@@ -180,6 +314,8 @@ class InstallViewController : UIViewController, UITextFieldDelegate {
         return true
     }
     
+    // MARK: - Notification Handlers
+    
     func receivedNetworkError(notification: NSNotification) {
         stopLoading()
         
@@ -213,22 +349,43 @@ class InstallViewController : UIViewController, UITextFieldDelegate {
         // example:  api.openweathermap.org/data/2.5/weather?q=London,uk
     }
     
-    func receivedInstallComplete(notification: NSNotification) {
+    func receivedExistingUserData(notification: NSNotification) {
         stopLoading()
+        let infoDict = notification.userInfo as Dictionary<String, User>!
+        let user: User = infoDict["user"]!
+        let name = user.nickname
         
+        let alert = SCLAlertView()
+        alert.addButton("Use Existing Account") {
+            UserDefaultsManager.sharedInstance.clearUserDefaults()
+            UserDefaultsManager.sharedInstance.saveUserData(user)
+            self.performSegueWithIdentifier("InstallationComplete", sender: self)
+        }
+        
+        alert.addButton("Create A New Account") {
+            self.manager.sendUninstallRequestForUser(user)
+            self.startLoading()
+        }
+        
+        alert.showInfo("Existing Account Found", subTitle: "This device is registered with another account owned by " + name.capitalizedString + ". You can choose to use this account or install a new one. If you choose to make a new account the existing account will be erased.")
+        
+    }
+
+    func receivedCleanInstall(notification: NSNotification) {
+        stopLoading()
+        UserDefaultsManager.sharedInstance.clearUserDefaults()
+    }
+    
+    func receivedInstallComplete(notification: NSNotification) {
+        let infoDict = notification.userInfo as Dictionary<String, User>!
+        let user: User = infoDict["user"]!
+        
+        stopLoading()
+        UserDefaultsManager.sharedInstance.saveUserData(user)
         performSegueWithIdentifier("InstallationComplete", sender: self)
     }
-    
-    func startLoading() {
-        self.view.addSubview(blur)
-        activityIndicator.startActivity()
-        self.view.bringSubviewToFront(activityIndicator)
-    }
-    
-    func stopLoading() {
-        blur.removeFromSuperview()
-        activityIndicator.stopActivity()
-    }
+
+    // MARK: - Navigation
     
     override func prepareForSegue(segue: (UIStoryboardSegue!), sender: AnyObject!) {
         NSNotificationCenter.defaultCenter().removeObserver(self)

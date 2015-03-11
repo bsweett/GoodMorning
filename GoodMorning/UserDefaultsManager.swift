@@ -32,6 +32,15 @@ class UserDefaultsManager {
         userDefaults = NSUserDefaults.standardUserDefaults()
     }
     
+    /**
+    Removes all key object pairs from user defaults
+    */
+    func clearUserDefaults() {
+        for key in NSUserDefaults.standardUserDefaults().dictionaryRepresentation().keys {
+            NSUserDefaults.standardUserDefaults().removeObjectForKey(key.description)
+        }
+    }
+    
     //Token - Save / Get
     func saveToken(token: String) {
         userDefaults.setValue(token, forKey: udToken)

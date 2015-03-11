@@ -19,12 +19,16 @@ class NewsViewController : UIViewController, UIPopoverControllerDelegate, UITabl
     private var refreshControl: UIRefreshControl!
     private var noDataLabel: UILabel!
     private var didRemoveLast: Bool!
+    private var didRemoveLastOfSection: Bool!
+    private var imageCache: NSCache!
     
     private var popOverNavController: UINavigationController!
     private var popoverContent: NewsPopoverViewController!
     private var popOverVC: UIPopoverController!
     
     private var feedDetailVC: FeedViewController!
+    
+    private var sectionsInTable: [RSSType]!
     
     private var newNewsObject: RSSFeed!
     private var newsManager: NewsManager!
@@ -36,7 +40,9 @@ class NewsViewController : UIViewController, UIPopoverControllerDelegate, UITabl
         newNewsObject = nil
         newsManager = NewsManager()
         newsList = []
+        sectionsInTable = [RSSType.OTHER]
         didRemoveLast = false
+        imageCache = NSCache()
         
         newsTableView.registerNib(UINib(nibName: "NewsViewCell", bundle: nil), forCellReuseIdentifier: "newsCell")
         newsTableView.dataSource = self
@@ -44,7 +50,7 @@ class NewsViewController : UIViewController, UIPopoverControllerDelegate, UITabl
         newsTableView.allowsMultipleSelectionDuringEditing = false
         
         self.refreshControl = UIRefreshControl()
-        self.refreshControl.backgroundColor = gmOrangeColor;
+        self.refreshControl.backgroundColor = gmLightBlueColor;
         self.refreshControl.tintColor = UIColor.whiteColor();
         self.refreshControl.addTarget(newsManager, action: Selector("getAllFeedsRequest"), forControlEvents: UIControlEvents.ValueChanged)
         self.newsTableView.addSubview(refreshControl)
@@ -120,8 +126,10 @@ class NewsViewController : UIViewController, UIPopoverControllerDelegate, UITabl
         let resultDic = notification.userInfo as Dictionary<String, Bool>
         let result: Bool = resultDic["success"]!
         
-        if result {
+        if result {            
+            newsManager.getAllFeedsRequest()
             self.refreshControl.beginRefreshing()
+            self.newsTableView.setContentOffset(CGPointMake(0, -self.refreshControl.frame.size.height), animated:true)
         } else {
             SCLAlertView().showWarning("Feed Create Failed", subTitle: "An unknown error occured", closeButtonTitle: "Dismiss")
         }
@@ -133,9 +141,29 @@ class NewsViewController : UIViewController, UIPopoverControllerDelegate, UITabl
         
         for feed in feedDictionary.values {
             self.newsList.append(feed)
+            var type = feed.type
+            if !contains(self.sectionsInTable, type) {
+                self.sectionsInTable.append(type)
+            }
         }
         
         self.reloadNewsData()
+    }
+
+    
+    func getItemsForSection(section: Int) -> [RSSFeed] {
+        var sectionsArray = [RSSFeed]()
+        
+        for feed in self.newsList {
+            
+            var type = feed.type
+            
+            if(type == sectionsInTable[section]) {
+                sectionsArray.append(feed)
+            }
+        }
+        
+        return sectionsArray
     }
     
     //MARK: - Actions
@@ -166,8 +194,10 @@ class NewsViewController : UIViewController, UIPopoverControllerDelegate, UITabl
         
         self.popOverVC.popoverContentSize = CGSize(width: 400, height: 500)
         
+        let rect = CGRectMake(self.view.frame.size.width/2, self.view.frame.size.height/2, 1, 1)
+        
         self.popOverVC.delegate = self
-        self.popOverVC.presentPopoverFromBarButtonItem(sender, permittedArrowDirections: UIPopoverArrowDirection.Any, animated: true)
+        self.popOverVC.presentPopoverFromRect(rect, inView: self.view, permittedArrowDirections: UIPopoverArrowDirection.allZeros, animated: true)
     }
     
     @IBAction func cancelNewsTapped(sender: UIBarButtonItem) {
@@ -194,12 +224,53 @@ class NewsViewController : UIViewController, UIPopoverControllerDelegate, UITabl
         selectedBackgroundView.backgroundColor = UIColor.grayColor().colorWithAlphaComponent(0.2)
         cell.selectedBackgroundView = selectedBackgroundView
         
-        cell.setNewsFeed(newsList[indexPath.row])
+        let sectionItems = self.getItemsForSection(indexPath.section)
+        
+        let feed: RSSFeed = sectionItems[indexPath.row]
+        
+        cell.setNewsFeed(feed)
         
         var longPress: UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: Selector("longPressNewsCell:"))
         longPress.minimumPressDuration = 2.0
         cell.contentView.addGestureRecognizer(longPress)
         
+        var image: UIImage? = self.imageCache.objectForKey(feed.id) as? UIImage
+        
+        if(image != nil) {
+            cell.setThumbnailLogo(image!)
+            
+        } else {
+            
+            cell.setThumbnailLogo(nil)
+            
+            if feed.logoURL != "" {
+                var q: dispatch_queue_t = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+                dispatch_async(q, {
+                    /* Fetch the image from the server... */
+                    var image = (UIImage(named: "gm_unknown")!)
+                    
+                    
+                    let url = NSURL(string: feed.logoURL)
+                    if url != nil {
+                        if let data = NSData(contentsOfURL: url!) {
+                            image = (UIImage(data: data)!)
+                        }
+                    }
+                    
+                    self.imageCache.setObject(image, forKey: feed.id)
+                    
+                    dispatch_async(dispatch_get_main_queue(), {
+                        /* This is the main thread again, where we set the tableView's image to
+                        be what we just fetched. */
+                        cell.setThumbnailLogo(image)
+                    });
+                });
+            } else {
+                cell.setThumbnailLogo((UIImage(named: "gm_unknown")!))
+            }
+            
+        }
+
         return cell
     }
     
@@ -217,7 +288,7 @@ class NewsViewController : UIViewController, UIPopoverControllerDelegate, UITabl
                 noDataLabel = nil
             }
             
-            return 1;
+            return sectionsInTable.count;
         }
         
         noDataLabel = UILabel(frame: CGRectMake(0, 0, self.view.bounds.width, self.view.bounds.height))
@@ -235,7 +306,17 @@ class NewsViewController : UIViewController, UIPopoverControllerDelegate, UITabl
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return newsList.count
+        return self.getItemsForSection(section).count
+    }
+    
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        var title = sectionsInTable[section].rawValue
+        
+        if title == "" {
+            return "Other"
+        }
+        
+        return title
     }
     
     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -265,11 +346,18 @@ class NewsViewController : UIViewController, UIPopoverControllerDelegate, UITabl
         
     }
     
+    func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        view.tintColor = gmLightBlueColor
+        
+        var header: UITableViewHeaderFooterView = view as UITableViewHeaderFooterView
+        header.textLabel.textColor = UIColor.whiteColor()
+    }
+    
     //MARK: - Custom Delegate
     
     func saveFeed(feed: RSSFeed) {
         self.popOverVC.dismissPopoverAnimated(true)
-        newsManager.saveValidFeedToServer(feed)
+        self.newsManager.saveValidFeedToServer(feed)
     }
     
     //MARK: - UITapGestureRecognizer

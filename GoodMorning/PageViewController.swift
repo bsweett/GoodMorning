@@ -69,7 +69,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         
         self.navigationItem.title = "Alarms"
         self.navigationItem.rightBarButtonItem = nil
-        self.navigationController?.navigationBar.backgroundColor = gmBlueColor
+        //self.navigationController?.navigationBar.backgroundColor = gmBlueColor
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"configuration12.png"), style: .Bordered, target: self, action: Selector("settingsTapped:"))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named:"circular194.png"), style: .Bordered, target: self.getAlarm(), action: Selector("refreshTapped:"))
         
@@ -168,12 +168,12 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         if let current = pageViewController.viewControllers[0] as? UIViewController {
             
             if(current == self.getAlarm()) {
-                var refreshButton = UIBarButtonItem(image: UIImage(named:"circular194.png"), style: .Bordered, target: self.getAlarm(), action: Selector("refreshTapped:"))
+                var refreshButton = UIBarButtonItem(image: UIImage(named:"gm_refresh"), style: .Bordered, target: self.getAlarm(), action: Selector("refreshTapped:"))
                 self.navigationItem.rightBarButtonItem = refreshButton
             }
             
             if(current == self.getWeather()) {
-                var refreshButton = UIBarButtonItem(image: UIImage(named:"circular194.png"), style: .Bordered, target: self.getWeather(), action: Selector("refreshTapped:"))
+                var refreshButton = UIBarButtonItem(image: UIImage(named:"gm_refresh"), style: .Bordered, target: self.getWeather(), action: Selector("refreshTapped:"))
                 self.navigationItem.rightBarButtonItem = refreshButton
             }
             

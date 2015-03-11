@@ -24,8 +24,24 @@ class JSONParser: NSObject {
     
     //MARK: - User JSON
     
+    /**
+    Parses JSON and sends a notification for a clean installation from a new user account
+    
+    :param: userData JSON from the server of a user
+    */
     func parseInstallUserData(userData: JSON) {
-        
+        let user: User = self.parseUserJSON(userData)
+        let dictionary = ["user": user]
+        NSNotificationCenter.defaultCenter().postNotificationName("InstallComplete", object: self, userInfo: dictionary)
+    }
+    
+    func parseExistingUserData(userData: JSON) {
+        let user: User = self.parseUserJSON(userData)
+        let dictionary = ["user": user]
+        NSNotificationCenter.defaultCenter().postNotificationName("ExistingAccountFound", object: self, userInfo: dictionary)
+    }
+    
+    private func parseUserJSON(userData: JSON) -> User {
         let tempDate: NSDate = NSDate()
         
         let userId: String = userData["userId"].string!
@@ -77,11 +93,9 @@ class JSONParser: NSObject {
                 task.setDaysOfTheWeek(monday, tue: tuesday, wed: wednesday, thu: thursday, fri: friday, sat: saturday, sun: sunday)
                 user.addTask(task)
             }
-            
         }
         
-        UserDefaultsManager.sharedInstance.saveUserData(user)
-        NSNotificationCenter.defaultCenter().postNotificationName("InstallComplete", object: self, userInfo: user.getTasksWithType(TaskType.ALARM))
+        return user
     }
     
     //MARK: - Task JSON
@@ -196,6 +210,7 @@ class JSONParser: NSObject {
                 let feedId = feed["feedId"].string!
                 let title = feed["title"].string!
                 let link = feed["link"].string!
+                let logoUrl = feed["logoUrl"].string!
                 let description = feed["description"].string!
                 let language = feed["language"].string!
                 let rssLink = feed["source"].string!
@@ -209,6 +224,7 @@ class JSONParser: NSObject {
                 let feedUpdatedDate: NSDate = dateFormatter.dateFromString(feedUpdatedString)!
                 
                 var feed: RSSFeed = RSSFeed(id: feedId, title: title, creation: feedCreateDate, lastActiveDate: feedUpdatedDate, type: fType, description: description, language: language, link: link, rssLink: rssLink)
+                feed.logoURL = logoUrl
                 
                 feedList[feed.title] = feed
             }

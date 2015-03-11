@@ -57,7 +57,7 @@ class NewsManager: NSObject {
         let url = SERVER_ADDRESS + "/newfeed"
         
         let token = UserDefaultsManager.sharedInstance.getToken()
-        let params = ["token":token, "title":feed.title, "type":feed.type.rawValue, "updated":feed.lastActiveDate.toRFC822String(), "link":feed.link, "description":feed.contentDescription, "source":feed.rssLink, "lang": feed.language]
+        let params = ["token":token, "title":feed.title, "type":feed.type.rawValue, "updated":feed.lastActiveDate.toRFC822String(), "link":feed.link, "description":feed.contentDescription, "source":feed.rssLink, "logo": feed.logoURL, "lang": feed.language]
         
         Networking.sharedInstance.openNewJSONRequest(.GET, url: url, parameters: params, completion: {(data: JSON) in
             let json = data
@@ -76,6 +76,7 @@ class NewsManager: NSObject {
             if let result = json["success"].string {
                 dictionary["success"] = result.boolValue()
                 NSNotificationCenter.defaultCenter().postNotificationName("NewsAdded", object: self, userInfo: dictionary)
+                NSLog("is all good here")
             }
         })
 

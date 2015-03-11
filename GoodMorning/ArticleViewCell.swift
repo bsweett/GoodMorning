@@ -63,4 +63,8 @@ class ArticleViewCell: UITableViewCell {
         self.article.image = image
     }
     
+        func layoutMargins() -> UIEdgeInsets {
+        return UIEdgeInsetsZero
+    }
+    
 }

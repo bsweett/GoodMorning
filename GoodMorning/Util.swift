@@ -33,7 +33,7 @@ let udNight: String = "NIGHTUD"
 // Colors
 let gmOrangeColor: UIColor = UIColor(red: (243/255.0), green: (156/255.0), blue: (18/255.0), alpha: 1.0)
 let gmYellowColor: UIColor = UIColor(red: (225/255.0), green: (222/255.0), blue: (0/255.0), alpha: 1.0)
-let gmBlueColor: UIColor = UIColor(red: (12/255.0), green: (157/255.0), blue: (255/255.0), alpha: 1.0)
+let gmLightBlueColor: UIColor = UIColor(red: (0/255.0), green: (89/255.0), blue: (166/255.0), alpha: 1)
 
 // Numbers
 let radius: CGFloat = 8

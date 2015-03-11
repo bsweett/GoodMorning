@@ -38,7 +38,7 @@ class TasksViewController : UIViewController, UIPopoverControllerDelegate, UITab
         tasksTableView.allowsMultipleSelectionDuringEditing = false
         
         self.refreshControl = UIRefreshControl()
-        self.refreshControl.backgroundColor = gmOrangeColor;
+        self.refreshControl.backgroundColor = gmLightBlueColor;
         self.refreshControl.tintColor = UIColor.whiteColor();
         self.refreshControl.addTarget(taskManager, action: Selector("getAllTasksRequest"), forControlEvents: UIControlEvents.ValueChanged)
         self.tasksTableView.addSubview(refreshControl)

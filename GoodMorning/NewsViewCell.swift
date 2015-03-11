@@ -12,7 +12,6 @@ class NewsViewCell: UITableViewCell {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
-    @IBOutlet weak var typeLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var logoImageView: UIImageView!
     
@@ -33,14 +32,33 @@ class NewsViewCell: UITableViewCell {
         self.newsFeed = feed
         self.setTitleLabel(feed.title)
         self.setDescriptionLabel(feed.contentDescription)
-        self.setTypeLabel(feed.type)
-        self.setDateLabel(feed.lastActiveDate.toFullDateString())
         
-        if feed.logoURL != nil {
-            self.setLogoImageFromURL(feed.logoURL)
+        var lastActive = feed.lastActiveDate
+        var daysSince = lastActive.differenceToNow(NSCalendarUnit.DayCalendarUnit).day
+        var hoursSince = lastActive.differenceToNow(NSCalendarUnit.HourCalendarUnit).hour
+        var minutesSince = lastActive.differenceToNow(NSCalendarUnit.MinuteCalendarUnit).minute
+        var displayString = ""
+        
+        
+        if(daysSince >= 1) {
+            if(daysSince == 1) {
+                displayString = String(daysSince) + " day ago"
+            } else {
+                displayString = String(daysSince) + " days ago"
+            }
+        } else if(hoursSince >= 1) {
+            if(hoursSince == 1) {
+                displayString = String(hoursSince) + " hour ago"
+            } else {
+                displayString = String(hoursSince) + " hours ago"
+            }
+        } else if(minutesSince == 1) {
+            displayString = String(minutesSince) + " minute ago"
         } else {
-            self.logoImageView.image = UIImage(named: "gm_unknown")
+            displayString = String(minutesSince) + " minutes ago"
         }
+        
+        self.setDateLabel(displayString)
     }
     
     func getNewsFeedObject() -> RSSFeed {
@@ -54,20 +72,17 @@ class NewsViewCell: UITableViewCell {
     func setDescriptionLabel(value: String) {
         self.descriptionLabel.text = value
     }
-    
-    func setTypeLabel(value: RSSType) {
-        self.typeLabel.text = value.rawValue
-    }
-    
-    func setLogoImageFromURL(url: String) {
-        let url = NSURL(string: url)
-        if let data = NSData(contentsOfURL: url!) {
-            self.logoImageView.image = UIImage(data: data)
-        }
+
+    func setThumbnailLogo(value: UIImage?) {
+        self.logoImageView.image = value
     }
     
     func setDateLabel(value: String) {
         self.dateLabel.text = value
+    }
+    
+    func layoutMargins() -> UIEdgeInsets {
+        return UIEdgeInsetsZero
     }
     
 }
