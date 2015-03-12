@@ -36,7 +36,7 @@ let gmYellowColor: UIColor = UIColor(red: (225/255.0), green: (222/255.0), blue:
 let gmLightBlueColor: UIColor = UIColor(red: (0/255.0), green: (89/255.0), blue: (166/255.0), alpha: 1)
 
 // Numbers
-let radius: CGFloat = 8
+let radius: CGFloat = 12
 
 // Font
 let gmFontQuote: UIFont = UIFont(name: "Avenir-MediumOblique", size: 15)!
@@ -64,6 +64,59 @@ func getUserInfoValueForKey(userinfo: [NSObject : AnyObject]?, key: String) -> S
     }
     
     return "Internal Server Error"
+}
+
+func getImageForCondition(condition: Int, night: Bool) -> UIImage {
+    
+    var imageName = ""
+    
+    if(condition < 300) {
+        imageName = "thunder"
+    } else if (condition < 500) {
+        imageName = "drizzle"
+    } else if (condition < 600) {
+        imageName = "rain"
+    } else if (condition < 602) {
+        imageName = "snow"
+    } else if (condition < 612) {
+        imageName = "heavysnow"
+    } else if (condition < 700) {
+        imageName = "snowandrain"
+    } else if (condition < 771) {
+        imageName = "fog"
+    } else if (condition < 800) {
+        imageName = "tornado"
+    } else if (condition == 800) {
+        imageName = "clear"
+    } else if (condition < 804) {
+        imageName = "scattered"
+    } else if (condition == 804) {
+        imageName = "overcast"
+    } else if (condition >= 900 && condition <= 902 || condition == 905) {
+        imageName = "extreme"
+    } else if (condition == 903) {
+        imageName = "cold"
+    } else if (condition == 904) {
+        imageName = "heat"
+    } else if (condition > 950 && condition <= 955) {
+        imageName = "calm"
+    } else if (condition > 955 && condition <= 958) {
+        imageName = "windy"
+    } else if (condition > 958 && condition < 1000) {
+        imageName = "storm"
+    } else {
+        imageName = "unknown"
+    }
+    
+    if(imageName != "unknown") {
+        if(night == true) {
+            imageName = "n_" + imageName
+        } else {
+            imageName = "d_" + imageName
+        }
+    }
+    
+    return UIImage(named:(imageName + ".png"))!
 }
 
 

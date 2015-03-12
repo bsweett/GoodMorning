@@ -143,7 +143,7 @@ class WeatherViewController : UIViewController {
         //}, completion: nil)
         
         //UIView.transitionWithView(currentIcon, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
-            self.setImageViewForCondition(current.condition,night: current.nighttime, imageView: self.currentIcon)
+            self.currentIcon.image = getImageForCondition(current.condition, current.nighttime)
         //}, completion: nil)
         
         currentCity.text = current.city
@@ -153,19 +153,19 @@ class WeatherViewController : UIViewController {
         //Update Forecast
         
         //UIView.transitionWithView(forcastIcon1, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
-            self.setImageViewForCondition(forecast[0].condition, night: forecast[0].nighttime, imageView: self.forcastIcon1)
+            self.forcastIcon1.image = getImageForCondition(forecast[0].condition, forecast[0].nighttime)
         //}, completion: nil)
         
        // UIView.transitionWithView(forcastIcon2, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
-            self.setImageViewForCondition(forecast[1].condition, night: forecast[1].nighttime, imageView: self.forcastIcon2)
+            self.forcastIcon2.image = getImageForCondition(forecast[1].condition, forecast[1].nighttime)
        // }, completion: nil)
         
        // UIView.transitionWithView(forcastIcon3, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
-            self.setImageViewForCondition(forecast[2].condition, night: forecast[2].nighttime, imageView: self.forcastIcon3)
+            self.forcastIcon3.image = getImageForCondition(forecast[2].condition, forecast[2].nighttime)
        // }, completion: nil)
         
        // UIView.transitionWithView(forcastIcon4, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
-            self.setImageViewForCondition(forecast[3].condition, night: forecast[3].nighttime, imageView: self.forcastIcon4)
+            self.forcastIcon4.image = getImageForCondition(forecast[3].condition, forecast[3].nighttime)
        // }, completion: nil)
         
         
@@ -180,59 +180,6 @@ class WeatherViewController : UIViewController {
         forcastTime4.text = forecast[3].time
         
         stopLoading()
-    }
-    
-    func setImageViewForCondition(condition: Int, night: Bool, imageView: UIImageView) {
-        
-        var imageName = ""
-        
-        if(condition < 300) {
-            imageName = "thunder"
-        } else if (condition < 500) {
-            imageName = "drizzle"
-        } else if (condition < 600) {
-            imageName = "rain"
-        } else if (condition < 602) {
-            imageName = "snow"
-        } else if (condition < 612) {
-            imageName = "heavysnow"
-        } else if (condition < 700) {
-            imageName = "snowandrain"
-        } else if (condition < 771) {
-            imageName = "fog"
-        } else if (condition < 800) {
-            imageName = "tornado"
-        } else if (condition == 800) {
-            imageName = "clear"
-        } else if (condition < 804) {
-            imageName = "scattered"
-        } else if (condition == 804) {
-            imageName = "overcast"
-        } else if (condition >= 900 && condition <= 902 || condition == 905) {
-            imageName = "extreme"
-        } else if (condition == 903) {
-            imageName = "cold"
-        } else if (condition == 904) {
-            imageName = "heat"
-        } else if (condition > 950 && condition <= 955) {
-            imageName = "calm"
-        } else if (condition > 955 && condition <= 958) {
-            imageName = "windy"
-        } else if (condition > 958 && condition < 1000) {
-            imageName = "storm"
-        } else {
-            imageName = "unknown"
-        }
-        
-        if(imageName != "unknown") {
-            if(night == true) {
-                imageName = "n_" + imageName
-            } else {
-                imageName = "d_" + imageName
-            }
-        }
-        
-        imageView.image = UIImage(named:(imageName + ".png"))
     }
     
     @IBAction func refreshTapped(sender: UIBarButtonItem) {

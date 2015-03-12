@@ -11,22 +11,22 @@ import UIKit
 
 class PageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     
-    var alarmController: UIViewController? = nil
+    var hubController: UIViewController? = nil
     var newsController: UIViewController? = nil
     var weatherController: UIViewController? = nil
     var tasksController: UIViewController? = nil
     
     var currentViewController: UIViewController? = nil
     
-    func getAlarm() -> UIViewController? {
+    func getHub() -> UIViewController? {
         
-        if(alarmController == nil) {
+        if(hubController == nil) {
             let sb: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let alarmVC = sb.instantiateViewControllerWithIdentifier("Alarms") as? AlarmsViewController
-            self.alarmController = alarmVC
+            let hubVC = sb.instantiateViewControllerWithIdentifier("Hub") as? HubViewController
+            self.hubController = hubVC
         }
         
-        return self.alarmController
+        return self.hubController
     }
     
     func getNews() -> UIViewController? {
@@ -65,15 +65,15 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         self.delegate = self
         self.dataSource = self
         
-        self.setViewControllers([self.getAlarm()!], direction: UIPageViewControllerNavigationDirection.Forward, animated: true, completion: nil)
+        self.setViewControllers([self.getHub()!], direction: UIPageViewControllerNavigationDirection.Forward, animated: true, completion: nil)
         
-        self.navigationItem.title = "Alarms"
+        self.navigationItem.title = "Hub"
         self.navigationItem.rightBarButtonItem = nil
         //self.navigationController?.navigationBar.backgroundColor = gmBlueColor
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"configuration12.png"), style: .Bordered, target: self, action: Selector("settingsTapped:"))
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named:"circular194.png"), style: .Bordered, target: self.getAlarm(), action: Selector("refreshTapped:"))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named:"gm_refresh"), style: .Bordered, target: self.getHub(), action: Selector("refreshTapped:"))
         
-        self.currentViewController = self.getAlarm()!
+        self.currentViewController = self.getHub()!
         
         self.setPageControl()
         
@@ -99,7 +99,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         
         var previousViewController: UIViewController? = nil
         
-        if(viewController == self.getAlarm()) {
+        if(viewController == self.getHub()) {
             previousViewController = self.getTasks()
         }
         if (viewController == self.getTasks()) {
@@ -109,7 +109,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
             previousViewController = self.getWeather();
         }
         if (viewController == self.getWeather()) {
-            previousViewController = self.getAlarm();
+            previousViewController = self.getHub();
         }
         
         return previousViewController
@@ -120,7 +120,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         
         var nextViewController: UIViewController? = nil
         
-        if (viewController == self.getAlarm()) {
+        if (viewController == self.getHub()) {
             nextViewController = self.getWeather()
         }
         if (viewController == self.getWeather()) {
@@ -130,7 +130,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
             nextViewController = self.getTasks()
         }
         if (viewController == self.getTasks()) {
-            nextViewController = self.getAlarm()
+            nextViewController = self.getHub()
         }
         
         return nextViewController
@@ -143,7 +143,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
     func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int {
         
         if let current = pageViewController.viewControllers[0] as? UIViewController {
-            if(current == self.getAlarm()) {
+            if(current == self.getHub()) {
                 return 0
             }
             
@@ -167,8 +167,8 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         
         if let current = pageViewController.viewControllers[0] as? UIViewController {
             
-            if(current == self.getAlarm()) {
-                var refreshButton = UIBarButtonItem(image: UIImage(named:"gm_refresh"), style: .Bordered, target: self.getAlarm(), action: Selector("refreshTapped:"))
+            if(current == self.getHub()) {
+                var refreshButton = UIBarButtonItem(image: UIImage(named:"gm_refresh"), style: .Bordered, target: self.getHub(), action: Selector("refreshTapped:"))
                 self.navigationItem.rightBarButtonItem = refreshButton
             }
             

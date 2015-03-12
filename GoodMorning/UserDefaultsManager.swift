@@ -65,6 +65,13 @@ class UserDefaultsManager {
         saveCreated(dateFormatter.stringFromDate(user.creationDate))
     }
     
+    func updateLastActiveRecord() {
+        let now = NSDate()
+        dateFormatter.dateStyle = NSDateFormatterStyle.MediumStyle
+        dateFormatter.timeStyle = NSDateFormatterStyle.MediumStyle
+        saveLastActive(dateFormatter.stringFromDate(now))
+    }
+    
     func getUserData() -> User {
         let lastAcive: NSDate = dateFormatter.dateFromString(getLastActive())!
         let created: NSDate = dateFormatter.dateFromString(getCreated())!

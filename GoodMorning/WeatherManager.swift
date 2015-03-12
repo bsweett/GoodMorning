@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreLocation
+import UIKit
 
 class WeatherManager : NSObject {
     
@@ -27,20 +28,28 @@ class WeatherManager : NSObject {
             
             let json = data
             
-            let city: JSON = json["city"]
-            cityname = city["name"].string!
-            country = city["country"].string!
+            if json != nil {
+                let city: JSON = json["city"]
+                cityname = city["name"].string!
+                country = city["country"].string!
+                
+                let list: JSON = json["list"]
+                
+                // Current Weather
+                self.updateCurrentWeather(list, country: country, city: cityname)
+                
+                // 4 hour forecast
+                self.updateForecastWeather(list, country: country, city: cityname)
+                
+                CoreDataManager.sharedInstance.clearAllObjectsInEntity("Weather")
+                CoreDataManager.sharedInstance.saveWeather(self.current)
+                
+                // Send notification
+                NSNotificationCenter.defaultCenter().postNotificationName("WeatherUpdated", object: nil, userInfo:["current": self.current, "forecast1": self.forcastArray[0], "forecast2": self.forcastArray[1], "forecast3": self.forcastArray[2], "forecast4": self.forcastArray[3]])
             
-            let list: JSON = json["list"]
-            
-            // Current Weather
-            self.updateCurrentWeather(list, country: country, city: cityname)
-            
-            // 4 hour forecast
-            self.updateForecastWeather(list, country: country, city: cityname)
-            
-            // Send notification
-            NSNotificationCenter.defaultCenter().postNotificationName("WeatherUpdated", object: nil, userInfo:["current": self.current, "forecast1": self.forcastArray[0], "forecast2": self.forcastArray[1], "forecast3": self.forcastArray[2], "forecast4": self.forcastArray[3]])
+            } else {
+                NSLog("ERROR: Open Weather API callback failed")
+            }
         })
     }
     
