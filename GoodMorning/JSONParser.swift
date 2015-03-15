@@ -106,7 +106,13 @@ class JSONParser: NSObject {
     }
     
     func parseAlarmTasks(taskData: JSON) {
+        CoreDataManager.sharedInstance.clearAllObjectsInEntity("Alarms")
         let taskList: Dictionary<String, Task>! = parseTaskList(taskData)
+        
+        for alarm in taskList.values {
+            CoreDataManager.sharedInstance.saveAlarm(alarm)
+        }
+        
         NSNotificationCenter.defaultCenter().postNotificationName("AlarmListUpdated", object: self, userInfo: taskList)
     }
     

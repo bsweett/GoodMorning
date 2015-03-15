@@ -74,6 +74,37 @@ class CoreDataManager: NSObject {
         
     }
     
+    func clearArticlesWithFeedName(feedname: String) {
+        
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        
+        let managedContext = appDelegate.managedObjectContext!
+        
+        let fetchRequest = NSFetchRequest(entityName: "Articles")
+        fetchRequest.returnsObjectsAsFaults = true
+        
+        let predicate = NSPredicate(format: "feed = %@", feedname)
+        fetchRequest.predicate = predicate
+        
+        var error: NSError?
+        let fetchedResults = managedContext.executeFetchRequest(fetchRequest, error: &error) as [NSManagedObject]?
+        
+        if let results = fetchedResults {
+            
+            for object in results {
+                managedContext.deleteObject(object)
+            }
+            
+            if !managedContext.save(&error) {
+                println("Could not save \(error), \(error?.userInfo)")
+            }
+            
+        } else {
+            println("Could not fetch \(error), \(error!.userInfo)")
+        }
+        
+    }
+    
     //MARK: - Articles
     
     func saveArticle(article: RSSArticle, feedname: String) {

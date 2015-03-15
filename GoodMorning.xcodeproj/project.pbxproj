@@ -171,6 +171,8 @@
 		5FEEC25A1A79CDC800E2C452 /* TaskTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FEEC2581A79CDC800E2C452 /* TaskTypeViewController.swift */; };
 		5FEEC25B1A79CDC800E2C452 /* TaskTypeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FEEC2591A79CDC800E2C452 /* TaskTypeViewController.xib */; };
 		5FEEC2601A79DB0800E2C452 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FEEC25F1A79DB0800E2C452 /* DateExtensions.swift */; };
+		5FFFF7A41AB5E80300F7CE89 /* AlarmViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FFFF7A21AB5E80300F7CE89 /* AlarmViewCell.swift */; };
+		5FFFF7A51AB5E80300F7CE89 /* AlarmViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FFFF7A31AB5E80300F7CE89 /* AlarmViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -435,6 +437,8 @@
 		5FEEC2581A79CDC800E2C452 /* TaskTypeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskTypeViewController.swift; sourceTree = "<group>"; };
 		5FEEC2591A79CDC800E2C452 /* TaskTypeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaskTypeViewController.xib; sourceTree = "<group>"; };
 		5FEEC25F1A79DB0800E2C452 /* DateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
+		5FFFF7A21AB5E80300F7CE89 /* AlarmViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmViewCell.swift; sourceTree = "<group>"; };
+		5FFFF7A31AB5E80300F7CE89 /* AlarmViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlarmViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -809,6 +813,8 @@
 				5F3D12A61A911C2200EF52D8 /* NewsViewCell.xib */,
 				5F8C67991A9D7A860082D994 /* ArticleViewCell.swift */,
 				5F8C679A1A9D7A860082D994 /* ArticleViewCell.xib */,
+				5FFFF7A21AB5E80300F7CE89 /* AlarmViewCell.swift */,
+				5FFFF7A31AB5E80300F7CE89 /* AlarmViewCell.xib */,
 			);
 			name = CustomCells;
 			sourceTree = "<group>";
@@ -1085,6 +1091,7 @@
 				5F7A9CF41A5CC24F00C595B7 /* d_windy.png in Resources */,
 				5F412CFE1A8168CF004F8DE0 /* ambient.wav in Resources */,
 				5F3D12A01A91079800EF52D8 /* NewsPopoverViewController.xib in Resources */,
+				5FFFF7A51AB5E80300F7CE89 /* AlarmViewCell.xib in Resources */,
 				5F7A9CFE1A5CC24F00C595B7 /* n_overcast.png in Resources */,
 				5F7A9CEC1A5CC24F00C595B7 /* d_overcast.png in Resources */,
 				5F7A9CFF1A5CC24F00C595B7 /* n_rain.png in Resources */,
@@ -1209,6 +1216,7 @@
 				5FD1A3AF1A86A41B00842FB2 /* TaskViewCell.swift in Sources */,
 				5FE307761AB1109100B51547 /* GoodMorning.xcdatamodel in Sources */,
 				5F83E29B1A4A35B100E9E7E3 /* PageViewController.swift in Sources */,
+				5FFFF7A41AB5E80300F7CE89 /* AlarmViewCell.swift in Sources */,
 				5F472CEE1A5F45E4001E47CF /* Util.swift in Sources */,
 				5F4A62AA1A8C2AC5003C6B18 /* BoolExtensions.swift in Sources */,
 				5F744B381A420B2400F4C675 /* Task.swift in Sources */,

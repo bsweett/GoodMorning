@@ -75,16 +75,32 @@ class XMLParser: NSObject {
                     
                     var pubString = article["pubDate"].stringValue
                     var creator = article["dc:creator"].stringValue
+                    var mediaContent: AnyObject? = article["media:content"].attributes["url"]
                     
                     rssArticle.title = title
                     rssArticle.link = link
                     rssArticle.rawDescription = descriptionRaw
                     rssArticle.pubdate = NSDate().dateFromInternetDateTimeString(pubString, formatHint: .RFC822)
-                    rssArticle.creator = creator
+                    
+                    if creator.rangeOfString("not found") != nil {
+                        rssArticle.creator = "Unknown"
+                    } else {
+                        rssArticle.creator = creator
+                    }
+                    
                     rssArticle.textDescription = nsRawDes.stringByConvertingHTMLToPlainText()
-                        
-                        //String().fromHtmlEncodedString(descriptionRaw) //getDescriptionTextFromHTML(descriptionRaw)
-                    rssArticle.thumbnailURL = self.getThumbNailUrlFromRaw(descriptionRaw)
+                    
+                    if let media = mediaContent as? String {
+                        if media.rangeOfString("not found") != nil {
+                            //String().fromHtmlEncodedString(descriptionRaw) //getDescriptionTextFromHTML(descriptionRaw)
+                            rssArticle.thumbnailURL = self.getThumbNailUrlFromRaw(descriptionRaw)
+                        } else {
+                            rssArticle.thumbnailURL = media
+                        }
+                    } else {
+                        rssArticle.thumbnailURL = self.getThumbNailUrlFromRaw(descriptionRaw)
+                    }
+                    
                     
                     // TODO: check null on elements and add to article
                     // add article to map

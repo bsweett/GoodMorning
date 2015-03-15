@@ -12,7 +12,7 @@ import QuartzCore
 import DTIActivityIndicator
 import CoreData
 
-class HubViewController: UIViewController {
+class HubViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     private var firstAppear: Bool = false
     private var alarmDict: Dictionary<String, Task> = [:]
@@ -35,20 +35,32 @@ class HubViewController: UIViewController {
     @IBOutlet weak var temperatureLabel: UILabel!
     
     @IBOutlet weak var alarmsView: UIView!
+    @IBOutlet weak var alarmsTableView: UITableView!
+    
+    private var taskManager: TaskManager!
+    private var alarms: [Task]!
     
     private var articles: [NSManagedObject]!
     private var articleDisplayTimer: NSTimer!
     private var currentArticleIndex: Int!
     var imageCache: NSCache!
     
+    // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        alarms = []
+        taskManager = TaskManager()
         articles = [NSManagedObject]()
         currentArticleIndex = -1
         imageCache = NSCache()
         
         self.navigationController?.setNavigationBarHidden(false, animated: false)
+        
+        alarmsTableView.registerNib(UINib(nibName: "AlarmViewCell", bundle: nil), forCellReuseIdentifier: "alarmCell")
+        alarmsTableView.dataSource = self
+        alarmsTableView.delegate = self
         
         let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Light)
         darkBlur = UIVisualEffectView(effect: blurEffect)
@@ -58,7 +70,7 @@ class HubViewController: UIViewController {
         blur = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.Dark))
         blur.frame = view.frame
         blur.tag = 51
-        
+    
         LocationManager.sharedInstance.update()
     }
     
@@ -76,9 +88,6 @@ class HubViewController: UIViewController {
         
         self.parentViewController?.title = "Hub"
         
-        
-        //updateBackground()
-        
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -87,21 +96,11 @@ class HubViewController: UIViewController {
         if(firstAppear == false) {
             firstAppear = true
             
-            if(!Reachability.isConnectedToNetwork()) {
-                startLoading()
-                stopLoading()
-                
-                SCLAlertView().showNotice("No Network Connection",
-                    subTitle: "You don't appear to be connected to the Internet. Please check your connection.",
-                    duration: 6)
-            } else {
-                
-                //startLoading()
-                //alarmManger.getAllAlarmsRequest()
-            }
+            startLoading()
+            stopLoading()
+            
+            refreshContent()
         }
-        
-        checkCoreDataForWeather()
     }
     
     override func viewDidLayoutSubviews() {
@@ -134,6 +133,23 @@ class HubViewController: UIViewController {
         
     }
     
+    func refreshContent() {
+        if(!Reachability.isConnectedToNetwork()) {
+           
+            SCLAlertView().showNotice("No Network Connection",
+                subTitle: "You don't appear to be connected to the Internet. Please check your connection.",
+                duration: 6)
+            
+            checkCoreDataForAlarms()
+        } else {
+            taskManager.getAllAlarmsRequest()
+        }
+        
+        updateBackground()
+        checkCoreDataForWeather()
+        checkCoreDataForArticles()
+    }
+    
     func startLoading() {
         self.view.addSubview(blur)
         self.view.bringSubviewToFront(blur)
@@ -157,17 +173,16 @@ class HubViewController: UIViewController {
                 self.background.image = UIImage(named:"alarmsday.png")
             }
             }, completion: nil)
-        
-        //stopLoading()
     }
     
-    // TODO: Hook up and test?
-    // Need to generate the list of articles first somehow ?
+    // MARK: - Core Data Hub Building
+    
     func checkCoreDataForArticles() {
         let results = CoreDataManager.sharedInstance.getObjectListForEntity("Articles")
         if(results.count > 0) {
-            articles = results
-            self.articleDisplayTimer = NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: Selector("updateArticleDisplay"), userInfo: nil, repeats: true)
+            articles = shuffle(results)
+            updateArticleDisplay()
+            self.articleDisplayTimer = NSTimer.scheduledTimerWithTimeInterval(45, target: self, selector: Selector("updateArticleDisplay"), userInfo: nil, repeats: true)
         } else {
             
             if(self.articleDisplayTimer.valid == true) {
@@ -176,6 +191,16 @@ class HubViewController: UIViewController {
             
             newsView.hidden = false
         }
+    }
+    
+    // Shuffle articles
+    func shuffle<C: MutableCollectionType where C.Index == Int>(var list: C) -> C {
+        let count = countElements(list)
+        for i in 0..<(count - 1) {
+            let j = Int(arc4random_uniform(UInt32(count - i))) + i
+            swap(&list[i], &list[j])
+        }
+        return list
     }
     
     func updateArticleDisplay() {
@@ -210,7 +235,7 @@ class HubViewController: UIViewController {
                 } else {
                     
                     self.thumbnailImageView.image = nil
-                    var image = (UIImage(named: "gm_unknown")!)
+                    var image = UIImage(named: "gm_unknown")
                     
                     if thumbnailUrl != "" {
                         /* Fetch the image from the server... */
@@ -224,12 +249,17 @@ class HubViewController: UIViewController {
                     }
                 }
                 
-                self.imageCache.setObject(image!, forKey: title!)
+                if(image != nil) {
+                    self.imageCache.setObject(image!, forKey: title!)
+                }
                 
                 dispatch_async(dispatch_get_main_queue(), {
                     
                     // TODO: Animate this fade in/out
-                    self.thumbnailImageView.image = image!
+                    if(image != nil) {
+                        self.thumbnailImageView.image = image!
+                    }
+                    
                     self.titleLabel.text = title
                     self.contentLabel.text = content
                     self.summaryLabel.text = feedName! + " / " + creator! + " / " + pubDate!.toFullDateString()
@@ -269,7 +299,105 @@ class HubViewController: UIViewController {
         
     }
     
+    func checkCoreDataForAlarms() {
+        let results = CoreDataManager.sharedInstance.getObjectListForEntity("Alarms")
+        if(results.count > 0) {
+            self.alarms = []
+            for result in results {
+                
+                var id = result.valueForKey("id") as? String
+                var title = result.valueForKey("title") as? String
+                var typeString = result.valueForKey("type") as? String
+                var time = result.valueForKey("time") as? String
+                var soundfilename = result.valueForKey("soundfilename") as? String
+                var creation = result.valueForKey("creation") as? NSDate
+                var nextdate = result.valueForKey("nextdate") as? NSDate
+                var mon = result.valueForKey("mon") as? Bool
+                var tue = result.valueForKey("tue") as? Bool
+                var wed = result.valueForKey("wed") as? Bool
+                var thu = result.valueForKey("thu") as? Bool
+                var fri = result.valueForKey("fri") as? Bool
+                var sat = result.valueForKey("sat") as? Bool
+                var sun = result.valueForKey("sun") as? Bool
+                
+                var type: TaskType = TaskType.typeFromString(typeString!)
+                
+                var alarm = Task(id: id!, title: title!, creation: creation!, nextAlert: nextdate!, type: type, alertTime: time!, soundFileName: soundfilename!, notes: "")
+                
+                self.alarms.append(alarm)
+            }
+        }
+        
+        self.alarmsTableView.reloadData()
+    }
+    
+    // MARK: - UITableView DataSource
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell: AlarmViewCell = tableView.dequeueReusableCellWithIdentifier("alarmCell") as AlarmViewCell!
+        
+        cell.backgroundColor = UIColor.clearColor()
+        let selectedBackgroundView = UIView(frame: CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height))
+        selectedBackgroundView.backgroundColor = UIColor.grayColor().colorWithAlphaComponent(0.2)
+        cell.selectedBackgroundView = selectedBackgroundView
+        
+        cell.setAlarmTask(alarms[indexPath.row])
+        
+        return cell
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 100
+    }
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        
+        if (self.alarms.count > 0) {
+            alarmsView.hidden = false
+            return 1;
+        }
+        
+        alarmsView.hidden = true
+        
+        return 0;
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return alarms.count
+    }
+    
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if(editingStyle == UITableViewCellEditingStyle.Delete) {
+            
+        }
+    }
+    
+    //MARK: - UITableView Delegate
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let cell = tableView.cellForRowAtIndexPath(indexPath) as AlarmViewCell!
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        
+        var task = cell.getAlarm()
+    }
+
+    
     // MARK: - Notifications
+    
+    func updateAlarms(notification: NSNotification) {
+        let alarmList: Dictionary<String, Task>! = notification.userInfo as Dictionary<String, Task>!
+        self.alarms = []
+        
+        for alarm in alarmList.values {
+            alarms.append(alarm)
+        }
+        
+        self.alarmsTableView.reloadData()
+    }
     
     func receivedWeatherUpdate(notification: NSNotification) {
         //stopLoading()
@@ -280,10 +408,10 @@ class HubViewController: UIViewController {
         /*SCLAlertView().showError("Network Error",
         subTitle: "Oops something went wrong",
         closeButtonTitle: "Dismiss")*/
+        
     }
     
     func receivedInternalServerError(notification: NSNotification) {
-        //stopLoading()
         let reason = getUserInfoValueForKey(notification.userInfo, "reason")
         let message = getUserInfoValueForKey(notification.userInfo, "message")
         SCLAlertView().showWarning("Internal Server Error",
@@ -297,7 +425,6 @@ class HubViewController: UIViewController {
     
     // TODO: Better message to user if they disable it after installing
     func receivedLocationAuthorizeProblem(notification: NSNotification) {
-        //stopLoading()
         SCLAlertView().showWarning("Location Services Disallowed",
             subTitle: "Because you have disallowed location services you are required to enter your country and city in order to use GoodMorning", closeButtonTitle: "Ok")
     }
@@ -305,7 +432,6 @@ class HubViewController: UIViewController {
     // MARK: - Actions
     
     @IBAction func refreshTapped(sender: UIBarButtonItem) {
-        //startLoading()
-        
+        refreshContent()
     }
 }

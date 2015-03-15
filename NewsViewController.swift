@@ -40,7 +40,7 @@ class NewsViewController : UIViewController, UIPopoverControllerDelegate, UITabl
         newNewsObject = nil
         newsManager = NewsManager()
         newsList = []
-        sectionsInTable = [RSSType.OTHER]
+        sectionsInTable = []
         didRemoveLast = false
         imageCache = NSCache()
         
@@ -142,6 +142,7 @@ class NewsViewController : UIViewController, UIPopoverControllerDelegate, UITabl
         for feed in feedDictionary.values {
             self.newsList.append(feed)
             var type = feed.type
+            
             if !contains(self.sectionsInTable, type) {
                 self.sectionsInTable.append(type)
             }
@@ -157,7 +158,7 @@ class NewsViewController : UIViewController, UIPopoverControllerDelegate, UITabl
         for feed in self.newsList {
             
             var type = feed.type
-            
+            println("Type: ", type.rawValue)
             if(type == sectionsInTable[section]) {
                 sectionsArray.append(feed)
             }
@@ -287,7 +288,7 @@ class NewsViewController : UIViewController, UIPopoverControllerDelegate, UITabl
                 tableView.backgroundView = nil
                 noDataLabel = nil
             }
-            
+
             return sectionsInTable.count;
         }
         
@@ -310,13 +311,13 @@ class NewsViewController : UIViewController, UIPopoverControllerDelegate, UITabl
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        var title = sectionsInTable[section].rawValue
+        var type = sectionsInTable[section]
         
-        if title == "" {
+        if type == RSSType.OTHER {
             return "Other"
         }
         
-        return title
+        return type.rawValue
     }
     
     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -385,6 +386,7 @@ class NewsViewController : UIViewController, UIPopoverControllerDelegate, UITabl
         if(buttonIndex == 0 && indexPendingDelete != nil) {
             var index: Int = indexPendingDelete.row
             newsManager.deleteFeedRequest(newsList[index])
+            var type = newsList[index].type
             
             if(index == 0) {
                 didRemoveLast = true
@@ -394,6 +396,11 @@ class NewsViewController : UIViewController, UIPopoverControllerDelegate, UITabl
             
             self.newsTableView.beginUpdates()
             newsList.removeAtIndex(index)
+            
+            if isGroupEmpty(type) {
+                sectionsInTable.removeAtIndex(indexPendingDelete.section)
+            }
+            
             self.newsTableView.deleteRowsAtIndexPaths([indexPendingDelete], withRowAnimation: UITableViewRowAnimation.Automatic)
             self.newsTableView.endUpdates()
         }
@@ -409,4 +416,13 @@ class NewsViewController : UIViewController, UIPopoverControllerDelegate, UITabl
         }
     }
 
+    func isGroupEmpty(type: RSSType) -> Bool {
+        for feed in newsList {
+            if feed.type == type {
+                return false
+            }
+        }
+        
+        return true
+    }
 }

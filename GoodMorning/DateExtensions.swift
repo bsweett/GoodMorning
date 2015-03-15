@@ -26,6 +26,22 @@ extension NSDate {
         return newDate!
     }
     
+    func addDaysToDate(days: Int) -> NSDate {
+        
+        var components = NSDateComponents()
+        components.setValue(days, forComponent: NSCalendarUnit.CalendarUnitDay);
+        var newDate = NSCalendar.currentCalendar().dateByAddingComponents(components, toDate: self, options: NSCalendarOptions(0))
+        return newDate!
+    }
+    
+    func hasPassed() -> Bool {
+        if self.timeIntervalSinceNow < 0.0 {
+            return true
+        }
+        
+        return false
+    }
+    
     /**
     Compares the current date to a date in the past to get how long ago it
     was in the given unit

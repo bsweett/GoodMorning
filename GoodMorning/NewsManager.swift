@@ -146,9 +146,24 @@ class NewsManager: NSObject {
         
         Networking.sharedInstance.openNewXMLRequest(.GET, url: url, {(data: AEXMLDocument) in
             
+            CoreDataManager.sharedInstance.clearArticlesWithFeedName(rssfeed.title)
             println("XML:", data.xmlString)
             let articles: Dictionary<String, RSSArticle> = self.xmlParser.parseArticles(data)
             
+            if articles.count > 12 {
+                var counter: Int = 0
+                let list = Array(articles.values)
+                
+                while(counter < 10) {       // Only store 10 stories per feed
+                    CoreDataManager.sharedInstance.saveArticle(list[counter], feedname: rssfeed.title)
+                    counter++
+                }
+            } else {
+                for feed in articles.values {
+                    CoreDataManager.sharedInstance.saveArticle(feed, feedname: rssfeed.title)
+                }
+            }
+           
             NSNotificationCenter.defaultCenter().postNotificationName("ArticleListUpdated", object: self, userInfo: articles)
  
         })

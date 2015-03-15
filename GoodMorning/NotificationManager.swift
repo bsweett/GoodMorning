@@ -49,6 +49,7 @@ class NotificationManager {
         
         var notification = UILocalNotification()
         notification.userInfo = ["id": task.id]
+        notification.timeZone = NSTimeZone(abbreviation: "EST")
         notification.fireDate = NSDate().addMinutesToDate(1)
         notification.alertBody = task.getNotifBody()
         notification.applicationIconBadgeNumber = unreadNotifCount
@@ -61,6 +62,7 @@ class NotificationManager {
         
         var notification = UILocalNotification()
         notification.userInfo = ["id": task.id]
+        notification.timeZone = NSTimeZone(abbreviation: "EST")
         notification.fireDate = task.nextAlertDate
         notification.alertBody = task.getNotifBody()
         notification.applicationIconBadgeNumber = unreadNotifCount
@@ -74,6 +76,7 @@ class NotificationManager {
   
         var notification = UILocalNotification()
         notification.userInfo = ["id": task.id]
+        notification.timeZone = NSTimeZone(abbreviation: "EST")
         notification.fireDate = task.nextAlertDate
         notification.alertBody = task.getNotifBody()
         notification.applicationIconBadgeNumber = unreadNotifCount
@@ -118,6 +121,7 @@ class NotificationManager {
         
         var notification = UILocalNotification()
         notification.userInfo = ["id": task.id]
+        notification.timeZone = NSTimeZone(abbreviation: "EST")
         notification.fireDate = date
         notification.alertBody = task.getNotifBody()
         notification.applicationIconBadgeNumber = unreadNotifCount
@@ -146,6 +150,23 @@ class NotificationManager {
         scheduleNotificationForTask(task)
     }
     
+    func findNotificationsForTask(task: Task) -> [UILocalNotification] {
+        var list = [UILocalNotification]()
+        
+        var app: UIApplication = UIApplication.sharedApplication()
+        for oneEvent in app.scheduledLocalNotifications {
+            var notification = oneEvent as UILocalNotification
+            let userInfoCurrent = notification.userInfo! as Dictionary<String, String>
+            
+            let uid = userInfoCurrent["id"]! as String
+            if uid == task.id {
+                list.append(notification)
+            }
+        }
+        
+        return list
+    }
+    
     func cancelNotificationsForTask(task: Task) {
         
         var app: UIApplication = UIApplication.sharedApplication()
@@ -156,7 +177,7 @@ class NotificationManager {
             let uid = userInfoCurrent["id"]! as String
             if uid == task.id {
                 //Cancelling local notification
-                NSLog("Removing notification with id: ", uid)
+                NSLog("Removing notification with id: %@", uid)
                 app.cancelLocalNotification(notification)
             }
         }
