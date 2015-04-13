@@ -319,7 +319,7 @@ class InstallViewController : UIViewController, UITextFieldDelegate {
     func receivedNetworkError(notification: NSNotification) {
         stopLoading()
         
-        SCLAlertView().showError("Network Error",
+        SCLAlertView().showError(networkErrTitle,
             subTitle: "Oops something went wrong",
             closeButtonTitle: "Dismiss")
         
@@ -331,8 +331,8 @@ class InstallViewController : UIViewController, UITextFieldDelegate {
         
         let reason = getUserInfoValueForKey(notification.userInfo, "reason")
         let message = getUserInfoValueForKey(notification.userInfo, "message")
-        SCLAlertView().showWarning("Internal Server Error",
-            subTitle:  reason + " - " + message, closeButtonTitle: "Dismiss")
+        SCLAlertView().showWarning(internalErrTitle,
+            subTitle:  reason + " - " + message, closeButtonTitle: dismissButTitle)
         
         setUIElementsEnabled(true)
     }
@@ -341,7 +341,7 @@ class InstallViewController : UIViewController, UITextFieldDelegate {
         stopLoading()
         
         SCLAlertView().showWarning("Location Services Disallowed",
-            subTitle: "Because you have disallowed location services you are required to enter your country and city in order to use GoodMorning", closeButtonTitle: "Ok")
+            subTitle: "Because you have disallowed location services you are required to enter your country and city in order to use GoodMorning", closeButtonTitle: okButTitle)
         
         // add a field to the install view to hard code location
         

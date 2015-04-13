@@ -76,15 +76,15 @@ class HubViewController: UIViewController, UITableViewDataSource, UITableViewDel
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedNetworkError:", name:"NetworkError", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name:"InternalServerError", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedWeatherUpdate:", name:"WeatherUpdated", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateBackground", name: "NightCachedChanged", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateAlarms:", name: "AlarmListUpdated", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedNetworkError:", name: kNetworkError, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name: kInternalServerError, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedWeatherUpdate:", name: kWeatherUpdated, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateBackground", name: kNightCachedChanged, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateAlarms:", name: kAlarmListUpdated, object: nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationAuthorizeProblem:", name:"LocationDenied", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationAuthorizeProblem:", name:"LocationDisabled", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationUnknown:", name:"LocationUnknown", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationAuthorizeProblem:", name: kLocationDenied, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationAuthorizeProblem:", name: kLocationDisabled, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationUnknown:", name: kLocationUnknown, object: nil)
         
         self.parentViewController?.title = "Hub"
         
@@ -136,8 +136,8 @@ class HubViewController: UIViewController, UITableViewDataSource, UITableViewDel
     func refreshContent() {
         if(!Reachability.isConnectedToNetwork()) {
            
-            SCLAlertView().showNotice("No Network Connection",
-                subTitle: "You don't appear to be connected to the Internet. Please check your connection.",
+            SCLAlertView().showNotice(internetErrTitle,
+                subTitle: internetErrMessage,
                 duration: 6)
             
             checkCoreDataForAlarms()
@@ -414,8 +414,8 @@ class HubViewController: UIViewController, UITableViewDataSource, UITableViewDel
     func receivedInternalServerError(notification: NSNotification) {
         let reason = getUserInfoValueForKey(notification.userInfo, "reason")
         let message = getUserInfoValueForKey(notification.userInfo, "message")
-        SCLAlertView().showWarning("Internal Server Error",
-            subTitle:  reason + " - " + message, closeButtonTitle: "Dismiss")
+        SCLAlertView().showWarning(internalErrTitle,
+            subTitle:  reason + " - " + message, closeButtonTitle: dismissButTitle)
     }
     
     // TODO: Handle Unknown location
@@ -425,8 +425,8 @@ class HubViewController: UIViewController, UITableViewDataSource, UITableViewDel
     
     // TODO: Better message to user if they disable it after installing
     func receivedLocationAuthorizeProblem(notification: NSNotification) {
-        SCLAlertView().showWarning("Location Services Disallowed",
-            subTitle: "Because you have disallowed location services you are required to enter your country and city in order to use GoodMorning", closeButtonTitle: "Ok")
+        SCLAlertView().showWarning(locationDisTitle,
+            subTitle: "Because you have disallowed location services you are required to enter your country and city in order to use GoodMorning", closeButtonTitle: okButTitle)
     }
     
     // MARK: - Actions

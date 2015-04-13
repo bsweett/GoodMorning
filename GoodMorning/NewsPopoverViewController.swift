@@ -77,8 +77,8 @@ class NewsPopoverViewController: UIViewController, UITextFieldDelegate, UIPicker
         //stopLoading()
         let reason = getUserInfoValueForKey(notification.userInfo, "reason")
         let message = getUserInfoValueForKey(notification.userInfo, "message")
-        SCLAlertView().showWarning("Internal Server Error",
-            subTitle:  reason + " - " + message, closeButtonTitle: "Dismiss")
+        SCLAlertView().showWarning(internalErrTitle,
+            subTitle:  reason + " - " + message, closeButtonTitle: dismissButTitle)
     }
     
     func receivedSearchResults(notification: NSNotification) {

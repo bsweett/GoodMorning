@@ -9,32 +9,15 @@
 import UIKit
 
 class NewsManager: NSObject {
-   
+    
     let xmlParser = XMLParser()
     let jsonParser = JSONParser()
     
-    func testNewRSSUrl(url: String, type: RSSType) {
-        
-        Networking.sharedInstance.openNewXMLRequest(.GET, url: url, {(data: AEXMLDocument) in
-            
-            println("XML:", data.xmlString)
-            let newRSSFeed: RSSFeed? = self.xmlParser.checkValidRSSChannel(data, type: type, url: url)
-            
-            if newRSSFeed == nil {
-                NSNotificationCenter.defaultCenter().postNotificationName("InvalidRSSURL", object: self)
-            } else {
-                var dictionary = Dictionary<String, RSSFeed>()
-                dictionary["feed"] = newRSSFeed
-                
-                println(newRSSFeed?.toString())
-            
-                NSNotificationCenter.defaultCenter().postNotificationName("ShowRSSPreview", object: self, userInfo: dictionary)
-            }
-            
-        })
-        
-    }
+    /**
+    Sends a GET request for a list of RSS Feeds from the Feedly API.
     
+    :param: query A optional query string to search with
+    */
     func getFeedsForQuery(query: String) {
         
         let url = FEEDLY_ADDRESS + "search/feeds"
@@ -53,6 +36,11 @@ class NewsManager: NSObject {
         
     }
     
+    /**
+    Saves a valid rss feed to the our server with a GET request
+    
+    :param: feed The feed object to save
+    */
     func saveValidFeedToServer(feed: RSSFeed) {
         let url = SERVER_ADDRESS + "/newfeed"
         
@@ -69,19 +57,21 @@ class NewsManager: NSObject {
                 if let message = json["message"].string {
                     dictionary["message"] = message
                     dictionary["reason"] = reason
-                    NSNotificationCenter.defaultCenter().postNotificationName("InvalidFeedResponse", object: self, userInfo: dictionary)
+                    NSNotificationCenter.defaultCenter().postNotificationName(kInvalidFeedResponse, object: self, userInfo: dictionary)
                 }
             }
             
             if let result = json["success"].string {
                 dictionary["success"] = result.boolValue()
-                NSNotificationCenter.defaultCenter().postNotificationName("NewsAdded", object: self, userInfo: dictionary)
-                NSLog("is all good here")
+                NSNotificationCenter.defaultCenter().postNotificationName(kNewsAdded, object: self, userInfo: dictionary)
             }
         })
-
+        
     }
     
+    /**
+    Gets a list of all the feeds from the server
+    */
     func getAllFeedsRequest() {
         let url = SERVER_ADDRESS + "/feedlist"
         
@@ -98,7 +88,7 @@ class NewsManager: NSObject {
                 if let message = json["message"].string {
                     dictionary["message"] = message
                     dictionary["reason"] = reason
-                    NSNotificationCenter.defaultCenter().postNotificationName("InvalidFeedResponse", object: self, userInfo: dictionary)
+                    NSNotificationCenter.defaultCenter().postNotificationName(kInvalidFeedResponse, object: self, userInfo: dictionary)
                 }
             }
             
@@ -111,6 +101,11 @@ class NewsManager: NSObject {
         })
     }
     
+    /**
+    Delete an RSS Feed from the server
+    
+    :param: rssfeed The RSS Feed object to delete
+    */
     func deleteFeedRequest(rssfeed: RSSFeed) {
         let url = SERVER_ADDRESS + "/deletefeed"
         
@@ -127,7 +122,7 @@ class NewsManager: NSObject {
                 if let message = json["message"].string {
                     dictionary["message"] = message
                     dictionary["reason"] = reason
-                    NSNotificationCenter.defaultCenter().postNotificationName("InvalidFeedResponse", object: self, userInfo: dictionary)
+                    NSNotificationCenter.defaultCenter().postNotificationName(kInvalidFeedResponse, object: self, userInfo: dictionary)
                 }
             }
             
@@ -141,6 +136,11 @@ class NewsManager: NSObject {
         })
     }
     
+    /**
+    Gets a up to 12 articles from a give feed and stores them in core data for offline access
+    
+    :param: rssfeed An RSS Feed to get the content from
+    */
     func getArticlesForFeed(rssfeed: RSSFeed) {
         let url = rssfeed.rssLink
         
@@ -163,9 +163,9 @@ class NewsManager: NSObject {
                     CoreDataManager.sharedInstance.saveArticle(feed, feedname: rssfeed.title)
                 }
             }
-           
-            NSNotificationCenter.defaultCenter().postNotificationName("ArticleListUpdated", object: self, userInfo: articles)
- 
+            
+            NSNotificationCenter.defaultCenter().postNotificationName(kArticleListUpdated, object: self, userInfo: articles)
+            
         })
     }
 }

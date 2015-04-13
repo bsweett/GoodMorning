@@ -1,0 +1,53 @@
+/* 
+  GMStrings.strings
+  GoodMorning
+
+  Created by Ben Sweett on 2015-03-18.
+  Copyright (c) 2015 Ben Sweett. All rights reserved.
+*/
+
+// Install View
+INSTALL_TITLE = "Welcome to the GoodMorning App";
+INSTALL_MESSAGE = "Please provide your name and email and select the topics that interest you the most.";
+INSTALL_NAME = "Name:";
+INSTALL_EMAIL = "Email:";
+INSTALL_INTEREST = "Interest:";
+
+INVALID_NAME = "Invalid Name";
+INVALID_EMAIL = "Invalid Email";
+
+NEWS = "News";
+SCIENCE = "Science";
+TECHNOLOGY = "Technology";
+BUSINESS = "Business";
+LIFESTYLE = "LifeStyle";
+SPORTS = "Sports";
+ENTERTAINMENT = "Entertainment";
+OTHER = "Other";
+
+//News View
+NEWS_TITLE = "News";
+
+//Hub View
+HUB_TITLE = "Hub";
+
+//Weather View
+WEATHER_TITLE = "Weather";
+
+//Task View
+TASK_TITLE = "Tasks";
+
+// Dialogs
+NO_INTERNET = "No Network Connection";
+NETWORK_ERROR = "Network Error";
+INTERNAL_ERROR = "Internal Server Error";
+EXISTING_ACCOUNT = "Existing Account Found";
+LOCATION_DISALLOWED = "Location Services Disallowed";
+
+NO_INTERNET_MESSAGE = "You don't appear to be connected to the Internet. Please check your connection.";
+NETWORK_MESSAGE = "Oops something went wrong";
+
+DISMISS_BUTTON = "Dismiss";
+OK_BUTTON = "Ok";
+CREATE_ACCOUNT_BUTTON = "Create A New Account";
+USE_ACCOUNT_BUTTON = "Use Existing Account";

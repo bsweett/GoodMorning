@@ -12,13 +12,17 @@ class TaskManager: NSObject {
     
     let parser: JSONParser = JSONParser()
     
+    /**
+    Sends a post request for a new task to the server for a given task object
+    
+    :param: task The task object with all of its content to add
+    */
     func sendNewTaskRequest(task: Task) {
         let url = SERVER_ADDRESS + "/newtask"
         
         let token = UserDefaultsManager.sharedInstance.getToken()
         let params = ["token":token, "time":task.alertTime, "days":task.daysOfTheWeekToString(), "notes":task.notes, "type":task.type.rawValue, "name":task.title]
         
-        //GET OR POST?
         Networking.sharedInstance.openNewJSONRequest(.POST, url: url, parameters: params, {(data: JSON) in
             let json = data
             var dictionary = Dictionary<String, AnyObject>()
@@ -29,14 +33,14 @@ class TaskManager: NSObject {
                 if let message = json["message"].string {
                     dictionary["message"] = message
                     dictionary["reason"] = reason
-                    NSNotificationCenter.defaultCenter().postNotificationName("InvalidTaskResponse", object: self, userInfo: dictionary)
+                    NSNotificationCenter.defaultCenter().postNotificationName(kInvalidTaskRespone, object: self, userInfo: dictionary)
                 }
             }
             
             if let result = json["success"].string {
                 let bool = result.boolValue()
                 dictionary["success"] = bool
-                NSNotificationCenter.defaultCenter().postNotificationName("TaskAdded", object: self, userInfo: dictionary)
+                NSNotificationCenter.defaultCenter().postNotificationName(kTaskAdded, object: self, userInfo: dictionary)
                 
                 if bool {
                     NotificationManager.sharedInstance.scheduleNotificationForTask(task)
@@ -45,6 +49,9 @@ class TaskManager: NSObject {
         })
     }
     
+    /**
+    Makes a get request to the server for all list of all the tasks
+    */
     func getAllTasksRequest() {
         let url = SERVER_ADDRESS + "/tasklist"
         
@@ -62,7 +69,7 @@ class TaskManager: NSObject {
                 if let message = json["message"].string {
                     dictionary["message"] = message
                     dictionary["reason"] = reason
-                    NSNotificationCenter.defaultCenter().postNotificationName("InvalidTaskResponse", object: self, userInfo: dictionary)
+                    NSNotificationCenter.defaultCenter().postNotificationName(kInvalidTaskRespone, object: self, userInfo: dictionary)
                 }
             }
            
@@ -73,6 +80,11 @@ class TaskManager: NSObject {
         })
     }
     
+    /**
+    Sends a get request to delete a given task
+    
+    :param: task The task to delete from the server
+    */
     func deleteTaskRequest(task: Task) {
         let url = SERVER_ADDRESS + "/deletetask"
         
@@ -90,7 +102,7 @@ class TaskManager: NSObject {
                 if let message = json["message"].string {
                     dictionary["message"] = message
                     dictionary["reason"] = reason
-                    NSNotificationCenter.defaultCenter().postNotificationName("InvalidTaskResponse", object: self, userInfo: dictionary)
+                    NSNotificationCenter.defaultCenter().postNotificationName(kInvalidTaskRespone, object: self, userInfo: dictionary)
                 }
             }
             
@@ -107,6 +119,11 @@ class TaskManager: NSObject {
         
     }
     
+    /**
+    Sends a task to update on the server
+    
+    :param: task the task object to update. It should have the same id of an existing task
+    */
     func updateTaskRequest(task: Task) {
         let url = SERVER_ADDRESS + "/updatetask"
         
@@ -124,19 +141,21 @@ class TaskManager: NSObject {
                 if let message = json["message"].string {
                     dictionary["message"] = message
                     dictionary["reason"] = reason
-                    NSNotificationCenter.defaultCenter().postNotificationName("InvalidTaskResponse", object: self, userInfo: dictionary)
+                    NSNotificationCenter.defaultCenter().postNotificationName(kInvalidTaskRespone, object: self, userInfo: dictionary)
                 }
             }
             
             if let result = json["success"].string {
                 dictionary["success"] = result.boolValue()
-                NSNotificationCenter.defaultCenter().postNotificationName("TaskUpdated", object: self, userInfo: dictionary)
+                NSNotificationCenter.defaultCenter().postNotificationName(kTaskUpdated, object: self, userInfo: dictionary)
                 
             }
         })
     }
     
-    // TODO: Test Alarm request. It should only be called if the app is launching not if the application is coming from the installation screen
+    /**
+    Gets a list of tasks that are of type alarm from the server
+    */
     func getAllAlarmsRequest() {
         let url = SERVER_ADDRESS + "/tasklist"
         
@@ -154,7 +173,7 @@ class TaskManager: NSObject {
                 if let message = json["message"].string {
                     dictionary["message"] = message
                     dictionary["reason"] = reason
-                    NSNotificationCenter.defaultCenter().postNotificationName("InvalidTaskResponse", object: self, userInfo: dictionary)
+                    NSNotificationCenter.defaultCenter().postNotificationName(kInvalidTaskRespone, object: self, userInfo: dictionary)
                 }
             }
             
@@ -163,7 +182,7 @@ class TaskManager: NSObject {
                 return
             }
             
-            println("Getting tasks on server failed because response was invalid")
+            NSLog("Getting tasks on server failed because response was invalid")
         })
     }
 }

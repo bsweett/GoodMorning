@@ -48,20 +48,20 @@ class TasksViewController : UIViewController, UIPopoverControllerDelegate, UITab
         super.viewWillAppear(animated)
         self.parentViewController?.title = "Tasks"
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedNetworkError:", name:"NetworkError", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name:"InternalServerError", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name:"InvalidTaskResponse", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedTaskList:", name:"TaskListUpdated", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedTaskUpdate:", name: "TaskAdded", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedTaskUpdate:", name: "TaskUpdated", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedNetworkError:", name: kNetworkError, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name: kInternalServerError, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name: kInvalidTaskRespone, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedTaskList:", name: kTaskListUpdated, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedTaskUpdate:", name: kTaskAdded, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedTaskUpdate:", name: kTaskUpdated, object: nil)
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
         if(!Reachability.isConnectedToNetwork()) {
-            SCLAlertView().showNotice("No Network Connection",
-                subTitle: "You don't appear to be connected to the Internet. Please check your connection.",
+            SCLAlertView().showNotice(internetErrTitle,
+                subTitle: internetErrMessage,
                 duration: 6)
         } else {
             taskManager.getAllTasksRequest()
@@ -96,8 +96,8 @@ class TasksViewController : UIViewController, UIPopoverControllerDelegate, UITab
         //stopLoading()
         let reason = getUserInfoValueForKey(notification.userInfo, "reason")
         let message = getUserInfoValueForKey(notification.userInfo, "message")
-        SCLAlertView().showWarning("Internal Server Error",
-            subTitle:  reason + " - " + message, closeButtonTitle: "Dismiss")
+        SCLAlertView().showWarning(internalErrTitle,
+            subTitle:  reason + " - " + message, closeButtonTitle: dismissButTitle)
         self.reloadTaskData()
     }
     
@@ -121,7 +121,7 @@ class TasksViewController : UIViewController, UIPopoverControllerDelegate, UITab
             self.refreshControl.beginRefreshing()
             self.tasksTableView.setContentOffset(CGPointMake(0, -self.refreshControl.frame.size.height), animated:true)
         } else {
-            SCLAlertView().showWarning("Task Add/Update Failed", subTitle: "An unknown error occured", closeButtonTitle: "Dismiss")
+            SCLAlertView().showWarning("Task Add/Update Failed", subTitle: "An unknown error occured", closeButtonTitle: dismissButTitle)
         }
     }
     

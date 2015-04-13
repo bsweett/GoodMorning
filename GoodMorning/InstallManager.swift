@@ -14,7 +14,10 @@ class InstallManager: NSObject {
     let deviceId: String = UIDevice.currentDevice().identifierForVendor.UUIDString
     let parser: JSONParser = JSONParser()
     
-    
+    /**
+    Sends a get request to try and pair a device as a new user account. If an existing user is returned
+    then the user if given the option to keep the account or create a new one
+    */
     func sendNewAppConnectionRequest() {
         let url = SERVER_ADDRESS + "/connectuser"
         
@@ -30,7 +33,7 @@ class InstallManager: NSObject {
                 if let message = json["message"].string {
                     dictionary["message"] = message
                     dictionary["reason"] = reason
-                    NSNotificationCenter.defaultCenter().postNotificationName("InvalidInstallResponse", object: nil, userInfo: dictionary)
+                    NSNotificationCenter.defaultCenter().postNotificationName(kInvalidInstallResponse, object: nil, userInfo: dictionary)
                 }
             }
             
@@ -38,7 +41,7 @@ class InstallManager: NSObject {
                 if !result.boolValue() {
                     NSLog("Boolean should not be null for /connectuser request")
                 } else {
-                    NSNotificationCenter.defaultCenter().postNotificationName("SafeToInstall", object: nil)
+                    NSNotificationCenter.defaultCenter().postNotificationName(kSafeToInstall, object: nil)
                 }
             } else if let token = json["userToken"].string {
                 if(json["deviceId"].stringValue == self.deviceId) {
@@ -50,6 +53,11 @@ class InstallManager: NSObject {
         
     }
     
+    /**
+    Sends a GET request to uninstall an existing user account if an existing one if found
+    
+    :param: user The user whose account to delete
+    */
     func sendUninstallRequestForUser(user: User) {
         let url = SERVER_ADDRESS + "/uninstall"
         
@@ -65,7 +73,7 @@ class InstallManager: NSObject {
                 if let message = json["message"].string {
                     dictionary["message"] = message
                     dictionary["reason"] = reason
-                    NSNotificationCenter.defaultCenter().postNotificationName("InvalidInstallResponse", object: nil, userInfo: dictionary)
+                    NSNotificationCenter.defaultCenter().postNotificationName(kInvalidInstallResponse, object: nil, userInfo: dictionary)
                 }
             }
             
@@ -73,12 +81,20 @@ class InstallManager: NSObject {
                 if !result.boolValue() {
                     NSLog("Server Error Deleting User Account")
                 } else {
-                    NSNotificationCenter.defaultCenter().postNotificationName("SafeToInstall", object: nil)
+                    NSNotificationCenter.defaultCenter().postNotificationName(kSafeToInstall, object: nil)
                 }
             }
         })
     }
     
+    /**
+    Sends a GET request to install a new user account and device
+    
+    :param: name  The name of new user
+    :param: email The email of the new user
+    */
+    
+    //TODO: Send user interset data
     func sendInstallRequestForUser(name: NSString, email: NSString) {
         let url = SERVER_ADDRESS + "/install"
         
@@ -94,7 +110,7 @@ class InstallManager: NSObject {
                 if let message = json["message"].string {
                     dictionary["message"] = message
                     dictionary["reason"] = reason
-                    NSNotificationCenter.defaultCenter().postNotificationName("InvalidInstallResponse", object: nil, userInfo: dictionary)
+                    NSNotificationCenter.defaultCenter().postNotificationName(kInvalidInstallResponse, object: nil, userInfo: dictionary)
                 }
             }
             
@@ -106,7 +122,7 @@ class InstallManager: NSObject {
                 }
             }
 
-            println("Installation on server failed because user token response was invalid")
+            NSLog("Installation on server failed because user token response was invalid")
         })
     }
 

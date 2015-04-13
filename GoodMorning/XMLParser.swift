@@ -54,116 +54,102 @@ class XMLParser: NSObject {
         
         var articles: Dictionary<String, RSSArticle> = Dictionary<String, RSSArticle>()
         
-            // Standard RSS 1.0/2.0
-            if let items = xml.root["channel"]["item"].all {
+        // Standard RSS 1.0/2.0
+        if let items = xml.root["channel"]["item"].all {
+            
+            for article in items {
+                var rssArticle: RSSArticle = RSSArticle()
                 
-                for article in items {
-                    var rssArticle: RSSArticle = RSSArticle()
-                    
-                    var title = article["title"].stringValue
-                    var link = article["link"].stringValue
-                    var descriptionRaw = article["description"].stringValue
-                    var nsRawDes: NSString = descriptionRaw
-                    
-                    if let catergories = article["category"].all {
-                        for category in catergories {
-                            
-                            rssArticle.addCategory(category.value!)
-                            
-                        }
+                var title = article["title"].stringValue
+                var link = article["link"].stringValue
+                var descriptionRaw = article["description"].stringValue
+                var nsRawDes: NSString = descriptionRaw
+                
+                if let catergories = article["category"].all {
+                    for category in catergories {
+                        
+                        rssArticle.addCategory(category.value!)
+                        
                     }
-                    
-                    var pubString = article["pubDate"].stringValue
-                    var creator = article["dc:creator"].stringValue
-                    var mediaContent: AnyObject? = article["media:content"].attributes["url"]
-                    
-                    rssArticle.title = title
-                    rssArticle.link = link
-                    rssArticle.rawDescription = descriptionRaw
-                    rssArticle.pubdate = NSDate().dateFromInternetDateTimeString(pubString, formatHint: .RFC822)
-                    
-                    if creator.rangeOfString("not found") != nil {
-                        rssArticle.creator = "Unknown"
-                    } else {
-                        rssArticle.creator = creator
-                    }
-                    
-                    rssArticle.textDescription = nsRawDes.stringByConvertingHTMLToPlainText()
-                    
-                    if let media = mediaContent as? String {
-                        if media.rangeOfString("not found") != nil {
-                            //String().fromHtmlEncodedString(descriptionRaw) //getDescriptionTextFromHTML(descriptionRaw)
-                            rssArticle.thumbnailURL = self.getThumbNailUrlFromRaw(descriptionRaw)
-                        } else {
-                            rssArticle.thumbnailURL = media
-                        }
-                    } else {
-                        rssArticle.thumbnailURL = self.getThumbNailUrlFromRaw(descriptionRaw)
-                    }
-                    
-                    
-                    // TODO: check null on elements and add to article
-                    // add article to map
-                    
-                    articles[rssArticle.title] = rssArticle
-                    
-                    println(rssArticle.toString())
-                    println("")
                 }
                 
-            // RSS 0.91/RDF
-            } else if let items = xml.root["item"].all {
+                var pubString = article["pubDate"].stringValue
+                var creator = article["dc:creator"].stringValue
+                var mediaContent: AnyObject? = article["media:content"].attributes["url"]
                 
-                for article in items {
-                    var rssArticle: RSSArticle = RSSArticle()
-                    
-                    var title = article["title"].stringValue
-                    var link = article["link"].stringValue
-                    var pubString = article["dc:date"].stringValue
-                    var creator = article["dc:creator"].stringValue
-                    var description = article["description"].stringValue
-                    var subject = article["dc:subject"].stringValue
-                    
-                    rssArticle.title = title
-                    rssArticle.link = link
-                    rssArticle.rawDescription = description
-                    
-                    var formatter = NSDateFormatter()
-                    formatter.dateFormat = "yyyy-mm-dd"
-                    
-                    rssArticle.addCategory(subject)
-                    rssArticle.pubdate = formatter.dateFromString(pubString)
+                rssArticle.title = title
+                rssArticle.link = link
+                rssArticle.rawDescription = descriptionRaw
+                rssArticle.pubdate = NSDate().dateFromInternetDateTimeString(pubString, formatHint: .RFC822)
+                
+                if creator.rangeOfString("not found") != nil {
+                    rssArticle.creator = "Unknown"
+                } else {
                     rssArticle.creator = creator
-                    rssArticle.textDescription = description
-                    
-                    articles[rssArticle.title] = rssArticle
                 }
                 
+                rssArticle.textDescription = nsRawDes.stringByConvertingHTMLToPlainText()
+                
+                if let media = mediaContent as? String {
+                    if media.rangeOfString("not found") != nil {
+                        //String().fromHtmlEncodedString(descriptionRaw) //getDescriptionTextFromHTML(descriptionRaw)
+                        rssArticle.thumbnailURL = self.getThumbNailUrlFromRaw(descriptionRaw)
+                    } else {
+                        rssArticle.thumbnailURL = media
+                    }
+                } else {
+                    rssArticle.thumbnailURL = self.getThumbNailUrlFromRaw(descriptionRaw)
+                }
+                
+                articles[rssArticle.title] = rssArticle
+                
+                println(rssArticle.toString())
+                println("")
             }
-
+            
+            // RSS 0.91/RDF
+        } else if let items = xml.root["item"].all {
+            
+            for article in items {
+                var rssArticle: RSSArticle = RSSArticle()
+                
+                var title = article["title"].stringValue
+                var link = article["link"].stringValue
+                var pubString = article["dc:date"].stringValue
+                var creator = article["dc:creator"].stringValue
+                var description = article["description"].stringValue
+                var subject = article["dc:subject"].stringValue
+                
+                rssArticle.title = title
+                rssArticle.link = link
+                rssArticle.rawDescription = description
+                
+                var formatter = NSDateFormatter()
+                formatter.dateFormat = "yyyy-mm-dd"
+                
+                rssArticle.addCategory(subject)
+                rssArticle.pubdate = formatter.dateFromString(pubString)
+                rssArticle.creator = creator
+                rssArticle.textDescription = description
+                
+                articles[rssArticle.title] = rssArticle
+            }
+            
+        }
+        
         
         return articles
     }
-
+    
     func getDescriptionTextFromHTML(html: String) -> String {
         let str = html.stringByReplacingOccurrencesOfString("<[^>]+>", withString: "", options: .RegularExpressionSearch, range: nil)
         return str
     }
     
-
+    
     func getThumbNailUrlFromRaw(html: String) -> String {
         
-        // Note: using an HTML parser that doesn't support XHTML tags
-        //let removedInset = html.stringByReplacingOccurrencesOfString("<inset[^>]*>.*?</inset>", withString: "", options: .RegularExpressionSearch, range: nil)
-        //let strippedHtml = removedInset.stringByReplacingOccurrencesOfString("</img>", withString: "", range: nil)
-        
-        //let newHtml = "<html><head></head><body>" + strippedHtml + "</body>"
-        
         //let str = matchesForRegexInText("<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>", text: html)
-        /*
-        if(str.count > 0) {
-            return str[0]
-        }*/
         
         var url: NSString? = ""
         var theScanner = NSScanner(string: html)
@@ -190,34 +176,7 @@ class XMLParser: NSObject {
             }
         }
         
-        /*
-        var err : NSError?
-        var parser = HTMLParser(html: newHtml, error: &err)
-        if err != nil {
-            println(err)
-            return ""
-        }
-        
-        var bodyNode = parser.body
-        
-        if let inputNodes = bodyNode?.findChildTags("img") {
-            var src = inputNodes[0].getAttributeNamed("src")
-            return src
-        }*/
-        
         return ""
     }
     
-    /*
-    func matchesForRegexInText(regex: String!, text: String!) -> [String] {
-        
-        let regex = NSRegularExpression(pattern: regex,
-            options: nil, error: nil)!
-        let nsString = text as NSString
-        let results = regex.matchesInString(nsString,
-            options: nil, range: NSMakeRange(0, nsString.length))
-            as [NSTextCheckingResult]
-        return map(results) { nsString.substringWithRange($0.range)}
-    }*/
-
 }

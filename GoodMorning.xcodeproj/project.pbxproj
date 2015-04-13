@@ -27,7 +27,6 @@
 		5F412CDE1A811C2E004F8DE0 /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F412CDD1A811C2E004F8DE0 /* TaskManager.swift */; };
 		5F412CE61A814988004F8DE0 /* TaskAlertTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F412CE41A814988004F8DE0 /* TaskAlertTypeViewController.swift */; };
 		5F412CE71A814988004F8DE0 /* TaskAlertTypeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F412CE51A814988004F8DE0 /* TaskAlertTypeViewController.xib */; };
-		5F412CED1A815C69004F8DE0 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F412CEC1A815C69004F8DE0 /* AudioManager.swift */; };
 		5F412CF01A8162B2004F8DE0 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F412CEF1A8162B2004F8DE0 /* NotificationManager.swift */; };
 		5F412CFE1A8168CF004F8DE0 /* ambient.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5F412CF21A8168CF004F8DE0 /* ambient.wav */; };
 		5F412CFF1A8168CF004F8DE0 /* jungle.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5F412CF31A8168CF004F8DE0 /* jungle.wav */; };
@@ -41,6 +40,9 @@
 		5F472CF21A5F853B001E47CF /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F472CF11A5F853B001E47CF /* Networking.swift */; };
 		5F4A62A51A8C25D7003C6B18 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4A62A41A8C25D7003C6B18 /* SwiftyJSON.swift */; };
 		5F4A62AA1A8C2AC5003C6B18 /* BoolExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4A62A91A8C2AC5003C6B18 /* BoolExtensions.swift */; };
+		5F4E5A601AB9C454001A198C /* GMStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4E5A5F1AB9C454001A198C /* GMStrings.swift */; };
+		5F4E5A621AB9C473001A198C /* GMConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4E5A611AB9C473001A198C /* GMConstants.swift */; };
+		5F4E5A641AB9C5F0001A198C /* GMStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5F4E5A631AB9C5F0001A198C /* GMStrings.strings */; };
 		5F549D4F1A9024CF00BC727B /* SCLAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F549D4E1A9024CF00BC727B /* SCLAlertView.swift */; };
 		5F6110AB1A41F4DD00B83410 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F6110A51A41F48000B83410 /* CFNetwork.framework */; };
 		5F6110AC1A41F4E500B83410 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F6110A71A41F48800B83410 /* CoreGraphics.framework */; };
@@ -136,7 +138,6 @@
 		5F93A36E1A7EEFA20059829F /* TaskNotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F93A36C1A7EEFA20059829F /* TaskNotesViewController.swift */; };
 		5F93A36F1A7EEFA20059829F /* TaskNotesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F93A36D1A7EEFA20059829F /* TaskNotesViewController.xib */; };
 		5FA383EC1A4208AE0013B102 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FA383EA1A4208A30013B102 /* CoreLocation.framework */; };
-		5FB5ED041AABA08600266410 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FB5ED021AAB9ABB00266410 /* libxml2.dylib */; };
 		5FB7FCF31AABBCEC0041B10A /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB7FCF11AABBCEC0041B10A /* ArticleViewController.swift */; };
 		5FB7FCF41AABBCEC0041B10A /* ArticleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FB7FCF21AABBCEC0041B10A /* ArticleViewController.xib */; };
 		5FB7FCFA1AABEBF40041B10A /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB7FCF81AABEBF40041B10A /* WebViewController.swift */; };
@@ -166,8 +167,6 @@
 		5FE864171A41ECEA00BB8808 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5FE864161A41ECEA00BB8808 /* Images.xcassets */; };
 		5FE8641A1A41ECEA00BB8808 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FE864181A41ECEA00BB8808 /* LaunchScreen.xib */; };
 		5FE864261A41ECEA00BB8808 /* GoodMorningTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE864251A41ECEA00BB8808 /* GoodMorningTests.swift */; };
-		5FEDC4341AAB948C00E2565C /* HTMLNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FEDC4321AAB948C00E2565C /* HTMLNode.swift */; };
-		5FEDC4351AAB948C00E2565C /* HTMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FEDC4331AAB948C00E2565C /* HTMLParser.swift */; };
 		5FEEC25A1A79CDC800E2C452 /* TaskTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FEEC2581A79CDC800E2C452 /* TaskTypeViewController.swift */; };
 		5FEEC25B1A79CDC800E2C452 /* TaskTypeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FEEC2591A79CDC800E2C452 /* TaskTypeViewController.xib */; };
 		5FEEC2601A79DB0800E2C452 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FEEC25F1A79DB0800E2C452 /* DateExtensions.swift */; };
@@ -285,7 +284,6 @@
 		5F412CDD1A811C2E004F8DE0 /* TaskManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskManager.swift; sourceTree = "<group>"; };
 		5F412CE41A814988004F8DE0 /* TaskAlertTypeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskAlertTypeViewController.swift; sourceTree = "<group>"; };
 		5F412CE51A814988004F8DE0 /* TaskAlertTypeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaskAlertTypeViewController.xib; sourceTree = "<group>"; };
-		5F412CEC1A815C69004F8DE0 /* AudioManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 		5F412CEF1A8162B2004F8DE0 /* NotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		5F412CF21A8168CF004F8DE0 /* ambient.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ambient.wav; sourceTree = "<group>"; };
 		5F412CF31A8168CF004F8DE0 /* jungle.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = jungle.wav; sourceTree = "<group>"; };
@@ -299,6 +297,9 @@
 		5F472CF11A5F853B001E47CF /* Networking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		5F4A62A41A8C25D7003C6B18 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		5F4A62A91A8C2AC5003C6B18 /* BoolExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoolExtensions.swift; sourceTree = "<group>"; };
+		5F4E5A5F1AB9C454001A198C /* GMStrings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GMStrings.swift; sourceTree = "<group>"; };
+		5F4E5A611AB9C473001A198C /* GMConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GMConstants.swift; sourceTree = "<group>"; };
+		5F4E5A631AB9C5F0001A198C /* GMStrings.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = GMStrings.strings; path = ../GMStrings.strings; sourceTree = "<group>"; };
 		5F549D4E1A9024CF00BC727B /* SCLAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCLAlertView.swift; sourceTree = "<group>"; };
 		5F6110A11A41F45A00B83410 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		5F6110A31A41F47100B83410 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -397,7 +398,6 @@
 		5F93A36C1A7EEFA20059829F /* TaskNotesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskNotesViewController.swift; sourceTree = "<group>"; };
 		5F93A36D1A7EEFA20059829F /* TaskNotesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaskNotesViewController.xib; sourceTree = "<group>"; };
 		5FA383EA1A4208A30013B102 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		5FB5ED021AAB9ABB00266410 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = System/Library/Frameworks/libxml2.dylib; sourceTree = SDKROOT; };
 		5FB7FCF11AABBCEC0041B10A /* ArticleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleViewController.swift; sourceTree = "<group>"; };
 		5FB7FCF21AABBCEC0041B10A /* ArticleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArticleViewController.xib; sourceTree = "<group>"; };
 		5FB7FCF81AABEBF40041B10A /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
@@ -431,8 +431,6 @@
 		5FE8641F1A41ECEA00BB8808 /* GoodMorningTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoodMorningTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5FE864241A41ECEA00BB8808 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5FE864251A41ECEA00BB8808 /* GoodMorningTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodMorningTests.swift; sourceTree = "<group>"; };
-		5FEDC4321AAB948C00E2565C /* HTMLNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTMLNode.swift; sourceTree = "<group>"; };
-		5FEDC4331AAB948C00E2565C /* HTMLParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTMLParser.swift; sourceTree = "<group>"; };
 		5FEDC4361AAB994900E2565C /* GoodMorning.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = GoodMorning.xcodeproj; sourceTree = "<group>"; };
 		5FEEC2581A79CDC800E2C452 /* TaskTypeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskTypeViewController.swift; sourceTree = "<group>"; };
 		5FEEC2591A79CDC800E2C452 /* TaskTypeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaskTypeViewController.xib; sourceTree = "<group>"; };
@@ -446,7 +444,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5FB5ED041AABA08600266410 /* libxml2.dylib in Frameworks */,
 				5F6110B81A41F57400B83410 /* SystemConfiguration.framework in Frameworks */,
 				5FA383EC1A4208AE0013B102 /* CoreLocation.framework in Frameworks */,
 				5F6110BB1A41F58700B83410 /* UIKit.framework in Frameworks */,
@@ -525,6 +522,8 @@
 				5FD1A3B11A86E83500842FB2 /* JSONParser.swift */,
 				5F4A62A91A8C2AC5003C6B18 /* BoolExtensions.swift */,
 				5F396BE21A9573EF009F6525 /* XMLParser.swift */,
+				5F4E5A5F1AB9C454001A198C /* GMStrings.swift */,
+				5F4E5A611AB9C473001A198C /* GMConstants.swift */,
 			);
 			name = Utilites;
 			sourceTree = "<group>";
@@ -563,6 +562,8 @@
 		5F6110BC1A41F59200B83410 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5F4E5A631AB9C5F0001A198C /* GMStrings.strings */,
+				5FE307751AB1109100B51547 /* GoodMorning.xcdatamodel */,
 				5F412D0B1A816A17004F8DE0 /* jpeg */,
 				5F412CEE1A815F60004F8DE0 /* sounds */,
 				5F7A9C8E1A5CC24F00C595B7 /* png */,
@@ -571,15 +572,6 @@
 				5FE864161A41ECEA00BB8808 /* Images.xcassets */,
 			);
 			name = Resources;
-			sourceTree = "<group>";
-		};
-		5F6BF1B31AAD46C600E8B9EF /* HTMLParser */ = {
-			isa = PBXGroup;
-			children = (
-				5FEDC4321AAB948C00E2565C /* HTMLNode.swift */,
-				5FEDC4331AAB948C00E2565C /* HTMLParser.swift */,
-			);
-			name = HTMLParser;
 			sourceTree = "<group>";
 		};
 		5F6BF1B41AAD46DB00E8B9EF /* AEXML */ = {
@@ -646,7 +638,6 @@
 				5F6BF1B61AAD470C00E8B9EF /* SwiftyJSON */,
 				5F6BF1B51AAD46E500E8B9EF /* MWFeedParser */,
 				5F6BF1B41AAD46DB00E8B9EF /* AEXML */,
-				5F6BF1B31AAD46C600E8B9EF /* HTMLParser */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -783,7 +774,6 @@
 				5F472CE91A5EFF2D001E47CF /* InstallManager.swift */,
 				5FC1FF1F1A6473BC00253E6C /* UserDefaultsManager.swift */,
 				5F412CDD1A811C2E004F8DE0 /* TaskManager.swift */,
-				5F412CEC1A815C69004F8DE0 /* AudioManager.swift */,
 				5F412CEF1A8162B2004F8DE0 /* NotificationManager.swift */,
 				5F396BD71A956C3F009F6525 /* NewsManager.swift */,
 				5FE307771AB11E6100B51547 /* CoreDataManager.swift */,
@@ -861,7 +851,6 @@
 		5FE863FF1A41ECEA00BB8808 = {
 			isa = PBXGroup;
 			children = (
-				5FB5ED021AAB9ABB00266410 /* libxml2.dylib */,
 				5FEDC4361AAB994900E2565C /* GoodMorning.xcodeproj */,
 				5FE8640A1A41ECEA00BB8808 /* GoodMorning */,
 				5FE864221A41ECEA00BB8808 /* GoodMorningTests */,
@@ -883,7 +872,6 @@
 		5FE8640A1A41ECEA00BB8808 /* GoodMorning */ = {
 			isa = PBXGroup;
 			children = (
-				5FE307751AB1109100B51547 /* GoodMorning.xcdatamodel */,
 				5F6110AA1A41F4BD00B83410 /* Frameworks */,
 				5F6110A91A41F4AA00B83410 /* Classes */,
 				5F6110BC1A41F59200B83410 /* Resources */,
@@ -1072,6 +1060,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5F7A9CE31A5CC24F00C595B7 /* search67.png in Resources */,
+				5F4E5A641AB9C5F0001A198C /* GMStrings.strings in Resources */,
 				5F8C67941A9D79710082D994 /* FeedViewController.xib in Resources */,
 				5FE864151A41ECEA00BB8808 /* Main.storyboard in Resources */,
 				5F7A9D051A5CC24F00C595B7 /* n_tornado.png in Resources */,
@@ -1185,7 +1174,6 @@
 				5F472CF21A5F853B001E47CF /* Networking.swift in Sources */,
 				5F472CEA1A5EFF2D001E47CF /* InstallManager.swift in Sources */,
 				5FEEC2601A79DB0800E2C452 /* DateExtensions.swift in Sources */,
-				5F412CED1A815C69004F8DE0 /* AudioManager.swift in Sources */,
 				5F6BF1C11AAD476600E8B9EF /* NSString+HTML.m in Sources */,
 				5F744B7B1A421C8E00F4C675 /* NewsViewController.swift in Sources */,
 				5FB7FCF31AABBCEC0041B10A /* ArticleViewController.swift in Sources */,
@@ -1205,6 +1193,7 @@
 				5F396BD81A956C3F009F6525 /* NewsManager.swift in Sources */,
 				5F93A36A1A7ED8190059829F /* TaskRepeatTypeViewController.swift in Sources */,
 				5F3D129F1A91079800EF52D8 /* NewsPopoverViewController.swift in Sources */,
+				5F4E5A621AB9C473001A198C /* GMConstants.swift in Sources */,
 				5FD5362D1AAE82F1006AF8AA /* NewsResultsViewController.swift in Sources */,
 				5FE3073D1AB0F7E800B51547 /* HubViewController.swift in Sources */,
 				5F396BE51A9582BE009F6525 /* NSDate+InternetDateTime.swift in Sources */,
@@ -1221,20 +1210,19 @@
 				5F4A62AA1A8C2AC5003C6B18 /* BoolExtensions.swift in Sources */,
 				5F744B381A420B2400F4C675 /* Task.swift in Sources */,
 				5F396BE11A957129009F6525 /* AEXML.swift in Sources */,
-				5FEDC4341AAB948C00E2565C /* HTMLNode.swift in Sources */,
 				5FE307781AB11E6100B51547 /* CoreDataManager.swift in Sources */,
 				5F7F372C1A425956004B7439 /* Settings.swift in Sources */,
 				5FC1FF201A6473BC00253E6C /* UserDefaultsManager.swift in Sources */,
 				5F744B771A421C3A00F4C675 /* TasksViewController.swift in Sources */,
 				5FDE45441A784BC300608EC8 /* StringExtensions.swift in Sources */,
 				5F80FF151A43B30B00727E25 /* InstallViewController.swift in Sources */,
-				5FEDC4351AAB948C00E2565C /* HTMLParser.swift in Sources */,
 				5FE8640E1A41ECEA00BB8808 /* AppDelegate.swift in Sources */,
 				5F8C67931A9D79710082D994 /* FeedViewController.swift in Sources */,
 				5F3D12A41A910D0300EF52D8 /* RSSType.swift in Sources */,
 				5F93A36E1A7EEFA20059829F /* TaskNotesViewController.swift in Sources */,
 				5F744B791A421C7E00F4C675 /* WeatherViewController.swift in Sources */,
 				5F3D12B31A912BED00EF52D8 /* NewsPreviewViewController.swift in Sources */,
+				5F4E5A601AB9C454001A198C /* GMStrings.swift in Sources */,
 				5FC1FF1C1A646F8200253E6C /* Reachability.swift in Sources */,
 				5FDE45421A784B6C00608EC8 /* ViewExtensions.swift in Sources */,
 				5F8C679E1A9D7DE40082D994 /* RSSArticle.swift in Sources */,

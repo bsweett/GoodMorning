@@ -24,7 +24,13 @@ class CoreDataManager: NSObject {
     
     //MARK: - General
     
-    // NOTE: it will always return a list even if only one object (ie weather)
+    /**
+    Gets a list of all objects stored in an coredata entity by name
+    
+    :param: name the name of the entity to fetch from
+    
+    :returns: a list of managedobjects or an empty list if none were found
+    */
     func getObjectListForEntity(name: String) -> [NSManagedObject] {
         
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
@@ -45,7 +51,11 @@ class CoreDataManager: NSObject {
         return []
     }
     
-    //NOTE: Clear all objects before writing new ones
+    /**
+    Clears all the objects in a given entity table
+    
+    :param: entity The name of the entity table
+    */
     func clearAllObjectsInEntity(entity: String) {
         
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
@@ -74,6 +84,14 @@ class CoreDataManager: NSObject {
         
     }
     
+    
+    //MARK: - Articles
+    
+    /**
+    Clears all the articles from a given feed in the Feeds
+    
+    :param: feedname The feed whose articles should be cleared
+    */
     func clearArticlesWithFeedName(feedname: String) {
         
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
@@ -105,8 +123,12 @@ class CoreDataManager: NSObject {
         
     }
     
-    //MARK: - Articles
+    /**
+    Saves an RSSArticle to the feed table with a given feedname
     
+    :param: article  The article object to store
+    :param: feedname The name of the feed that the object came from
+    */
     func saveArticle(article: RSSArticle, feedname: String) {
         
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
@@ -134,6 +156,11 @@ class CoreDataManager: NSObject {
     
     //MARK: - Alarms
     
+    /**
+    Saves a task object that is of type alarm to the alarm table
+    
+    :param: alarm The alarm task to save
+    */
     func saveAlarm(alarm: Task) {
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         
@@ -165,6 +192,11 @@ class CoreDataManager: NSObject {
     
     //MARK: - Weather
     
+    /**
+    Saves the current weather object to core data
+    
+    :param: weather The updated weather object to store
+    */
     func saveWeather(weather: Weather) {
         
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate

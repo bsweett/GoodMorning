@@ -24,8 +24,14 @@ class NotificationManager {
         return Static.instance!
     }
     
+    // The unread notification count to display as a badge
     var unreadNotifCount = 0
     
+    /**
+    Schedules a notificaiton for a given task
+    
+    :param: task The task object to schedule the notification from
+    */
     func scheduleNotificationForTask(task: Task) {
         unreadNotifCount++
         
@@ -43,6 +49,11 @@ class NotificationManager {
         }
     }
     
+    /**
+    A notification testing function. Used only for testing and development
+    
+    :param: task A task to test a notifiction scheduling
+    */
     private func notificationTest(task: Task) {
         var notes: String = ""
         task.notes.isEmpty ? (notes = "") : (notes = " - " + task.notes)
@@ -58,6 +69,11 @@ class NotificationManager {
         UIApplication.sharedApplication().scheduleLocalNotification(notification)
     }
     
+    /**
+    Schedules a notification the repeats at the same time everyday
+    
+    :param: task A task to schedule
+    */
     private func scheduleNotificationForEveryDay(task: Task) {
         
         var notification = UILocalNotification()
@@ -72,6 +88,11 @@ class NotificationManager {
         UIApplication.sharedApplication().scheduleLocalNotification(notification)
     }
     
+    /**
+    Schedules a notification that fires once and never repeats
+    
+    :param: task A task to schedule
+    */
     private func scheduleNotificationForOnce(task: Task) {
   
         var notification = UILocalNotification()
@@ -85,6 +106,11 @@ class NotificationManager {
         UIApplication.sharedApplication().scheduleLocalNotification(notification)
     }
     
+    /**
+    Schedules a notification that fires on specific days
+    
+    :param: task A task to schedule
+    */
     private func scheduleNotificationsForCustomDays(task: Task) {
         
         if task.sun {
@@ -117,6 +143,12 @@ class NotificationManager {
         
     }
     
+    /**
+    Schedules a notification that fires on a given date
+    
+    :param: task A task to schedule
+    :param: date A date to fire it on
+    */
     private func scheduleNotificationsForDayWeekly(task: Task, date: NSDate) {
         
         var notification = UILocalNotification()
@@ -131,7 +163,13 @@ class NotificationManager {
         UIApplication.sharedApplication().scheduleLocalNotification(notification)
     }
     
-    // 1 sunday ... 7 saturday
+    /**
+    Gets a specific date based on the day of the week given (1 - 7, Sunday - Saturday)
+    
+    :param: day A number between 1 - 7 to get the date
+    
+    :returns: the next date that matches the day of the week
+    */
     private func getDateOfSpecificDay(day: Int) -> NSDate {
         var range = NSCalendar.currentCalendar().maximumRangeOfUnit(NSCalendarUnit.WeekdayCalendarUnit)
         var daysInWeek = range.length - range.location + 1
@@ -145,11 +183,23 @@ class NotificationManager {
         return resultDate!
     }
     
+    /**
+    Updates the notifications that are already scheduled for a given task
+    
+    :param: task The task to update the notifications for
+    */
     func updateNotificationForTask(task: Task) {
         cancelNotificationsForTask(task)
         scheduleNotificationForTask(task)
     }
     
+    /**
+    Gets a list of notifications based on a given task
+    
+    :param: task The task to get the notifcations of
+    
+    :returns: A list of LocalNotifications
+    */
     func findNotificationsForTask(task: Task) -> [UILocalNotification] {
         var list = [UILocalNotification]()
         
@@ -167,6 +217,11 @@ class NotificationManager {
         return list
     }
     
+    /**
+    Cancels all active notifications for a given task
+    
+    :param: task The task to cancel notifications of
+    */
     func cancelNotificationsForTask(task: Task) {
         
         var app: UIApplication = UIApplication.sharedApplication()

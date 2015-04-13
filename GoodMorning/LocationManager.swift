@@ -26,12 +26,20 @@ class LocationManager : NSObject, CLLocationManagerDelegate {
         return Static.instance!
     }
     
+    /**
+    Initializes the location manager
+    
+    :returns: nil
+    */
     override init() {
         super.init()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
     }
     
+    /**
+    Asks the location manager to update the current location if it is supported
+    */
     func update() {
         
         if ( ios8() ) {
@@ -43,41 +51,61 @@ class LocationManager : NSObject, CLLocationManagerDelegate {
             }
         }
         
-        NSNotificationCenter.defaultCenter().postNotificationName("LocationDisabled", object: nil)
+        NSNotificationCenter.defaultCenter().postNotificationName(kLocationDisabled, object: nil)
     }
     
+    /**
+    Stops updating the location
+    */
     func stopUpdate() {
         locationManager.stopUpdatingLocation()
     }
     
-    // Location delegate methods
+    
+    //MARK: - Location delegate methods
+    
+    /**
+    Tells the app that new location data is available. Sends the new location data to the weather manager
+    
+    :param: manager   The location manager object that generated the update event.
+    :param: locations An array of CLLocation objects containing the location data.
+    */
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
         var location:CLLocation = locations[locations.count-1] as CLLocation
         
         if (location.horizontalAccuracy > 0) {
             self.stopUpdate()
-            
-            println("updated location")
-            
             self.weatherManager.getWeatherForLocation(location.coordinate.latitude, longitude: location.coordinate.longitude)
         }
     }
     
+    /**
+    Tells the app that the location manager was unable to retrieve a location value.
+    
+    :param: manager The location manager object that was unable to retrieve the location.
+    :param: error   The error object containing the reason the location or heading could not be retrieved.
+    */
     func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
         
         if error.code == CLError.LocationUnknown.rawValue {
-            NSNotificationCenter.defaultCenter().postNotificationName("LocationUnknown", object: nil)
+            NSNotificationCenter.defaultCenter().postNotificationName(kLocationUnknown, object: nil)
             
         } else if error.code == CLError.Denied.rawValue {
-            NSNotificationCenter.defaultCenter().postNotificationName("LocationDenied", object: nil)
+            NSNotificationCenter.defaultCenter().postNotificationName(kLocationDenied, object: nil)
             
         } else {
-            println("Unknown location error: ", error)
+            NSLog("Unknown location error: %@", error)
             
         }
 
     }
     
+    /**
+    Tells the app that the authorization status for the application changed.
+    
+    :param: manager The location manager object reporting the event.
+    :param: status  The new authorization status for the application.
+    */
     func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         
         if(status == CLAuthorizationStatus.NotDetermined) {
@@ -85,7 +113,7 @@ class LocationManager : NSObject, CLLocationManagerDelegate {
             
             // Might not need this if we just try to update all the time and have the error handler catch the denied option
         } else if(status == CLAuthorizationStatus.Denied || status == CLAuthorizationStatus.Restricted) {
-            NSNotificationCenter.defaultCenter().postNotificationName("LocationDenied", object: nil)
+            NSNotificationCenter.defaultCenter().postNotificationName(kLocationDenied, object: nil)
             
         } else if(status == CLAuthorizationStatus.AuthorizedWhenInUse || status == CLAuthorizationStatus.AuthorizedAlways) {
             locationManager.startUpdatingLocation()

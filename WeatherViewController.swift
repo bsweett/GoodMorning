@@ -213,15 +213,15 @@ class WeatherViewController : UIViewController {
         
         let reason = getUserInfoValueForKey(notification.userInfo, "reason")
         let message = getUserInfoValueForKey(notification.userInfo, "message")
-        SCLAlertView().showWarning("Internal Server Error",
-            subTitle:  reason + " - " + message, closeButtonTitle: "Dismiss")
+        SCLAlertView().showWarning(internalErrTitle,
+            subTitle:  reason + " - " + message, closeButtonTitle: dismissButTitle)
     }
     
     // TODO: Better message to user if they disable it after installing
     func receivedLocationAuthorizeProblem(notification: NSNotification) {
         stopLoading()
         SCLAlertView().showWarning("Location Services Disallowed",
-            subTitle: "Because you have disallowed location services you are required to enter your country and city in order to use GoodMorning", closeButtonTitle: "Ok")
+            subTitle: "Because you have disallowed location services you are required to enter your country and city in order to use GoodMorning", closeButtonTitle: okButTitle)
     }
 
 }
