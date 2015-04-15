@@ -42,9 +42,9 @@ class ArticleViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedNetworkError:", name:"NetworkError", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name:"InternalServerError", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name:"InvalidFeedResponse", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedNetworkError:", name: kNetworkError, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name: kInternalServerError, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name: kInvalidFeedResponse, object: nil)
         
         titleLabel.text = article.title
         
@@ -61,8 +61,6 @@ class ArticleViewController: UIViewController {
         
         var range = article.textDescription.rangeOfString("^\\s*", options: NSStringCompareOptions.RegularExpressionSearch)
         var trimmedContent = article.textDescription.stringByReplacingCharactersInRange(range!, withString: "")
-        
-        //let trimmedContent = article.textDescription.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
         let spacedContent = trimmedContent.stringByReplacingOccurrencesOfString("  ", withString: "\n\n")
         contentLabel.text = spacedContent
 
@@ -102,6 +100,14 @@ class ArticleViewController: UIViewController {
         self.websiteWebView.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
         self.websiteWebView.modalTransitionStyle = UIModalTransitionStyle.FlipHorizontal
         self.navigationController?.presentViewController(websiteWebView, animated: true, completion: nil)
+    }
+    
+    func receivedNetworkError(notif: NSNotification) {
+        
+    }
+    
+    func receivedInternalServerError(notif: NSNotification) {
+        
     }
 
 }

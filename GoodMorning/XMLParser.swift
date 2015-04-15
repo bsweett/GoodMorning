@@ -93,7 +93,6 @@ class XMLParser: NSObject {
                 
                 if let media = mediaContent as? String {
                     if media.rangeOfString("not found") != nil {
-                        //String().fromHtmlEncodedString(descriptionRaw) //getDescriptionTextFromHTML(descriptionRaw)
                         rssArticle.thumbnailURL = self.getThumbNailUrlFromRaw(descriptionRaw)
                     } else {
                         rssArticle.thumbnailURL = media
@@ -104,8 +103,7 @@ class XMLParser: NSObject {
                 
                 articles[rssArticle.title] = rssArticle
                 
-                println(rssArticle.toString())
-                println("")
+                //println(rssArticle.toString())
             }
             
             // RSS 0.91/RDF
@@ -148,10 +146,7 @@ class XMLParser: NSObject {
     }
     
     
-    func getThumbNailUrlFromRaw(html: String) -> String {
-        
-        //let str = matchesForRegexInText("<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>", text: html)
-        
+    func getThumbNailUrlFromRaw(html: String) -> String {        
         var url: NSString? = ""
         var theScanner = NSScanner(string: html)
         // find start of IMG tag

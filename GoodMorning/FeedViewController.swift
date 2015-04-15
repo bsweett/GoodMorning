@@ -59,10 +59,10 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         super.viewWillAppear(animated)
         self.title = rssfeed.title
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedNetworkError:", name:"NetworkError", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name:"InternalServerError", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name:"InvalidFeedResponse", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedListUpdate:", name:"ArticleListUpdated", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedNetworkError:", name: kNetworkError, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name: kInternalServerError, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name: kInvalidFeedResponse, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedListUpdate:", name: kArticleListUpdated, object: nil)
     }
     
     override func viewDidAppear(animated: Bool) {

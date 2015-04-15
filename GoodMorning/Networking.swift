@@ -56,7 +56,7 @@ class Networking: NSObject {
             
             if (error != nil) {
                 println( error?.localizedDescription)
-                NSNotificationCenter.defaultCenter().postNotificationName("NetworkError", object: nil)
+                NSNotificationCenter.defaultCenter().postNotificationName(kNetworkError, object: nil)
                 
             } else {
                 let json = JSON(json!)
@@ -66,7 +66,7 @@ class Networking: NSObject {
                 
                 if(reason == "Exception" && message != "") {
                     dictionary["message"] = message
-                    NSNotificationCenter.defaultCenter().postNotificationName("InternalServerError", object: nil, userInfo: dictionary)
+                    NSNotificationCenter.defaultCenter().postNotificationName(kInternalServerError, object: nil, userInfo: dictionary)
                     
                 } else if(reason == "" && message != "") {
                     // Generic message from server
@@ -95,7 +95,7 @@ class Networking: NSObject {
             
             if (error != nil) {
                 println( error?.localizedDescription)
-                NSNotificationCenter.defaultCenter().postNotificationName("NetworkError", object: nil)
+                NSNotificationCenter.defaultCenter().postNotificationName(kNetworkError, object: nil)
                 
             } else {
                 let xmlData = string?.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
@@ -108,7 +108,7 @@ class Networking: NSObject {
                     
                     if(reason == "Exception" && message != "") {
                         dictionary["message"] = message
-                        NSNotificationCenter.defaultCenter().postNotificationName("InternalServerError", object: nil, userInfo: dictionary)
+                        NSNotificationCenter.defaultCenter().postNotificationName(kInternalServerError, object: nil, userInfo: dictionary)
                         
                     } else if(reason == "" && message != "") {
                         // Generic message from server

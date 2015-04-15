@@ -11,9 +11,8 @@ import UIKit
 class WebViewController: UIViewController, UIWebViewDelegate {
 
     @IBOutlet weak var articleWebView: UIWebView!
-    @IBOutlet weak var progressBar: UIProgressView!
+    @IBOutlet weak var loader: UIActivityIndicatorView!
     private var isDoneLoading: Bool!
-    private var myTimer: NSTimer!
     
     private var nsUrl: NSURL!
     
@@ -65,34 +64,15 @@ class WebViewController: UIViewController, UIWebViewDelegate {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    func timerCallBack() {
-        if(isDoneLoading == true) {
-            if (progressBar.progress >= 1) {
-                //progressBar.hidden = true;
-                myTimer.invalidate()
-            } else {
-                progressBar.progress += 0.1;
-            }
-        } else {
-            progressBar.progress += 0.05
-            if(progressBar.progress >= 0.95) {
-                progressBar.progress = 0.95
-            }
-        }
-    }
     
     //MARK: - WebView Delegate
     
     func webViewDidStartLoad(webView: UIWebView) {
-        //progressBar.hidden = false
-        progressBar.progress = 0
-        isDoneLoading = false
-        
-        myTimer = NSTimer.scheduledTimerWithTimeInterval(0.01667, target: self, selector: Selector("timerCallBack"), userInfo: nil, repeats: true)
+        loader.startAnimating()
     }
     
     func webViewDidFinishLoad(webView: UIWebView) {
-        isDoneLoading = true
+        loader.stopAnimating()
     }
 
 }

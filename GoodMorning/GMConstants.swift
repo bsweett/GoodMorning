@@ -54,6 +54,7 @@ let kTaskUpdated = "TaskUpdated"
 let kTaskListUpdated = "TaskListUpdated"
 let kAlarmListUpdated = "AlarmListUpdated"
 
+let kFeedlyResultsFound = "FeedlyResultsFound"
 let kInvalidFeedResponse = "InvalidFeedResponse"
 let kFeedListUpdated = "FeedListUpdated"
 let kNewsAdded = "NewsAdded"
@@ -61,6 +62,8 @@ let kArticleListUpdated = "ArticleListUpdated"
 
 let kInvalidInstallResponse = "InvalidInstallResponse"
 let kSafeToInstall = "SafeToInstall"
+let kInstallComplete = "InstallComplete"
+let kExistingAccountFound = "ExistingAccountFound"
 
 let kLocationDisabled = "LocationDisabled"
 let kLocationDenied = "LocationDenied"

@@ -69,14 +69,12 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         
         self.navigationItem.title = "Hub"
         self.navigationItem.rightBarButtonItem = nil
-        //self.navigationController?.navigationBar.backgroundColor = gmBlueColor
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"gm_settings"), style: .Bordered, target: self, action: Selector("settingsTapped:"))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named:"gm_refresh"), style: .Bordered, target: self.getHub(), action: Selector("refreshTapped:"))
         
         self.currentViewController = self.getHub()!
         
         self.setPageControl()
-        
     }
     
     func displayTasksView() {
@@ -88,7 +86,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         appearance.pageIndicatorTintColor = UIColor.whiteColor()
         appearance.currentPageIndicatorTintColor = UIColor.blackColor()
         appearance.numberOfPages = 4
-        appearance.backgroundColor = gmOrangeColor //UIColor(red: (247/255.0), green: (247/255.0), blue: (247/255.0), alpha: 1)
+        appearance.backgroundColor = gmOrangeColor
     }
     
     override func didReceiveMemoryWarning() {
@@ -190,7 +188,6 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
     }
     
     @IBAction func settingsTapped(sender: UIBarButtonItem) {
-        // only supported in iOS8
         if( ios8() ) {
             UIApplication.sharedApplication().openURL(NSURL(string:UIApplicationOpenSettingsURLString)!)
         }

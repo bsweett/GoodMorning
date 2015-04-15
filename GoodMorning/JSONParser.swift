@@ -32,13 +32,13 @@ class JSONParser: NSObject {
     func parseInstallUserData(userData: JSON) {
         let user: User = self.parseUserJSON(userData)
         let dictionary = ["user": user]
-        NSNotificationCenter.defaultCenter().postNotificationName("InstallComplete", object: self, userInfo: dictionary)
+        NSNotificationCenter.defaultCenter().postNotificationName(kInstallComplete, object: self, userInfo: dictionary)
     }
     
     func parseExistingUserData(userData: JSON) {
         let user: User = self.parseUserJSON(userData)
         let dictionary = ["user": user]
-        NSNotificationCenter.defaultCenter().postNotificationName("ExistingAccountFound", object: self, userInfo: dictionary)
+        NSNotificationCenter.defaultCenter().postNotificationName(kExistingAccountFound, object: self, userInfo: dictionary)
     }
     
     private func parseUserJSON(userData: JSON) -> User {
@@ -104,7 +104,7 @@ class JSONParser: NSObject {
     
     func parseAllTasks(taskData: JSON) {
         let taskList: Dictionary<String, Task>! = parseTaskList(taskData)
-        NSNotificationCenter.defaultCenter().postNotificationName("TaskListUpdated", object: self, userInfo: taskList)
+        NSNotificationCenter.defaultCenter().postNotificationName(kTaskListUpdated, object: self, userInfo: taskList)
     }
     
     func parseAlarmTasks(taskData: JSON) {
@@ -115,7 +115,7 @@ class JSONParser: NSObject {
             CoreDataManager.sharedInstance.saveAlarm(alarm)
         }
         
-        NSNotificationCenter.defaultCenter().postNotificationName("AlarmListUpdated", object: self, userInfo: taskList)
+        NSNotificationCenter.defaultCenter().postNotificationName(kAlarmListUpdated, object: self, userInfo: taskList)
     }
     
     private func parseTaskList(taskData: JSON) -> Dictionary<String, Task> {
@@ -202,12 +202,12 @@ class JSONParser: NSObject {
             resultList[rss.title] = rss
         }
         
-        NSNotificationCenter.defaultCenter().postNotificationName("FeedlyResultsFound", object: self, userInfo: resultList)
+        NSNotificationCenter.defaultCenter().postNotificationName(kFeedlyResultsFound, object: self, userInfo: resultList)
     }
     
     func parseAllFeeds(feedData: JSON) {
         let feedList: Dictionary<String, RSSFeed>! = parseFeedList(feedData)
-        NSNotificationCenter.defaultCenter().postNotificationName("FeedListUpdated", object: self, userInfo: feedList)
+        NSNotificationCenter.defaultCenter().postNotificationName(kFeedListUpdated, object: self, userInfo: feedList)
     }
     
     private func parseFeedList(feedData: JSON) -> Dictionary<String, RSSFeed> {

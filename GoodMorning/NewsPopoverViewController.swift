@@ -53,7 +53,7 @@ class NewsPopoverViewController: UIViewController, UITextFieldDelegate, UIPicker
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedNetworkError:", name: kNetworkError, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name: kInternalServerError, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedSearchResults:", name:"FeedlyResultsFound", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedSearchResults:", name: kFeedlyResultsFound, object: nil)
     }
     
     override func viewDidDisappear(animated: Bool) {

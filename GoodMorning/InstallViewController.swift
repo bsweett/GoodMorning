@@ -67,16 +67,16 @@ class InstallViewController : UIViewController, UITextFieldDelegate {
     
     override func viewDidAppear(animated: Bool) {
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedNetworkError:", name:"NetworkError", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name:"InternalServerError", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name:"InvalidInstallResponse", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInstallComplete:", name:"InstallComplete", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationAuthorizeProblem:", name:"LocationDenied", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationAuthorizeProblem:", name:"LocationDisabled", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationUnknown:", name:"LocationUnknown", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedNetworkError:", name: kNetworkError, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name: kInternalServerError, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name: kInvalidInstallResponse, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInstallComplete:", name: kInstallComplete, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationAuthorizeProblem:", name: kLocationDenied, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationAuthorizeProblem:", name: kLocationDisabled, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationUnknown:", name: kLocationUnknown, object: nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedExistingUserData:", name:"ExistingAccountFound", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedCleanInstall:", name:"SafeToInstall", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedExistingUserData:", name: kExistingAccountFound, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedCleanInstall:", name: kSafeToInstall, object: nil)
         
         resetErrorLabelsAndColorsForField(nameField)
         resetErrorLabelsAndColorsForField(emailField)
