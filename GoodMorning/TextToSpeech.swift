@@ -15,19 +15,18 @@ class TextToSpeech: NSObject {
     let synth = AVSpeechSynthesizer()
     var myUtterance = AVSpeechUtterance(string: "")
     var enabled = false
+    var rate: Float = 0.1
     
-    init(enabled: Bool) {
-        self.enabled = enabled
+    override init() {
+        self.enabled = UserDefaultsManager.sharedInstance.getSpeechEnabledOption()
+        self.rate = UserDefaultsManager.sharedInstance.getSpeechRateOption()
     }
     
     func speak(words: String) {
         
         if enabled == true {
             myUtterance = AVSpeechUtterance(string: words)
-            
-            // TODO: Can change language
-            //myUtterance.voice = AVSpeechSynthesisVoice.language("")
-            myUtterance.rate = 0.1
+            myUtterance.rate = rate
             synth.speakUtterance(myUtterance)
         }
         
@@ -38,7 +37,7 @@ class TextToSpeech: NSObject {
             myUtterance = AVSpeechUtterance(string: words)
             myUtterance.postUtteranceDelay = postLength
             myUtterance.preUtteranceDelay = preLength
-            myUtterance.rate = 0.1
+            myUtterance.rate = rate
             synth.speakUtterance(myUtterance)
         }
     }

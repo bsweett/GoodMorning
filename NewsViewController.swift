@@ -58,24 +58,26 @@ class NewsViewController : UIViewController, UIPopoverControllerDelegate, UITabl
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.parentViewController?.title = "News"
+        self.parentViewController?.title = newsTitle
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedNetworkError:", name:"NetworkError", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name:"InternalServerError", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name:"InvalidFeedResponse", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedFeedAdded:", name:"NewsAdded", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedListUpdate:", name:"FeedListUpdated", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedNetworkError:", name: kNetworkError, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name: kInternalServerError, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name: kInvalidFeedResponse, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedFeedAdded:", name: kNewsAdded, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedListUpdate:", name: kFeedListUpdated, object: nil)
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
         if(!Reachability.isConnectedToNetwork()) {
-            SCLAlertView().showNotice("No Network Connection",
-                subTitle: "You don't appear to be connected to the Internet. Please check your connection.",
+            SCLAlertView().showNotice(internetErrTitle,
+                subTitle: internetErrMessage,
                 duration: 6)
         } else {
-            newsManager.getAllFeedsRequest()
+            if(self.newsList.count == 0) {
+                newsManager.getAllFeedsRequest()
+            }
         }
     }
     
@@ -158,7 +160,6 @@ class NewsViewController : UIViewController, UIPopoverControllerDelegate, UITabl
         for feed in self.newsList {
             
             var type = feed.type
-            println("Type: ", type.rawValue)
             if(type == sectionsInTable[section]) {
                 sectionsArray.append(feed)
             }
@@ -180,11 +181,11 @@ class NewsViewController : UIViewController, UIPopoverControllerDelegate, UITabl
         if(self.popOverNavController == nil) {
             self.popOverNavController = UINavigationController(rootViewController: popoverContent)
             
-            var nextButton = UIBarButtonItem(title: "Next", style: UIBarButtonItemStyle.Bordered, target: self.popoverContent, action: Selector("nextTapped:"))
+            var nextButton = UIBarButtonItem(title: nextButTitle, style: UIBarButtonItemStyle.Bordered, target: self.popoverContent, action: Selector("nextTapped:"))
             
-            var cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Bordered, target: self, action: Selector("cancelNewsTapped:"))
+            var cancelButton = UIBarButtonItem(title: cancelButTitle, style: UIBarButtonItemStyle.Bordered, target: self, action: Selector("cancelNewsTapped:"))
             
-            self.popoverContent.navigationItem.title = "New News Feed"
+            self.popoverContent.navigationItem.title = newNewsFeedTitle
             self.popoverContent.navigationItem.rightBarButtonItem = nextButton
             self.popoverContent.navigationItem.leftBarButtonItem = cancelButton
         }
@@ -241,15 +242,13 @@ class NewsViewController : UIViewController, UIPopoverControllerDelegate, UITabl
             cell.setThumbnailLogo(image!)
             
         } else {
-            
             cell.setThumbnailLogo(nil)
             
             if feed.logoURL != "" {
                 var q: dispatch_queue_t = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
                 dispatch_async(q, {
-                    /* Fetch the image from the server... */
+
                     var image = (UIImage(named: "gm_unknown")!)
-                    
                     
                     let url = NSURL(string: feed.logoURL)
                     if url != nil {
@@ -261,15 +260,12 @@ class NewsViewController : UIViewController, UIPopoverControllerDelegate, UITabl
                     self.imageCache.setObject(image, forKey: feed.id)
                     
                     dispatch_async(dispatch_get_main_queue(), {
-                        /* This is the main thread again, where we set the tableView's image to
-                        be what we just fetched. */
                         cell.setThumbnailLogo(image)
-                    });
-                });
+                    })
+                })
             } else {
                 cell.setThumbnailLogo((UIImage(named: "gm_unknown")!))
             }
-            
         }
 
         return cell
@@ -293,7 +289,7 @@ class NewsViewController : UIViewController, UIPopoverControllerDelegate, UITabl
         }
         
         noDataLabel = UILabel(frame: CGRectMake(0, 0, self.view.bounds.width, self.view.bounds.height))
-        noDataLabel.text = "No News Feeds found. Pull down to refresh or press the + to add one."
+        noDataLabel.text = noFeedsMessage
         noDataLabel.textColor = gmOrangeColor
         noDataLabel.numberOfLines = 0
         noDataLabel.textAlignment = NSTextAlignment.Center
@@ -314,10 +310,19 @@ class NewsViewController : UIViewController, UIPopoverControllerDelegate, UITabl
         var type = sectionsInTable[section]
         
         if type == RSSType.OTHER {
-            return "Other"
+            return " Other"
         }
         
-        return type.rawValue
+        return " " + type.rawValue
+    }
+    
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+       var type = sectionsInTable[section]
+        if(isGroupEmpty(type)) {
+            return 0
+        }
+
+        return 35
     }
     
     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -372,8 +377,8 @@ class NewsViewController : UIViewController, UIPopoverControllerDelegate, UITabl
             
             self.indexPendingDelete = indexPath
             
-            let actionSheet = UIActionSheet(title: "Are you sure you want to delete this News Feed?", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: "Delete Feed")
-            actionSheet.addButtonWithTitle("Cancel")
+            let actionSheet = UIActionSheet(title: deleteFeedMessage, delegate: self, cancelButtonTitle: cancelButTitle, destructiveButtonTitle: deleteFeedTitle)
+            actionSheet.addButtonWithTitle(cancelButTitle)
             actionSheet.actionSheetStyle = .BlackOpaque
             actionSheet.showInView(self.view)
         }
@@ -396,10 +401,6 @@ class NewsViewController : UIViewController, UIPopoverControllerDelegate, UITabl
             
             self.newsTableView.beginUpdates()
             newsList.removeAtIndex(index)
-            
-            if isGroupEmpty(type) {
-                sectionsInTable.removeAtIndex(indexPendingDelete.section)
-            }
             
             self.newsTableView.deleteRowsAtIndexPaths([indexPendingDelete], withRowAnimation: UITableViewRowAnimation.Automatic)
             self.newsTableView.endUpdates()

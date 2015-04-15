@@ -21,7 +21,7 @@ class TaskManager: NSObject {
         let url = SERVER_ADDRESS + "/newtask"
         
         let token = UserDefaultsManager.sharedInstance.getToken()
-        let params = ["token":token, "time":task.alertTime, "days":task.daysOfTheWeekToString(), "notes":task.notes, "type":task.type.rawValue, "name":task.title]
+        let params = ["token":token, "time":task.alertTime, "days":task.daysOfTheWeekToString(), "notes":task.notes, "type":task.type.rawValue, "name":task.title, "link": task.deepLink.rawValue]
         
         Networking.sharedInstance.openNewJSONRequest(.POST, url: url, parameters: params, {(data: JSON) in
             let json = data
@@ -128,7 +128,7 @@ class TaskManager: NSObject {
         let url = SERVER_ADDRESS + "/updatetask"
         
         let token = UserDefaultsManager.sharedInstance.getToken()
-        let params = ["token":token, "id": task.id, "time":task.alertTime, "days":task.daysOfTheWeekToString(), "notes":task.notes, "type":task.type.rawValue, "name":task.title]
+        let params = ["token":token, "id": task.id, "time":task.alertTime, "days":task.daysOfTheWeekToString(), "notes":task.notes, "type":task.type.rawValue, "name":task.title, "link": task.deepLink.rawValue]
         
         //GET OR POST?
         Networking.sharedInstance.openNewJSONRequest(.POST, url: url, parameters: params, {(data: JSON) in

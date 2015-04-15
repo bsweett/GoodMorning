@@ -12,7 +12,7 @@ protocol popOverNavDelegate {
     func saveName(value: String)
     func saveType(value: String)
     func saveRepeat(value: Dictionary<Int,Bool>)
-    func saveAlert(value: String) // TODO: Probably need sound file and such as well
+    func saveAlert(value: String)
     func saveNotes(value: String)
     func saveCustom(value: String)
 }
@@ -28,6 +28,7 @@ class TaskPopoverViewController: UIViewController, UITableViewDataSource, UITabl
     var repeatVC: TaskRepeatTypeViewController!
     var alertVC: TaskAlertTypeViewController!
     var notesVC: TaskNotesViewController!
+    var customVC: TaskCustomViewController!
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -46,10 +47,9 @@ class TaskPopoverViewController: UIViewController, UITableViewDataSource, UITabl
         taskFieldsTableView.dataSource = self
         taskFieldsTableView.delegate = self
         taskFieldsTableView.scrollEnabled = false
-        //timePicker.minimumDate = NSDate()
         timePicker.maximumDate = NSDate().addMonthsToDate(12)
         
-        var backButton = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.Bordered, target: nil, action: nil)
+        var backButton = UIBarButtonItem(title: backButTitle, style: UIBarButtonItemStyle.Bordered, target: nil, action: nil)
         self.navigationItem.backBarButtonItem = backButton
     }
     
@@ -60,16 +60,14 @@ class TaskPopoverViewController: UIViewController, UITableViewDataSource, UITabl
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func setDisplayTaskForEditing(existingTask: Task?) {
         var now: NSDate = NSDate()
         var soon = now.addMinutesToDate(2)
         
-        
         if(existingTask == nil) {
-            displayTask = Task(id: "temp", title: "New Task", creation: now, nextAlert: soon, type: TaskType.CHORE, alertTime: soon.toTimeString(), soundFileName: "jungle", notes: "")
+            displayTask = Task(id: "temp", title: "New Task", creation: now, nextAlert: soon, type: TaskType.CHORE, link: DeepLinkType.NONE, alertTime: soon.toTimeString(), soundFileName: "jungle", notes: "")
             displayTask.setDaysOfTheWeek(false, tue: false, wed: false, thu: false, fri: false, sat: false, sun: false)
         } else {
             self.displayTask = existingTask
@@ -108,8 +106,16 @@ class TaskPopoverViewController: UIViewController, UITableViewDataSource, UITabl
             cell.setValue(displayTask.displaySoundEnabledFlag())
             break
         case 4:
-            cell.setTitle("Custom")
-            cell.setValue("")
+             cell.setTitle("App To Open")
+             if displayTask.type != TaskType.ALARM {
+                cell.setValue(displayTask.deepLink.rawValue)
+                cell.selectionStyle = .Blue
+                cell.userInteractionEnabled = true
+             } else {
+                cell.setValue(DeepLinkType.NONE.rawValue)
+                cell.selectionStyle = .None
+                cell.userInteractionEnabled = false
+             }
             break
         case 5:
             cell.setTitle("Notes")
@@ -183,8 +189,16 @@ class TaskPopoverViewController: UIViewController, UITableViewDataSource, UITabl
             self.notesVC.setNotes(self.displayTask.notes)
             self.navigationController?.pushViewController(self.notesVC, animated: true)
             break
-        case "Custom":
-            return
+        case "App To Open":
+            if displayTask.type != TaskType.ALARM {
+                if(self.customVC == nil) {
+                    self.customVC = TaskCustomViewController(nibName: "TaskCustomViewController", bundle: nil)
+                    self.customVC.delegate = self
+                }
+                self.customVC.setSelectedItem(self.displayTask.deepLink.rawValue)
+                self.navigationController?.pushViewController(self.customVC, animated: true)
+            }
+            break
         default:
             return
         }
@@ -228,6 +242,7 @@ class TaskPopoverViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func saveCustom(value: String) {
-        
+        self.displayTask.deepLink = DeepLinkType.typeFromString(value)
+        taskFieldsTableView.reloadData()
     }
 }

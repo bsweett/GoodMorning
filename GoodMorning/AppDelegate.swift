@@ -16,8 +16,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     var navController : UINavigationController?
-    var sound: NSURL!
-    var audioPlayer: AVAudioPlayer!
     
     // Override point for customization after application launch.
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
@@ -31,16 +29,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UIApplication.sharedApplication().registerUserNotificationSettings(UIUserNotificationSettings(forTypes: UIUserNotificationType.Sound | UIUserNotificationType.Alert | UIUserNotificationType.Badge, categories: nil))
         }
         
-        AVAudioSession.sharedInstance().setActive(true, error: nil)
-        AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, error: nil)
-        
-        self.sound = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("jungle", ofType: "wav")!)
-        self.audioPlayer = AVAudioPlayer(contentsOfURL: sound, error: nil)
-        
         // app already installed
         if (UserDefaultsManager.sharedInstance.getToken() != "") {
             initialViewController = storyboard.instantiateViewControllerWithIdentifier("Pager") as UIViewController
             
+            let date = NSDate()
+            let calendar = NSCalendar.currentCalendar()
+            let components = calendar.components(.CalendarUnitHour | .CalendarUnitMinute, fromDate: date)
+            let hour = components.hour
+            let minutes = components.minute
+            
+            var timeOfDaySpeech = "Good Morning "
+            if(hour > 12 && hour < 18) {
+                timeOfDaySpeech = "Good Afternoon "
+            }
+            
+            if(hour >= 18) {
+                timeOfDaySpeech = "Good Evening "
+            }
+            
+            var speech = TextToSpeech()
+            speech.speak(timeOfDaySpeech + UserDefaultsManager.sharedInstance.getUserName())
         } else {
             // This is the first launch ever
             initialViewController = storyboard.instantiateViewControllerWithIdentifier("Install") as UIViewController
@@ -68,6 +77,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window!.rootViewController = navController
         window!.makeKeyAndVisible()
+        
+        
+        let notification = launchOptions?[UIApplicationLaunchOptionsLocalNotificationKey] as UILocalNotification!
+        if (notification != nil) {
+            if let userInfoCurrent = notification.userInfo! as? Dictionary<String, String> {
+                let title = userInfoCurrent["task"]!
+                let linkType = DeepLinkType.typeFromString(userInfoCurrent["link"]!)
+                
+                if linkType != DeepLinkType.NONE {
+                    
+                    let alert = SCLAlertView()
+                    alert.addButton("Lanuch App") {
+                        self.handleTaskNotification(title, link: linkType)
+                    }
+                    
+                    alert.addButton("Ignore") {
+                        
+                    }
+                    
+                    alert.showInfo("Unlaunched App", subTitle: "A unread task has occured that wants to launch another app.")
+                }
+            }
+            
+        }
         
         return true
     }
@@ -112,17 +145,53 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.saveContext()
     }
     
+    // MARK: - Local Notification Handlers
+    
     func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+        if let userInfoCurrent = notification.userInfo! as? Dictionary<String, String> {
+            let title = userInfoCurrent["task"]!
+            let linkType = DeepLinkType.typeFromString(userInfoCurrent["link"]!)
+            handleTaskNotification(title, link: linkType)
+        }
+    }
+    
+    private func handleTaskNotification(title: String, link: DeepLinkType) {
+            var speech = TextToSpeech()
+            speech.speak(title)
         
-        
+            var linkString = ""
+            
+            switch(link) {
+            case DeepLinkType.YOUTUBE:
+                linkString = "youtube://"
+                break
+            case DeepLinkType.FACEBOOK:
+                linkString = "fb://feed"
+                break
+            case DeepLinkType.MUSIC:
+                linkString = "music://"
+                break
+            case DeepLinkType.MAPS:
+                linkString = "maps://"
+                break
+            case DeepLinkType.BOOKS:
+                linkString = "itms-books://"
+                break
+            case DeepLinkType.SMS:
+                linkString = "sms://"
+                break
+            default:
+                return
+            }
+            
+            var url = NSURL(string: linkString)!
+            if (UIApplication.sharedApplication().canOpenURL(url)) {
+                UIApplication.sharedApplication().openURL(url)
+            }
     }
     
     func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forLocalNotification notification: UILocalNotification, completionHandler: () -> Void) {
-        println("fired")
-        
-        self.sound = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("jungle", ofType: "wav")!)
-        self.audioPlayer = AVAudioPlayer(contentsOfURL: sound, error: nil)
-        audioPlayer.play()
+
     }
     
     // MARK: - Core Data stack

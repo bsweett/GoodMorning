@@ -19,7 +19,6 @@ class InstallViewController : UIViewController, UITextFieldDelegate {
     private let defualtColor : UIColor = UIColor( red: 0.5, green: 0.5, blue:0, alpha: 1.0 )
     
     private let manager: InstallManager = InstallManager()
-    private let speaker: TextToSpeech = TextToSpeech(enabled: true)
     
     // MARK: - Variables
     
@@ -92,8 +91,8 @@ class InstallViewController : UIViewController, UITextFieldDelegate {
             manager.sendNewAppConnectionRequest()
         }
         
-        // TODO: enable when done install
-        //speaker.speakStringsWithPause(titleLabel.text!, words2: descriptionLabel.text!, pauseLength: 2)
+        let speaker: TextToSpeech = TextToSpeech()
+        speaker.speakStringsWithPause(titleLabel.text!, words2: descriptionLabel.text!, pauseLength: 2)
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -285,7 +284,6 @@ class InstallViewController : UIViewController, UITextFieldDelegate {
                 
             } else {
                 resetErrorLabelsAndColorsForField(textField)
-                
             }
             
         } else if(textField == emailField) {
@@ -296,9 +294,7 @@ class InstallViewController : UIViewController, UITextFieldDelegate {
                 resetErrorLabelsAndColorsForField(textField)
                 
             }
-            
         }
-        
     }
     
     func textFieldShouldReturn(textField: UITextField!) -> Bool {

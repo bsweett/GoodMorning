@@ -13,31 +13,51 @@ let UNKNOWN: String = "UNKNOWN"
 
 // MARK: - AlertViews
 // Titles
-let internetErrTitle = NSLocalizedString("NO_INTERNET", comment: "No Network Connection")
-let networkErrTitle = NSLocalizedString("NETWORK_ERROR", comment: "Network Error")
-let internalErrTitle = NSLocalizedString("INTERNAL_ERROR", comment: "Internal Server Error")
-let existingAccTitle = NSLocalizedString("EXISTING_ACCOUNT", comment: "Existing Account Found")
-let locationDisTitle = NSLocalizedString("LOCATION_DISALLOWED", comment: "Location Services Disallowed")
+let internetErrTitle = NSLocalizedString("No Network Connection", comment: "No Network Connection")
+let networkErrTitle = NSLocalizedString("Network Error", comment: "Network Error")
+let internalErrTitle = NSLocalizedString("Internal Server Error", comment: "Internal Server Error")
+let existingAccTitle = NSLocalizedString("Existing Account Found", comment: "Existing Account Found")
+let locationDisTitle = NSLocalizedString("Location Services Disallowed", comment: "Location Services Disallowed")
 
 // Messages
-let internetErrMessage = NSLocalizedString("NO_INTERNET_MESSAGE", comment: "You don't appear to be connected to the Internet. Please check your connection.")
-let networkErrMessage = NSLocalizedString("NETWORK_MESSAGE", comment: "Oops something went wrong.")
+let internetErrMessage = NSLocalizedString("You don't appear to be connected to the Internet. Please check your connection.", comment: "")
+let networkErrMessage = NSLocalizedString("Oops something went wrong.", comment: "")
+let deleteTaskMessage = NSLocalizedString("Are you sure you want to delete this Task?", comment: "")
+let deleteFeedMessage = NSLocalizedString("Are you sure you want to delete this News Feed?", comment: "")
 
 // Buttons
-let dismissButTitle = NSLocalizedString("DISMISS_BUTTON", comment: "Dismiss")
-let okButTitle = NSLocalizedString("OK_BUTTON", comment: "Ok")
-let createButTitle = NSLocalizedString("CREATE_ACCOUNT_BUTTON", comment: "Create A New Account")
-let accountButTitle = NSLocalizedString("USE_ACCOUNT_BUTTON", comment: "Use Existing Account")
+let dismissButTitle = NSLocalizedString("Dismiss", comment: "Dismiss")
+let okButTitle = NSLocalizedString("Ok", comment: "Ok")
+let cancelButTitle = NSLocalizedString("Cancel", comment: "Cancel")
+let saveButTitle = NSLocalizedString("Save", comment: "Save")
+let nextButTitle = NSLocalizedString("Next", comment: "Next")
+let createButTitle = NSLocalizedString("Create A New Account", comment: "Create A New Account")
+let accountButTitle = NSLocalizedString("Use Existing Account", comment: "Use Existing Account")
+let deleteTaskTitle = NSLocalizedString("Delete Task", comment: "Delete Task")
+let deleteFeedTitle = NSLocalizedString("Delete Feed", comment: "Delete Feed")
+let updateButTitle = NSLocalizedString("Update", comment: "Update")
+let backButTitle = NSLocalizedString("Back", comment: "Back")
+
+
+//MARK: - Install View
+let installTitle = NSLocalizedString("Welcome to the GoodMorning App", comment: "")
+let installMessage = NSLocalizedString("Please provide your name and email and select the topics that interest you the most.", comment: "")
+let installName = NSLocalizedString("Name:", comment: "")
+let installEmail = NSLocalizedString("Email:", comment: "")
+let installInterest = NSLocalizedString("Interest:", comment: "")
+let installInvalidName = NSLocalizedString("Invalid Name", comment: "")
 
 // MARK: - News View
-let newsTitle = NSLocalizedString("NEWS_TITLE", comment: "News")
+let newsTitle = NSLocalizedString("News", comment: "News")
+let newNewsFeedTitle = NSLocalizedString("New News Feed", comment: "")
+let noFeedsMessage = NSLocalizedString("No News Feeds found. Pull down to refresh or press the + to add one.", comment: "")
 
 // MARK: - Tasks View
-let weatherTitle = NSLocalizedString("TASK_TITLE", comment: "Task")
+let tasksTitle = NSLocalizedString("Tasks", comment: "Task")
 
 // MARK: - Weather View
-let weatherTitle = NSLocalizedString("WEATHER_TITLE", comment: "Weather")
+let weatherTitle = NSLocalizedString("Weather", comment: "Weather")
 
 // MARK: - Hub View
-let hubTitle = NSLocalizedString("HUB_TITLE", comment: "Hub")
+let hubTitle = NSLocalizedString("Hub", comment: "Hub")
 

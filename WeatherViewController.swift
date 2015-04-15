@@ -18,7 +18,6 @@ class WeatherViewController : UIViewController {
     private var firstAppear: Bool = false
     
     @IBOutlet weak var activityIndicator: DTIActivityIndicatorView!
-    //@IBOutlet weak var forcastBlock : UIView!
     @IBOutlet weak var forcastBlock: UIView!
     @IBOutlet var background: UIImageView!
     
@@ -58,12 +57,12 @@ class WeatherViewController : UIViewController {
         let lightBlur = UIVisualEffectView(effect: blurEffect)
         lightBlur.frame = self.view.bounds //view is self.view in a UIViewController
         self.background.addSubview(lightBlur)
-    
+        
         blur = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.Dark))
         blur.frame = view.frame
         blur.tag = 50
     }
-
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         if(firstAppear == false) {
@@ -74,14 +73,14 @@ class WeatherViewController : UIViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         self.view.bringSubviewToFront(activityIndicator)
-        self.parentViewController?.title  = "Weather"
+        self.parentViewController?.title  = weatherTitle
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedNetworkError:", name:"NetworkError", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name:"InternalServerError", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedWeatherUpdate:", name:"WeatherUpdated", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationAuthorizeProblem:", name:"LocationDenied", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationAuthorizeProblem:", name:"LocationDisabled", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationUnknown:", name:"LocationUnknown", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedNetworkError:", name: kNetworkError, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name: kInternalServerError, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedWeatherUpdate:", name: kWeatherUpdated, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationAuthorizeProblem:", name: kLocationDenied, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationAuthorizeProblem:", name: kLocationDisabled, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedLocationUnknown:", name: kLocationUnknown, object: nil)
         
         if(firstAppear == false) {
             LocationManager.sharedInstance.update()
@@ -105,10 +104,10 @@ class WeatherViewController : UIViewController {
     }
     
     private func roundBlockCorners() {
-            
+        
         forcastBlock.layer.cornerRadius = radius
         forcastBlock.clipsToBounds = true
-
+        
     }
     
     func startLoading() {
@@ -134,17 +133,13 @@ class WeatherViewController : UIViewController {
         
         // Update Current
         
-        //UIView.transitionWithView(background, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
-            if(current.nighttime == true) {
-                self.background.image = UIImage(named:"weathernight.png")
-            } else {
-                self.background.image = UIImage(named:"weatherday.png")
-            }
-        //}, completion: nil)
+        if(current.nighttime == true) {
+            self.background.image = UIImage(named:"weathernight.png")
+        } else {
+            self.background.image = UIImage(named:"weatherday.png")
+        }
         
-        //UIView.transitionWithView(currentIcon, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
-            self.currentIcon.image = getImageForCondition(current.condition, current.nighttime)
-        //}, completion: nil)
+        self.currentIcon.image = getImageForCondition(current.condition, current.nighttime)
         
         currentCity.text = current.city
         currentTemp.text = current.temperature.description + unit
@@ -152,22 +147,10 @@ class WeatherViewController : UIViewController {
         
         //Update Forecast
         
-        //UIView.transitionWithView(forcastIcon1, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
-            self.forcastIcon1.image = getImageForCondition(forecast[0].condition, forecast[0].nighttime)
-        //}, completion: nil)
-        
-       // UIView.transitionWithView(forcastIcon2, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
-            self.forcastIcon2.image = getImageForCondition(forecast[1].condition, forecast[1].nighttime)
-       // }, completion: nil)
-        
-       // UIView.transitionWithView(forcastIcon3, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
-            self.forcastIcon3.image = getImageForCondition(forecast[2].condition, forecast[2].nighttime)
-       // }, completion: nil)
-        
-       // UIView.transitionWithView(forcastIcon4, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
-            self.forcastIcon4.image = getImageForCondition(forecast[3].condition, forecast[3].nighttime)
-       // }, completion: nil)
-        
+        self.forcastIcon1.image = getImageForCondition(forecast[0].condition, forecast[0].nighttime)
+        self.forcastIcon2.image = getImageForCondition(forecast[1].condition, forecast[1].nighttime)
+        self.forcastIcon3.image = getImageForCondition(forecast[2].condition, forecast[2].nighttime)
+        self.forcastIcon4.image = getImageForCondition(forecast[3].condition, forecast[3].nighttime)
         
         forcastTemp1.text = forecast[0].temperature.description + unit
         forcastTemp2.text = forecast[1].temperature.description + unit
@@ -200,12 +183,12 @@ class WeatherViewController : UIViewController {
         
         self.updateBackgroundAndWeather(current, forecast: forecastArray)
     }
-
+    
     func receivedNetworkError(notification: NSNotification) {
         stopLoading()
         /*SCLAlertView().showError("Network Error",
-            subTitle: "Oops something went wrong",
-            closeButtonTitle: "Dismiss")*/
+        subTitle: "Oops something went wrong",
+        closeButtonTitle: "Dismiss")*/
     }
     
     func receivedInternalServerError(notification: NSNotification) {
@@ -220,8 +203,8 @@ class WeatherViewController : UIViewController {
     // TODO: Better message to user if they disable it after installing
     func receivedLocationAuthorizeProblem(notification: NSNotification) {
         stopLoading()
-        SCLAlertView().showWarning("Location Services Disallowed",
+        SCLAlertView().showWarning(locationDisTitle,
             subTitle: "Because you have disallowed location services you are required to enter your country and city in order to use GoodMorning", closeButtonTitle: okButTitle)
     }
-
+    
 }

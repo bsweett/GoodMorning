@@ -45,6 +45,9 @@ class HubViewController: UIViewController, UITableViewDataSource, UITableViewDel
     private var currentArticleIndex: Int!
     var imageCache: NSCache!
     
+    var weatherString = ""
+    var speakWhileVisible = true
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -65,12 +68,12 @@ class HubViewController: UIViewController, UITableViewDataSource, UITableViewDel
         let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Light)
         darkBlur = UIVisualEffectView(effect: blurEffect)
         self.darkBlur.frame = self.view.bounds //view is self.view in a UIViewController
-        //self.background.addSubview(self.darkBlur)
+        self.background.addSubview(self.darkBlur)
         
         blur = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.Dark))
         blur.frame = view.frame
         blur.tag = 51
-    
+        
         LocationManager.sharedInstance.update()
     }
     
@@ -101,6 +104,8 @@ class HubViewController: UIViewController, UITableViewDataSource, UITableViewDel
             
             refreshContent()
         }
+        
+        speakWhileVisible = true
     }
     
     override func viewDidLayoutSubviews() {
@@ -114,6 +119,7 @@ class HubViewController: UIViewController, UITableViewDataSource, UITableViewDel
     
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
+        speakWhileVisible = false
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
@@ -135,7 +141,7 @@ class HubViewController: UIViewController, UITableViewDataSource, UITableViewDel
     
     func refreshContent() {
         if(!Reachability.isConnectedToNetwork()) {
-           
+            
             SCLAlertView().showNotice(internetErrTitle,
                 subTitle: internetErrMessage,
                 duration: 6)
@@ -185,11 +191,15 @@ class HubViewController: UIViewController, UITableViewDataSource, UITableViewDel
             self.articleDisplayTimer = NSTimer.scheduledTimerWithTimeInterval(45, target: self, selector: Selector("updateArticleDisplay"), userInfo: nil, repeats: true)
         } else {
             
-            if(self.articleDisplayTimer.valid == true) {
-                self.articleDisplayTimer.invalidate()
+            if(articleDisplayTimer != nil) {
+                if(self.articleDisplayTimer.valid == true) {
+                    self.articleDisplayTimer.invalidate()
+                }
+                
+                newsView.hidden = false
+            } else {
+                newsView.hidden = true
             }
-            
-            newsView.hidden = false
         }
     }
     
@@ -225,46 +235,43 @@ class HubViewController: UIViewController, UITableViewDataSource, UITableViewDel
             
             var image: UIImage? = self.imageCache.objectForKey(title!) as? UIImage
             
-            
-            var q: dispatch_queue_t = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
-            dispatch_async(q, {
+            if(image != nil) {
+                self.thumbnailImageView.image = image!
                 
-                if(image != nil) {
-                   self.thumbnailImageView.image = image!
-                    
-                } else {
-                    
-                    self.thumbnailImageView.image = nil
-                    var image = UIImage(named: "gm_unknown")
-                    
-                    if thumbnailUrl != "" {
-                        /* Fetch the image from the server... */
-                        
-                        let url = NSURL(string: thumbnailUrl!)
-                        if url != nil {
-                            if let data = NSData(contentsOfURL: url!) {
-                                image = (UIImage(data: data)!)
+            } else {
+                
+                self.thumbnailImageView.image = nil
+                var image = UIImage(named: "gm_unknown")
+                
+                if thumbnailUrl != "" {
+                    let url = NSURL(string: thumbnailUrl!)
+                    if url != nil {
+                        if let data = NSData(contentsOfURL: url!) {
+                            image = (UIImage(data: data)!)
+                            if(image != nil) {
+                                self.imageCache.setObject(image!, forKey: title!)
                             }
+                            
+                            self.thumbnailImageView.image = image!
                         }
                     }
                 }
+            }
+            
+            
+            self.titleLabel.text = title
+            self.contentLabel.text = content
+            self.summaryLabel.text = feedName! + " / " + creator! + " / " + pubDate!.toFullDateString()
+            
+            if(speakWhileVisible) {
+                var speech = TextToSpeech()
                 
-                if(image != nil) {
-                    self.imageCache.setObject(image!, forKey: title!)
+                if(weatherString != "") {
+                    speech.speakWithPostAndPreDelay(weatherString, preLength: 2.0, postLength: 1.0)
+                    weatherString = ""
                 }
-                
-                dispatch_async(dispatch_get_main_queue(), {
-                    
-                    // TODO: Animate this fade in/out
-                    if(image != nil) {
-                        self.thumbnailImageView.image = image!
-                    }
-                    
-                    self.titleLabel.text = title
-                    self.contentLabel.text = content
-                    self.summaryLabel.text = feedName! + " / " + creator! + " / " + pubDate!.toFullDateString()
-                });
-            });
+                speech.speakStringsWithPause(title!, words2: "published by " + feedName! + " on " + pubDate!.toShortDateString() + " at " + pubDate!.toShortTimeString(), pauseLength: 0.3)
+            }
             
         } else {
             newsView.hidden = true
@@ -283,16 +290,22 @@ class HubViewController: UIViewController, UITableViewDataSource, UITableViewDel
             var night = weather.valueForKey("nighttime") as? Bool
             
             var unit = ""
+            var speakUnit = ""
             if(country == "US") {
                 unit = " F°"
+                speakUnit = "fahrenheit"
             } else {
                 unit = " C°"
+                speakUnit = "celsius"
             }
             
             var doubleTemp = weather.valueForKey("temperature") as Double
-            var temp =  String(format:"%.1f", doubleTemp) + unit
-            temperatureLabel.text = temp
+            var temp =  String(format:"%.f", doubleTemp)
+            temperatureLabel.text = temp + unit
             weatherImageView.image = getImageForCondition(condition!, night!)
+            
+            weatherString = ("It is " + temp + " degrees " + speakUnit + " outside")
+            
         } else {
             weatherView.hidden = true
         }
@@ -322,7 +335,7 @@ class HubViewController: UIViewController, UITableViewDataSource, UITableViewDel
                 
                 var type: TaskType = TaskType.typeFromString(typeString!)
                 
-                var alarm = Task(id: id!, title: title!, creation: creation!, nextAlert: nextdate!, type: type, alertTime: time!, soundFileName: soundfilename!, notes: "")
+                var alarm = Task(id: id!, title: title!, creation: creation!, nextAlert: nextdate!, type: type, link: DeepLinkType.NONE, alertTime: time!, soundFileName: soundfilename!, notes: "")
                 
                 self.alarms.append(alarm)
             }
@@ -384,7 +397,7 @@ class HubViewController: UIViewController, UITableViewDataSource, UITableViewDel
         
         var task = cell.getAlarm()
     }
-
+    
     
     // MARK: - Notifications
     
@@ -434,4 +447,5 @@ class HubViewController: UIViewController, UITableViewDataSource, UITableViewDel
     @IBAction func refreshTapped(sender: UIBarButtonItem) {
         refreshContent()
     }
+    
 }

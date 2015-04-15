@@ -41,7 +41,7 @@ class NewsPopoverViewController: UIViewController, UITextFieldDelegate, UIPicker
         self.searchField.delegate = self
         self.navigationItem.rightBarButtonItem?.enabled = true
         
-        var backButton = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.Bordered, target: nil, action: nil)
+        var backButton = UIBarButtonItem(title: backButTitle, style: UIBarButtonItemStyle.Bordered, target: nil, action: nil)
         self.navigationItem.backBarButtonItem = backButton
 
     }
@@ -51,8 +51,8 @@ class NewsPopoverViewController: UIViewController, UITextFieldDelegate, UIPicker
         self.typePicker.selectRow(0, inComponent: 0, animated: true)
         self.searchField.text = ""
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedNetworkError:", name:"NetworkError", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name:"InternalServerError", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedNetworkError:", name: kNetworkError, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name: kInternalServerError, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedSearchResults:", name:"FeedlyResultsFound", object: nil)
     }
     

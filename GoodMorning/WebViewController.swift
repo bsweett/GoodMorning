@@ -93,7 +93,6 @@ class WebViewController: UIViewController, UIWebViewDelegate {
     
     func webViewDidFinishLoad(webView: UIWebView) {
         isDoneLoading = true
-        println("done")
     }
 
 }

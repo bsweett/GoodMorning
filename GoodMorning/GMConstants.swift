@@ -17,7 +17,7 @@ let ipOak = "http://192.168.1.14:8080"
 let ipHome237 = "http://192.168.1.237:8080"
 let amazonEC2 = "http://ec2-54-149-69-85.us-west-2.compute.amazonaws.com:8080"
 
-let SERVER_ADDRESS = amazonEC2 + "/GoodMorning-Server"
+let SERVER_ADDRESS = ipHome237 + "/GoodMorning-Server"
 let FEEDLY_ADDRESS = "https://cloud.feedly.com/v3/"
 let WEATHER_ADDRESS = "http://api.openweathermap.org/data/2.5/forecast"
 
@@ -33,7 +33,7 @@ let udNight: String = "NIGHTUD"
 // Colors
 let gmOrangeColor: UIColor = UIColor(red: (243/255.0), green: (156/255.0), blue: (18/255.0), alpha: 1.0)
 let gmYellowColor: UIColor = UIColor(red: (225/255.0), green: (222/255.0), blue: (0/255.0), alpha: 1.0)
-let gmLightBlueColor: UIColor = UIColor(red: (0/255.0), green: (89/255.0), blue: (166/255.0), alpha: 1)
+let gmLightBlueColor: UIColor = UIColor(red: (0/255.0), green: (89/255.0), blue: (166/255.0), alpha: 0.8)
 
 // Numbers
 let radius: CGFloat = 12
@@ -55,6 +55,7 @@ let kTaskListUpdated = "TaskListUpdated"
 let kAlarmListUpdated = "AlarmListUpdated"
 
 let kInvalidFeedResponse = "InvalidFeedResponse"
+let kFeedListUpdated = "FeedListUpdated"
 let kNewsAdded = "NewsAdded"
 let kArticleListUpdated = "ArticleListUpdated"
 

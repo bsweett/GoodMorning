@@ -131,4 +131,12 @@ class UserDefaultsManager {
     func getNight() -> String {
         return userDefaults.valueForKey(udNight)==nil ? "" : userDefaults.valueForKey(udNight) as String
     }
+    
+    func getSpeechEnabledOption() -> Bool {
+        return userDefaults.boolForKey("speech_enabled")
+    }
+    
+    func getSpeechRateOption() -> Float {
+        return userDefaults.floatForKey("speech_speed")
+    }
 }

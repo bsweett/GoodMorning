@@ -36,7 +36,7 @@ class NewsResultsViewController: UIViewController, UITableViewDataSource, UITabl
         resultTableView.dataSource = self
         resultTableView.delegate = self
         
-        var backButton = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.Bordered, target: nil, action: nil)
+        var backButton = UIBarButtonItem(title: backButTitle, style: UIBarButtonItemStyle.Bordered, target: nil, action: nil)
         self.navigationItem.backBarButtonItem = backButton
     }
     

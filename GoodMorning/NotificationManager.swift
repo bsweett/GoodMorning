@@ -59,7 +59,7 @@ class NotificationManager {
         task.notes.isEmpty ? (notes = "") : (notes = " - " + task.notes)
         
         var notification = UILocalNotification()
-        notification.userInfo = ["id": task.id]
+        notification.userInfo = ["id": task.id, "task": task.title, "link": task.deepLink.rawValue]
         notification.timeZone = NSTimeZone(abbreviation: "EST")
         notification.fireDate = NSDate().addMinutesToDate(1)
         notification.alertBody = task.getNotifBody()
@@ -77,7 +77,7 @@ class NotificationManager {
     private func scheduleNotificationForEveryDay(task: Task) {
         
         var notification = UILocalNotification()
-        notification.userInfo = ["id": task.id]
+        notification.userInfo = ["id": task.id, "task": task.title, "link": task.deepLink.rawValue]
         notification.timeZone = NSTimeZone(abbreviation: "EST")
         notification.fireDate = task.nextAlertDate
         notification.alertBody = task.getNotifBody()
@@ -96,7 +96,7 @@ class NotificationManager {
     private func scheduleNotificationForOnce(task: Task) {
   
         var notification = UILocalNotification()
-        notification.userInfo = ["id": task.id]
+        notification.userInfo = ["id": task.id, "task": task.title, "link": task.deepLink.rawValue]
         notification.timeZone = NSTimeZone(abbreviation: "EST")
         notification.fireDate = task.nextAlertDate
         notification.alertBody = task.getNotifBody()
@@ -152,7 +152,7 @@ class NotificationManager {
     private func scheduleNotificationsForDayWeekly(task: Task, date: NSDate) {
         
         var notification = UILocalNotification()
-        notification.userInfo = ["id": task.id]
+        notification.userInfo = ["id": task.id, "task": task.title, "link": task.deepLink.rawValue]
         notification.timeZone = NSTimeZone(abbreviation: "EST")
         notification.fireDate = date
         notification.alertBody = task.getNotifBody()

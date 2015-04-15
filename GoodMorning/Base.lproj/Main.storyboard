@@ -406,7 +406,7 @@
                                             <constraint firstAttribute="width" constant="103" id="e58-8c-ubh"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Avenir-MediumOblique" family="Avenir" pointSize="16"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -422,7 +422,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lifestyle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Sl-yv-SnV">
                                         <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                         <fontDescription key="fontDescription" name="Avenir-MediumOblique" family="Avenir" pointSize="16"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Entertainment" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="chv-Y5-8aA">
@@ -431,7 +431,7 @@
                                             <constraint firstAttribute="width" constant="135" id="daY-u4-xhn"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Avenir-MediumOblique" family="Avenir" pointSize="16"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -474,7 +474,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sports" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tol-cz-LUQ">
                                         <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                         <fontDescription key="fontDescription" name="Avenir-MediumOblique" family="Avenir" pointSize="16"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -900,7 +900,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="City" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kyf-C0-M54">
                                         <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                         <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="32"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="unknown.png" translatesAutoresizingMaskIntoConstraints="NO" id="t9w-Xb-yqb">
@@ -924,7 +924,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00 C" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tkO-tz-8w0">
                                         <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                         <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="72"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -1024,7 +1024,7 @@
                                             </mask>
                                         </variation>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dxw-gI-OT5">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="dxw-gI-OT5">
                                         <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="npo-qy-eyh">
@@ -1032,7 +1032,7 @@
                                             </constraint>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="22"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -1049,7 +1049,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" lineBreakMode="wordWrap" numberOfLines="8" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M1C-ze-2yo">
                                         <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                         <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                         <variation key="heightClass=regular-widthClass=regular">
                                             <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="17"/>
@@ -1061,7 +1061,7 @@
                                             <constraint firstAttribute="height" constant="24" id="076-iT-Dmb"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Avenir-MediumOblique" family="Avenir" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -1079,21 +1079,23 @@
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="dxw-gI-OT5" firstAttribute="top" secondItem="cAh-nB-PRp" secondAttribute="top" constant="16" id="1PC-29-8re">
-                                        <variation key="heightClass=regular-widthClass=regular" constant="21"/>
+                                        <variation key="heightClass=regular-widthClass=regular" constant="8"/>
                                     </constraint>
                                     <constraint firstItem="VEb-ay-usK" firstAttribute="top" secondItem="dxw-gI-OT5" secondAttribute="bottom" constant="34" id="7wt-Dm-qTF">
                                         <variation key="heightClass=regular-widthClass=regular" constant="16"/>
                                     </constraint>
-                                    <constraint firstAttribute="bottom" secondItem="M1C-ze-2yo" secondAttribute="bottom" constant="21" id="H4o-2F-XmG"/>
+                                    <constraint firstAttribute="bottom" secondItem="M1C-ze-2yo" secondAttribute="bottom" constant="21" id="H4o-2F-XmG">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="12"/>
+                                    </constraint>
                                     <constraint firstAttribute="trailing" secondItem="dxw-gI-OT5" secondAttribute="trailing" constant="16" id="JSh-BB-7lU">
-                                        <variation key="heightClass=regular-widthClass=regular" constant="21"/>
+                                        <variation key="heightClass=regular-widthClass=regular" constant="16"/>
                                     </constraint>
                                     <constraint firstItem="M1C-ze-2yo" firstAttribute="leading" secondItem="VEb-ay-usK" secondAttribute="trailing" constant="310" id="KXW-Gt-Dy8">
                                         <variation key="heightClass=regular-widthClass=regular" constant="16"/>
                                     </constraint>
                                     <constraint firstItem="VEb-ay-usK" firstAttribute="top" secondItem="cAh-nB-PRp" secondAttribute="top" constant="16" id="PFt-8y-gOg"/>
                                     <constraint firstItem="dxw-gI-OT5" firstAttribute="leading" secondItem="cAh-nB-PRp" secondAttribute="leading" constant="16" id="Q7N-9R-BUY">
-                                        <variation key="heightClass=regular-widthClass=regular" constant="21"/>
+                                        <variation key="heightClass=regular-widthClass=regular" constant="16"/>
                                     </constraint>
                                     <constraint firstItem="M1C-ze-2yo" firstAttribute="top" secondItem="v7z-70-w5B" secondAttribute="bottom" constant="192" id="WEj-KB-gMg">
                                         <variation key="heightClass=regular-widthClass=regular" constant="8"/>
@@ -1102,14 +1104,14 @@
                                     <constraint firstAttribute="trailing" secondItem="v7z-70-w5B" secondAttribute="trailing" constant="21" id="Zhv-8N-Muj"/>
                                     <constraint firstItem="M1C-ze-2yo" firstAttribute="top" secondItem="dxw-gI-OT5" secondAttribute="bottom" constant="132" id="afe-jD-LJf"/>
                                     <constraint firstItem="VEb-ay-usK" firstAttribute="leading" secondItem="cAh-nB-PRp" secondAttribute="leading" constant="16" id="bEZ-vC-otG">
-                                        <variation key="heightClass=regular-widthClass=regular" constant="21"/>
+                                        <variation key="heightClass=regular-widthClass=regular" constant="12"/>
                                     </constraint>
                                     <constraint firstItem="M1C-ze-2yo" firstAttribute="top" secondItem="VEb-ay-usK" secondAttribute="bottom" constant="-142" id="d5q-2F-QzK">
                                         <variation key="heightClass=regular-widthClass=regular" constant="16"/>
                                     </constraint>
                                     <constraint firstItem="VEb-ay-usK" firstAttribute="top" secondItem="v7z-70-w5B" secondAttribute="bottom" constant="8" id="dbr-bz-rjr"/>
                                     <constraint firstAttribute="bottom" secondItem="VEb-ay-usK" secondAttribute="bottom" constant="16" id="fYe-CN-PSg">
-                                        <variation key="heightClass=regular-widthClass=regular" constant="21"/>
+                                        <variation key="heightClass=regular-widthClass=regular" constant="12"/>
                                     </constraint>
                                     <constraint firstItem="M1C-ze-2yo" firstAttribute="top" secondItem="dxw-gI-OT5" secondAttribute="bottom" constant="132" id="peW-a4-BJz">
                                         <variation key="heightClass=regular-widthClass=regular" constant="16"/>

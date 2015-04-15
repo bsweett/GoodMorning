@@ -70,6 +70,7 @@ class JSONParser: NSObject {
                 let taskId = task["taskId"].string!
                 let taskName = task["name"].string!
                 let taskTypeString = task["taskType"].string!
+                let linkTypeString = task["deepLink"].string!
                 let taskCreateString = task["creationTimestamp"].string!
                 let taskNextAlertString = task["nextAlertTimestamp"].string!
                 let taskAlertTimeString = task["alertTime"].string!
@@ -85,11 +86,12 @@ class JSONParser: NSObject {
                 let sunday = task["sunday"].boolValue
                 
                 let tType = TaskType.typeFromString(taskTypeString)
+                let lType = DeepLinkType.typeFromWebString(linkTypeString)
                 
                 let taskCreateDate: NSDate = dateFormatter.dateFromString(taskCreateString)!
                 let taskNexAlertDate: NSDate = dateFormatter.dateFromString(taskNextAlertString)!
                 
-                var task: Task = Task(id: taskId, title: taskName, creation: taskCreateDate, nextAlert: taskNexAlertDate, type: tType, alertTime: taskAlertTimeString, soundFileName: soundEnabled, notes: notes)
+                var task: Task = Task(id: taskId, title: taskName, creation: taskCreateDate, nextAlert: taskNexAlertDate, type: tType, link: lType, alertTime: taskAlertTimeString, soundFileName: soundEnabled, notes: notes)
                 task.setDaysOfTheWeek(monday, tue: tuesday, wed: wednesday, thu: thursday, fri: friday, sat: saturday, sun: sunday)
                 user.addTask(task)
             }
@@ -127,6 +129,7 @@ class JSONParser: NSObject {
                 let taskId = task["taskId"].string!
                 let taskName = task["name"].string!
                 let taskTypeString = task["taskType"].string!
+                let linkTypeString = task["deepLink"].string!
                 let taskCreateString = task["creationTimestamp"].string!
                 let taskNextAlertString = task["nextAlertTimestamp"].string!
                 let taskAlertTimeString = task["alertTime"].string!
@@ -142,11 +145,12 @@ class JSONParser: NSObject {
                 let sunday = task["sunday"].boolValue
                 
                 let tType = TaskType.typeFromString(taskTypeString)
+                let lType = DeepLinkType.typeFromWebString(linkTypeString)
                 
                 let taskCreateDate: NSDate = dateFormatter.dateFromString(taskCreateString)!
                 let taskNexAlertDate: NSDate = dateFormatter.dateFromString(taskNextAlertString)!
                 
-                var task: Task = Task(id: taskId, title: taskName, creation: taskCreateDate, nextAlert: taskNexAlertDate, type: tType, alertTime: taskAlertTimeString, soundFileName: soundEnabled, notes: notes)
+                var task: Task = Task(id: taskId, title: taskName, creation: taskCreateDate, nextAlert: taskNexAlertDate, type: tType, link: lType, alertTime: taskAlertTimeString, soundFileName: soundEnabled, notes: notes)
                 task.setDaysOfTheWeek(monday, tue: tuesday, wed: wednesday, thu: thursday, fri: friday, sat: saturday, sun: sunday)
                 taskList[task.title] = task
             }

@@ -49,7 +49,7 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         var dictionary: Dictionary = [NSForegroundColorAttributeName:UIColor.whiteColor()]
         var attributedString: NSAttributedString = NSAttributedString(string: title, attributes: dictionary)
         
-        self.refreshControl.backgroundColor = gmOrangeColor;
+        self.refreshControl.backgroundColor = gmLightBlueColor;
         self.refreshControl.tintColor = UIColor.whiteColor();
         self.refreshControl.addTarget(self, action: Selector("updateArticles"), forControlEvents: UIControlEvents.ValueChanged)
         self.articleTableView.addSubview(refreshControl)

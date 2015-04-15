@@ -68,8 +68,9 @@ class XMLParser: NSObject {
                 if let catergories = article["category"].all {
                     for category in catergories {
                         
-                        rssArticle.addCategory(category.value!)
-                        
+                        if let cat = category.value? {
+                            rssArticle.addCategory(cat)
+                        }
                     }
                 }
                 

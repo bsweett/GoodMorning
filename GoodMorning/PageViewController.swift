@@ -70,7 +70,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         self.navigationItem.title = "Hub"
         self.navigationItem.rightBarButtonItem = nil
         //self.navigationController?.navigationBar.backgroundColor = gmBlueColor
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"configuration12.png"), style: .Bordered, target: self, action: Selector("settingsTapped:"))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"gm_settings"), style: .Bordered, target: self, action: Selector("settingsTapped:"))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named:"gm_refresh"), style: .Bordered, target: self.getHub(), action: Selector("refreshTapped:"))
         
         self.currentViewController = self.getHub()!

@@ -82,6 +82,18 @@ extension NSDate {
         return dateformat.stringFromDate(self)
     }
     
+    func toShortDateString() -> String {
+        var dateformat: NSDateFormatter = NSDateFormatter()
+        dateformat.dateFormat = "MMMM dd"
+        return dateformat.stringFromDate(self)
+    }
+    
+    func toShortTimeString() -> String {
+        var dateformat: NSDateFormatter = NSDateFormatter()
+        dateformat.dateFormat = "h a"
+        return dateformat.stringFromDate(self)
+    }
+    
     func toRFC822String() -> String {
         var dateformat: NSDateFormatter = NSDateFormatter()
         dateformat.dateFormat = "EEE, d MMM yyyy HH:mm:ss Z"

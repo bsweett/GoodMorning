@@ -46,7 +46,7 @@ class TasksViewController : UIViewController, UIPopoverControllerDelegate, UITab
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.parentViewController?.title = "Tasks"
+        self.parentViewController?.title = tasksTitle
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedNetworkError:", name: kNetworkError, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedInternalServerError:", name: kInternalServerError, object: nil)
@@ -64,7 +64,9 @@ class TasksViewController : UIViewController, UIPopoverControllerDelegate, UITab
                 subTitle: internetErrMessage,
                 duration: 6)
         } else {
-            taskManager.getAllTasksRequest()
+            if(self.taskList.count == 0) {
+                taskManager.getAllTasksRequest()
+            }
         }
         
     }
@@ -152,9 +154,9 @@ class TasksViewController : UIViewController, UIPopoverControllerDelegate, UITab
         
         self.popoverContent.setDisplayTaskForEditing(nil)
         
-        var saveButton = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.Bordered, target: self, action: Selector("saveTaskTapped:"))
+        var saveButton = UIBarButtonItem(title: saveButTitle, style: UIBarButtonItemStyle.Bordered, target: self, action: Selector("saveTaskTapped:"))
         
-        var cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Bordered, target: self, action: Selector("cancelTaskTapped:"))
+        var cancelButton = UIBarButtonItem(title: cancelButTitle, style: UIBarButtonItemStyle.Bordered, target: self, action: Selector("cancelTaskTapped:"))
         
         self.popoverContent.navigationItem.title = "New Task"
         self.popoverContent.navigationItem.rightBarButtonItem = saveButton
@@ -173,8 +175,6 @@ class TasksViewController : UIViewController, UIPopoverControllerDelegate, UITab
     
     @IBAction func cancelTaskTapped(sender: UIBarButtonItem) {
         if(self.popOverVC != nil) {
-            // Clear all fields here?
-            // Or overwrite defualt values on viewDidLoad?
             self.popOverVC.dismissPopoverAnimated(true)
             
         }
@@ -191,7 +191,6 @@ class TasksViewController : UIViewController, UIPopoverControllerDelegate, UITab
         
         if(self.newTaskObject != nil) {
             taskManager.sendNewTaskRequest(self.newTaskObject)
-            // TODO: Save task to server ?
         }
     }
     
@@ -212,7 +211,6 @@ class TasksViewController : UIViewController, UIPopoverControllerDelegate, UITab
         cell.selectedBackgroundView = selectedBackgroundView
         
         cell.setTaskObject(taskList[indexPath.row])
-        
         
         var longPress: UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: Selector("longPressTaskCell:"))
         longPress.minimumPressDuration = 2.0
@@ -273,6 +271,7 @@ class TasksViewController : UIViewController, UIPopoverControllerDelegate, UITab
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
         var task = cell.getTaskObject()
+        println(task.deepLink.rawValue)
         
         if(self.popoverContent == nil) {
             let sb: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
@@ -285,9 +284,9 @@ class TasksViewController : UIViewController, UIPopoverControllerDelegate, UITab
             self.popOverNavController = UINavigationController(rootViewController: popoverContent)
         }
         
-        var saveButton = UIBarButtonItem(title: "Update", style: UIBarButtonItemStyle.Bordered, target: self, action: Selector("updateTaskTapped:"))
+        var saveButton = UIBarButtonItem(title: updateButTitle, style: UIBarButtonItemStyle.Bordered, target: self, action: Selector("updateTaskTapped:"))
         
-        var cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Bordered, target: self, action: Selector("cancelTaskTapped:"))
+        var cancelButton = UIBarButtonItem(title: cancelButTitle, style: UIBarButtonItemStyle.Bordered, target: self, action: Selector("cancelTaskTapped:"))
         
         self.popoverContent.navigationItem.title = task.title
         self.popoverContent.navigationItem.rightBarButtonItem = saveButton
@@ -316,7 +315,6 @@ class TasksViewController : UIViewController, UIPopoverControllerDelegate, UITab
         
         if(self.newTaskObject != nil) {
             taskManager.updateTaskRequest(self.newTaskObject)
-            // TODO: Save task to server ?
         }
     }
     
@@ -329,8 +327,8 @@ class TasksViewController : UIViewController, UIPopoverControllerDelegate, UITab
             
             indexPendingDelete = indexPath
             
-            let actionSheet = UIActionSheet(title: "Are you sure you want to delete this Task?", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: "Delete Task")
-            actionSheet.addButtonWithTitle("Cancel")
+            let actionSheet = UIActionSheet(title: deleteTaskMessage, delegate: self, cancelButtonTitle: cancelButTitle, destructiveButtonTitle: deleteTaskTitle)
+            actionSheet.addButtonWithTitle(cancelButTitle)
             actionSheet.actionSheetStyle = .BlackOpaque
             actionSheet.showInView(self.view)
         }

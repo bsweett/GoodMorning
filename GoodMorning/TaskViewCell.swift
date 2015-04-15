@@ -36,6 +36,11 @@ class TaskViewCell: UITableViewCell {
         self.setDays(task.daysOfWeekToDisplayString())
         self.setType(task.type)
         self.setNotification(task.displaySoundEnabledFlag())
+        
+        let type = task.deepLink
+        if type != DeepLinkType.NONE {
+             self.setCustom(type.rawValue)
+        }
     }
     
     func getTaskObject() -> Task {
@@ -77,8 +82,7 @@ class TaskViewCell: UITableViewCell {
     }
     
     func setCustom(value: String) {
-        
-        // TODO: Custom label
+        self.customLabel.text = value
     }
     
     func setNotification(value: String) {

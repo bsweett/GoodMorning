@@ -28,9 +28,10 @@ class Task: NSObject {
     var sun: Bool = false
 
     var notes: String
+    var deepLink: DeepLinkType
     
     // From existing JSON
-    init(id: String, title: String, creation: NSDate, nextAlert: NSDate, type: TaskType, alertTime: String, soundFileName: String, notes: String) {
+    init(id: String, title: String, creation: NSDate, nextAlert: NSDate, type: TaskType, link: DeepLinkType, alertTime: String, soundFileName: String, notes: String) {
         
         self.id = id
         self.title = title
@@ -40,6 +41,7 @@ class Task: NSObject {
         self.alertTime = alertTime
         self.soundFileName = soundFileName
         self.notes = notes
+        self.deepLink = link
         
     }
     
@@ -57,10 +59,8 @@ class Task: NSObject {
         self.soundFileName = soundFileName
         self.notes = notes
         
-        // TODO: Set next alert based on alerttime and creatition date
-        // TODO: Fill in missing items
+        self.deepLink = DeepLinkType.NONE
         self.nextAlertDate = today
-        //self.media = MPMediaItem()
         
     }
     
